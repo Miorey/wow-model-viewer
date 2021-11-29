@@ -8,22 +8,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Miorey/trinitycore-srp6.git"
+    "url": "git+https://github.com/Miorey/wow-model-viewer.git"
   },
   "keywords": [
-    "TrinityCore",
-    "SRP6"
+    "Wow",
+    "World of warcraft",
+    "3d viewer"
   ],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Miorey/trinitycore-srp6/issues"
+    "url": "https://github.com/Miorey/wow-model-viewer/issues"
   },
-  "homepage": "https://github.com/Miorey/trinitycore-srp6#readme",
+  "homepage": "https://github.com/Miorey/wow-model-viewer#readme",
   "dependencies": {
-    "big-integer": "^1.6.51",
-    "bigint-buffer": "^1.1.5",
-    "crypto": "^1.0.1"
+    "axios": "^0.24.0"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
