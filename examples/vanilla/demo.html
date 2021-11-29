@@ -96,27 +96,27 @@ MODEL:
         },
             "transmog":{},
             "slot":9
-        // },{
-        // "item":{
-        //     "entry":11994,
-        //     "displayid":9832
-        // },
-        //     "transmog":{},
-        //     "slot":10
-        // },{
-        // "item":{
-        //     "entry":5009,
-        //     "displayid":9840
-        // },
-        //     "transmog":{},
-        //     "slot":11
-        // },{
-        // "item":{
-        //     "entry":1713,
-        //     "displayid":23949
-        // },
-        //     "transmog":{},
-        //     "slot":12
+        },{
+        "item":{
+            "entry":11994,
+            "displayid":9832
+        },
+            "transmog":{},
+            "slot":10
+        },{
+        "item":{
+            "entry":5009,
+            "displayid":9840
+        },
+            "transmog":{},
+            "slot":11
+        },{
+        "item":{
+            "entry":1713,
+            "displayid":23949
+        },
+            "transmog":{},
+            "slot":12
         },{
         "item":{
             "entry":8248,
@@ -124,13 +124,13 @@ MODEL:
         },
             "transmog":{},
             "slot":14
-        // },{
-        // "item":{
-        //     "entry":2042,
-        //     "displayid":20379
-        // },
-        //     "transmog":{},
-        //     "slot":15
+        },{
+        "item":{
+            "entry":2042,
+            "displayid":20379
+        },
+            "transmog":{},
+            "slot":15
         },{
         "item":{
             "entry":13064,
@@ -142,8 +142,19 @@ MODEL:
     console.log(equipments)
 
     async function findItemsInEquipments(equipments) {
+        const notDisplayedSlots = [
+            1, // neck
+            10, // finger1
+            11, // finger1
+            12, // trinket1
+            13, // trinket2
+        ]
         console.log(`equipments`)
         for (const equipment of equipments) {
+            if (notDisplayedSlots.includes(equipment.slot)) {
+                console.log(`continue`, equipment.slot)
+                continue
+            }
             console.log(`equipment`, equipment.slot)
             const displayedItem = (Object.keys(equipment.transmog).length !== 0) ? equipment.transmog : equipment.item
             const displaySlot = await getDisplaySlot(
