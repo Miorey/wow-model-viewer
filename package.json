@@ -1,0 +1,32 @@
+{
+  "name": "wow-model-viewer",
+  "version": "0.0.1",
+  "description": "Generate 3D model from character display ids.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Miorey/trinitycore-srp6.git"
+  },
+  "keywords": [
+    "TrinityCore",
+    "SRP6"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Miorey/trinitycore-srp6/issues"
+  },
+  "homepage": "https://github.com/Miorey/trinitycore-srp6#readme",
+  "dependencies": {
+    "big-integer": "^1.6.51",
+    "bigint-buffer": "^1.1.5",
+    "crypto": "^1.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "mocha": "^8.4.0"
+  }
+}
