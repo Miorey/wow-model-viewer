@@ -138,12 +138,11 @@ MODEL:
         },
             "transmog":{},
             "slot":17
-    }]
+    }];
     findItemsInEquipments(equipments)
         .then(e => {
-            console.log(`equipments`, e)
-            character.items = e
-            generateModels(1, `#model_3d`, character)
-        })
+            character.items = e;
+            generateModels(1, `#model_3d`, character);
+        });
 </script>
 </html>

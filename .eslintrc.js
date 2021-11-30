@@ -1,8 +1,7 @@
 module.exports = {
     root: true,
-    parser: "vue-eslint-parser",
     parserOptions: {
-        "sourceType": "module",
+        "sourceType": `module`,
         "ecmaVersion": 2018,
         "ecmaFeatures": {
             "globalReturn": false,
@@ -17,27 +16,24 @@ module.exports = {
         "mocha": true
     },
     extends: [
-        'standard',
-        "eslint:recommended",
-        "plugin:vue/recommended"
+        `eslint:recommended`
     ],
     rules: {
         "indent": [
-            "error",
+            `error`,
             4
         ],
         "linebreak-style": [
-            "error",
-            "unix"
+            `error`,
+            `unix`
         ],
+        "semi": [2, `always`],
         "quotes": [
-            "error",
-            "backtick"
+            `error`,
+            `backtick`
         ],
-        "no-console": "off",
+        "no-console": `off`,
     },
-  // required to lint *.vue files
-  "plugins": [
-    "vue"
-  ],
+    // required to lint *.vue files
+    "plugins": [],
 };
