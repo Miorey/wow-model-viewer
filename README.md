@@ -90,7 +90,7 @@ This library manage those `display-id` so basically you don't care.
 Slot     |      Body       | Is displayed 
 :------: |:---------------:|:------------:
 1        |      Head       |   Yes        
-2        |      Neck       |   Yes        
+2        |      Neck       |   No        
 3        |    Shoulders    |   Yes        
 4        |      Body       |   Yes        
 5        |      Chest      |   Yes        
@@ -99,10 +99,10 @@ Slot     |      Body       | Is displayed
 8        |      Feet       |   Yes        
 9        |     Wrists      |   Yes        
 10       |      Hands      |   Yes        
-11       |    Finger 1     |   Yes        
-12       |    Finger 2     |   Yes        
-13       |    Trinket 1    |   Yes        
-14       |    Trinket 2    |   Yes        
+11       |    Finger 1     |   No        
+12       |    Finger 2     |   No        
+13       |    Trinket 1    |   No        
+14       |    Trinket 2    |   No        
 15       |      Back       |   Yes        
 16       |    Main Hand    |   Yes        
 17       |    Off Hand     |   Yes        
