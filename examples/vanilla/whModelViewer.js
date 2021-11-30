@@ -14,6 +14,45 @@ const axios = (() =>
 })()
 
 
+/**
+ *
+ * @param {[{item: {entry: number, displayid: number}, transmog: {entry: number, displayid: number}, slot: number}]} equipments
+ * @returns {Promise<int[]>}
+ */
+async function findItemsInEquipments(equipments) {
+    const notDisplayedSlots = [
+        1, // neck
+        10, // finger1
+        11, // finger1
+        12, // trinket1
+        13, // trinket2
+    ]
+    for (const equipment of equipments) {
+        if (notDisplayedSlots.includes(equipment.slot)) {
+            continue
+        }
+        const displayedItem = (Object.keys(equipment.transmog).length !== 0) ? equipment.transmog : equipment.item
+        const displaySlot = await getDisplaySlot(
+            displayedItem.entry,
+            equipment.slot + 1,
+            displayedItem.displayid
+        )
+        equipment.displaySlot = displaySlot.displaySlot
+        equipment.displayId = displaySlot.displayId
+        Object.assign(displaySlot, equipment)
+    }
+    return equipments
+        .filter(e => e.displaySlot)
+        .map(e => {
+            return [
+                e.displaySlot,
+                e.displayId
+            ]
+        })
+
+}
+
+
 
 
 /**
@@ -46,19 +85,17 @@ async function findRaceGenderOptions (contentPath, race, gender) {
  * @return {Promise<boolean|*>}
  */
 async function getDisplaySlot (item, slot, displayId) {
-    console.log(`getDisplaySlot`)
     try {
-        console.log(`https://wow.zamimg.com/modelviewer/live/meta/armor/${slot}/${displayId}.json`)
         await axios({
             url: `https://wow.zamimg.com/modelviewer/live/meta/armor/${slot}/${displayId}.json`,
             method: `get`
         })
+
         return {
             displaySlot: slot,
             displayId: displayId
         }
     } catch (e) {
-        console.log(`catch`)
         const resp = await axios({
             url: `https://wotlk.murlocvillage.com/api/items/${item}/${displayId}`,
             method: `get`
@@ -66,7 +103,6 @@ async function getDisplaySlot (item, slot, displayId) {
         console.log(`resp`, resp)
         const res = resp.data ? resp.data : resp
         if (res.newDisplayId !== displayId) {
-            console.log(`res`, res)
             return {
                 displaySlot: slot,
                 displayId: res.newDisplayId
@@ -74,11 +110,14 @@ async function getDisplaySlot (item, slot, displayId) {
         }
     }
 
+    // old slots to new slots
     const retSlot = {
-        5: 20
+        5: 20, // chest
+        16: 21, // main hand
+        18: 22 // off hand
     }[slot]
     if (!retSlot) {
-        console.error(`Item: ${item} display: ${displayId} or slot: ${slot} not found for `)
+        console.warn(`Item: ${item} display: ${displayId} or slot: ${slot} not found for `)
 
         return {
             displaySlot: slot,
@@ -105,8 +144,18 @@ async function generateModels (aspect, containerSelector, character) {
         character.race,
         character.gender
     )
-    console.log(`fullOptions`)
-    console.log(fullOptions)
+
+    console.log(`character.items`, character.items)
+    const notDisplayedSlots = [
+        2, // neck
+        11, // finger1
+        12, // finger1
+        13, // trinket1
+        14, // trinket2
+    ]
+    const characterItems = (character.items) ? character.items.filter(e => !notDisplayedSlots.includes(e[0])) : [];
+    console.log(`characterItems`, characterItems)
+
     const options = await getOptions(character, fullOptions)
     const models = {
         type: 2,
@@ -120,7 +169,7 @@ async function generateModels (aspect, containerSelector, character) {
                 id: characterGenderRaceToModel(character.race, character.gender),
                 type: 16
             },
-        items: character.items,
+        items: characterItems,
         zoom: 2,
         charCustomization: {
             options: options
