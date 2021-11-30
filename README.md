@@ -116,7 +116,7 @@ If you need that the library manage the search of the `display-id` based on our
 API and take in account player transmogrification you can call it like following
 ```js
 
-import {findItemsInEquipments, generateModels} from '../../index.js'
+import {findItemsInEquipments, generateModels} from './index.js'
 const character =  {
     "race":7,
     "gender":1,
