@@ -152,7 +152,8 @@ findItemsInEquipments(equipments)
     });
 ```
 In this case the `display-id` of the `transmog` will always replace the 
-`display-id` of the item.
+`display-id` of the item. **IMPORTANT** in this case the slot will be 
+like the previous one `-1` ex Head slot is `0` instead of `1`
 
 ### Advertising time
 This library was made for [Murloc Village](https://wotlk.murlocvillage.com/).
