@@ -218,7 +218,6 @@ async function getOptions (character, fullOptions) {
     for (const prop in characterPart) {
         const part = options.find(e => e.Name === prop)
         if (!part) { continue }
-        console.log(prop)
         const newOption = {
             optionId: part.Id,
             choiceId: (characterPart[prop]) ? part.Choices[character[characterPart[prop]]].Id : part.Choices[0].Id
