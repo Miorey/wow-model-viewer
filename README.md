@@ -17,6 +17,42 @@ html pages.
 ## Usage
 The library can be used either be used in vanilla javascript and framework context
 
+### Framework
+
+With a js framework add the requirements files in your main html file in my Vue.js example this refers to
+`public/index.html`
+
+Install the library with:
+```bash
+npm i wow-model-viewer
+```
+Import the lib
+```js
+import {generateModels} from 'wow-model-viewer';
+```
+In your html add the container of the model.
+```html
+
+<div id="model_3d"></div>
+```
+
+Call the lib
+```JS
+const character =  {
+    "race":7,
+    "gender":1,
+    "skin":4,
+    "face":0,
+    "hairStyle":5,
+    "hairColor":5,
+    "facialStyle":5,
+    "items": [[1,1170],[3,4925],[5,9575],[6,25235],[7,2311],[8,21154],[9,14618],[10,9534],[15,17238],[21,20379],[22,28787]]
+};
+generateModels(1, `#model_3d`, character);
+```
+To have more explanation about the `character` json please refer to 
+[Advanced usage with items and transmogrification](./README.md)
+
 ### Vanilla JS
 To load the character my beautiful female gnome warlock
 ```html
@@ -47,9 +83,10 @@ To load the character my beautiful female gnome warlock
 ```
 `./index.js` is the js file on the root level of this repository.
 
-### Framework
+To have more explanation about the `character` json please refer to
+[Advanced usage with items and transmogrification](./README.md)
 
-### Items and Transmogrification
+### Advanced usage with items and transmogrification
 
 The description of the character is
 ```json

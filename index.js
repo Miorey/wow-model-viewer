@@ -15,7 +15,8 @@ const axios = (() =>
 })();
 
 /**
- *
+ * Returns a 2 dimensional list the inner list contains on first position the item slot, the second the item
+ * display-id ex: [[1,1170],[3,4925]]
  * @param {*[{item: {entry: number, displayid: number}, transmog: {entry: number, displayid: number}, slot: number}]} equipments
  * @returns {Promise<int[]>}
  */
@@ -133,10 +134,10 @@ async function getDisplaySlot (item, slot, displayId) {
 }
 
 /**
- *
- * @param {int} aspect
- * @param {string} containerSelector
- * @param {{}} character
+ * Generate the wow model character
+ * @param {int} aspect: Size of the character
+ * @param {string} containerSelector: jQuery selector on the container
+ * @param {{}} character: A json representation of a character
  * @return {Promise<Lf>}
  */
 async function generateModels (aspect, containerSelector, character) {
