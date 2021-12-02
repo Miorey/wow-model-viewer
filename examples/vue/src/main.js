@@ -12,6 +12,7 @@ new Vue({
     },
     mounted() {
         this.gemModel(`#model_3d1`);
+        this.genTransmog(`#model_3d2`);
     },
     methods: {
         /**
@@ -31,7 +32,6 @@ new Vue({
             };
             generateModels(1, id, character);
         },
-
         /**
          *
          * @param {string}id
@@ -39,7 +39,7 @@ new Vue({
         genTransmog(id) {
 
             const character =  {
-                "race":7,
+                "race":10,
                 "gender":1,
                 "skin":4,
                 "face":0,
@@ -162,6 +162,6 @@ new Vue({
                     character.items = e;
                     generateModels(1, id, character);
                 });
-        }  
+        }
     }
 });
