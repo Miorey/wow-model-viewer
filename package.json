@@ -1,6 +1,6 @@
 {
   "name": "wow-model-viewer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Generate 3D model from character display ids.",
   "main": "index.js",
   "scripts": {
