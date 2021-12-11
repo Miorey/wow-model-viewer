@@ -7,7 +7,7 @@
   "dependencies": {
     "axios": "^0.24.0",
     "vue": "^2.6.12",
-    "wow-model-viewer": "^0.1.0"
+    "wow-model-viewer": "*"
   },
   "devDependencies": {
     "@vue/cli-service": "^4.5.11",
