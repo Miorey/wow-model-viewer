@@ -12,15 +12,32 @@ new Vue({
         title: `WoW model viewer`,
     },
     mounted() {
-        this.gemModel(`#model_3d1`);
-        this.genTransmog(`#model_3d2`);
+        this.gemModel(`#model_3d1`, `#model_3d2`);
+        this.genTransmog(`#model_3d3`, `#model_3d4`);
     },
     methods: {
         /**
          *
-         * @param {string}id
+         * @param character
+         * @returns {{}}
+         * @private
          */
-        gemModel(id) {
+        _changeBodyParts(character) {
+            const res = {...character};
+            res.skin = 2;
+            res.face = 3;
+            res.hairStyle = 6;
+            res.hairColor = 2;
+            res.facialStyle = 2;
+            return res;
+        },
+
+        /**
+         *
+         * @param {string}id
+         * @param {string}id2
+         */
+        gemModel(id, id2) {
             const character =  {
                 "race":7,
                 "gender":1,
@@ -32,12 +49,14 @@ new Vue({
                 "items": [[1,1170],[3,4925],[5,9575],[6,25235],[7,2311],[8,21154],[9,14618],[10,9534],[15,17238],[21,20379],[22,28787]]
             };
             generateModels(1, id, character);
+            generateModels(1, id2, this._changeBodyParts(character));
         },
         /**
          *
          * @param {string}id
+         * @param {string}id2
          */
-        genTransmog(id) {
+        genTransmog(id, id2) {
 
             const character =  {
                 "race":10,
@@ -55,91 +74,91 @@ new Vue({
                         "displayid":15322
                     },
                     "transmog":{},
-                    "slot":0
+                    "slot":1
                 },{
                     "item":{
                         "entry": 12025,
                         "displayid":9852
                     },
                     "transmog":{},
-                    "slot":1
+                    "slot":2
                 },{
                     "item":{
                         "entry":10027,
                         "displayid":18865
                     },
                     "transmog":{},
-                    "slot":2
+                    "slot":3
                 },{
                     "item":{
                         "entry":10021,
                         "displayid":18949
                     },
                     "transmog":{},
-                    "slot":4
+                    "slot":5
                 },{
                     "item":{
                         "entry":13856,
                         "displayid":25235
                     },
                     "transmog":{},
-                    "slot":5
+                    "slot":6
                 },{
                     "item":{
                         "entry":13008,
                         "displayid":28646
                     },
                     "transmog":{},
-                    "slot":6
+                    "slot":7
                 },{
                     "item":{
                         "entry":10026,
                         "displayid":21154
                     },
                     "transmog":{},
-                    "slot":7
+                    "slot":8
                 },{
                     "item":{
                         "entry":6407,
                         "displayid":14618
                     },
                     "transmog":{},
-                    "slot":8
+                    "slot":9
                 },{
                     "item":{
                         "entry":10019,
                         "displayid":18999
                     },
                     "transmog":{},
-                    "slot":9
+                    "slot":10
                 },{
                     "item":{
                         "entry":11994,
                         "displayid":9832
                     },
                     "transmog":{},
-                    "slot":10
+                    "slot":11
                 },{
                     "item":{
                         "entry":5009,
                         "displayid":9840
                     },
                     "transmog":{},
-                    "slot":11
+                    "slot":12
                 },{
                     "item":{
                         "entry":1713,
                         "displayid":23949
                     },
                     "transmog":{},
-                    "slot":12
+                    "slot":13
                 },{
                     "item":{
                         "entry":8248,
                         "displayid":17238
                     },
                     "transmog":{},
-                    "slot":14
+                    "slot":15
                 },{
                     "item":{
                         "entry":2042,
@@ -149,19 +168,20 @@ new Vue({
                         "entry":22632,
                         "displayid":193838
                     },
-                    "slot":15
+                    "slot":16
                 },{
                     "item":{
                         "entry":13064,
                         "displayid":28787
                     },
                     "transmog":{},
-                    "slot":17
+                    "slot":18
                 }];
             findItemsInEquipments(equipments)
                 .then(e => {
                     character.items = e;
                     generateModels(1, id, character);
+                    generateModels(1, id2, this._changeBodyParts(character));
                 });
         }
     }

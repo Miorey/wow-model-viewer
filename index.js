@@ -14,6 +14,15 @@ const axios = (() =>
     }
 })();
 
+
+const NOT_DISPLAYED_SLOTS = [
+    2, // neck
+    11, // finger1
+    12, // finger1
+    13, // trinket1
+    14, // trinket2
+];
+
 /**
  * Returns a 2 dimensional list the inner list contains on first position the item slot, the second the item
  * display-id ex: [[1,1170],[3,4925]]
@@ -21,23 +30,14 @@ const axios = (() =>
  * @returns {Promise<int[]>}
  */
 async function findItemsInEquipments(equipments) {
-
-    // slot ids in DB (trinitycore / azerothcore)
-    const notDisplayedSlots = [
-        1, // neck
-        10, // finger1
-        11, // finger1
-        12, // trinket1
-        13, // trinket2
-    ];
     for (const equipment of equipments) {
-        if (notDisplayedSlots.includes(equipment.slot)) {
+        if (NOT_DISPLAYED_SLOTS.includes(equipment.slot)) {
             continue;
         }
         const displayedItem = (Object.keys(equipment.transmog).length !== 0) ? equipment.transmog : equipment.item;
         const displaySlot = await getDisplaySlot(
             displayedItem.entry,
-            equipment.slot + 1,
+            equipment.slot,
             displayedItem.displayid
         );
         equipment.displaySlot = displaySlot.displaySlot;
@@ -147,14 +147,7 @@ async function generateModels (aspect, containerSelector, character) {
     );
 
     // slot ids on model viewer
-    const notDisplayedSlots = [
-        2, // neck
-        11, // finger1
-        12, // finger1
-        13, // trinket1
-        14, // trinket2
-    ];
-    const characterItems = (character.items) ? character.items.filter(e => !notDisplayedSlots.includes(e[0])) : [];
+    const characterItems = (character.items) ? character.items.filter(e => !NOT_DISPLAYED_SLOTS.includes(e[0])) : [];
 
     const options = await getOptions(character, fullOptions);
     const models = {
@@ -187,7 +180,6 @@ async function generateModels (aspect, containerSelector, character) {
  * @return {Promise<[]>}
  */
 async function getOptions (character, fullOptions) {
-    console.log(fullOptions);
     const options = fullOptions.Options;
     const characterPart = {
         Face: `face`,
