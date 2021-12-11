@@ -1,7 +1,7 @@
 {
   "name": "wow-model-viewer",
   "version": "0.1.1",
-  "description": "Generate 3D model from character display ids.",
+  "description": "Generate World of Warcraft 3D model with body parts customization and items.",
   "main": "index.js",
   "scripts": {
     "test": "mocha ./test/"
