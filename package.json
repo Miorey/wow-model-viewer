@@ -1,6 +1,6 @@
 {
   "name": "wow-model-viewer",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Generate World of Warcraft 3D model with body parts customization and items.",
   "main": "index.js",
   "scripts": {
