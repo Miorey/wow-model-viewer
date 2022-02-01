@@ -133,6 +133,37 @@ async function getDisplaySlot (item, slot, displayId) {
     };
 }
 
+// eslint-disable-next-line no-undef
+class WowModelViewer extends ZamModelViewer {
+    /**
+     * Change character distance
+     * @param {int} val
+     */
+    setDistance(val) {
+        this.renderer.distance = val;
+    }
+
+    setFullscreen(val) {
+        super.setFullscreen(val);
+    }
+
+    /**
+     *
+     * @param {string} val
+     */
+    setAnimation(val) {
+        this.renderer.models[0].setAnimation(val);
+    }
+
+    /**
+     *
+     * @param {boolean} val
+     */
+    setAnimPaused(val) {
+        this.renderer.models[0].setAnimPaused(val);
+    }
+}
+
 /**
  * Generate the wow model character
  * @param {int} aspect: Size of the character
@@ -170,7 +201,7 @@ async function generateModels (aspect, containerSelector, character) {
     };
 
     // eslint-disable-next-line no-undef
-    return new ZamModelViewer(models);
+    return new WowModelViewer(models);
 }
 
 /**
