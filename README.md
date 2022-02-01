@@ -193,6 +193,22 @@ findItemsInEquipments(equipments)
 In this case the `display-id` of the `transmog` will always replace the 
 `display-id` of the item.
 
+### Manipulate view
+Change character distance
+```js
+zam.renderer.distance
+```
+
+Fullscreen
+```js
+zam.setFullscreen(false)
+```
+
+Change Animation
+```js
+zam.renderer.models[0].setAnimation("Run")
+```
+
 ### Advertising time
 This library was made for [Murloc Village](https://wotlk.murlocvillage.com/).
 
