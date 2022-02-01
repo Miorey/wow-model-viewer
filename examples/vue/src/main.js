@@ -2,8 +2,8 @@
 
 
 import Vue from 'vue';
-// import {generateModels, findItemsInEquipments} from '../../../index.js';
-import {generateModels, findItemsInEquipments} from 'wow-model-viewer';
+import {generateModels, findItemsInEquipments} from '../../../index.js';
+//import {generateModels, findItemsInEquipments} from 'wow-model-viewer';
 
 // Create the app
 new Vue({
@@ -11,9 +11,9 @@ new Vue({
     data: {
         title: `WoW model viewer`,
     },
-    mounted() {
-        this.gemModel(`#model_3d1`, `#model_3d2`);
-        this.genTransmog(`#model_3d3`, `#model_3d4`);
+    async mounted() {
+        await this.gemModel(`#model_3d1`, `#model_3d2`);
+        //await this.genTransmog(`#model_3d3`, `#model_3d4`);
     },
     methods: {
         /**
@@ -37,7 +37,7 @@ new Vue({
          * @param {string}id
          * @param {string}id2
          */
-        gemModel(id, id2) {
+        async gemModel(id, id2) {
             const character =  {
                 "race":7,
                 "gender":1,
@@ -48,8 +48,8 @@ new Vue({
                 "facialStyle":5,
                 "items": [[1,1170],[3,4925],[5,9575],[6,25235],[7,2311],[8,21154],[9,14618],[10,9534],[15,17238],[21,20379],[22,28787]]
             };
-            generateModels(1, id, character);
-            generateModels(1, id2, this._changeBodyParts(character));
+            await generateModels(1, id, character);
+            await generateModels(1, id2, this._changeBodyParts(character));
         },
         /**
          *
@@ -178,10 +178,10 @@ new Vue({
                     "slot":18
                 }];
             findItemsInEquipments(equipments)
-                .then(e => {
+                .then(async e => {
                     character.items = e;
-                    generateModels(1, id, character);
-                    generateModels(1, id2, this._changeBodyParts(character));
+                    await generateModels(1, id, character);
+                    await generateModels(1, id2, this._changeBodyParts(character));
                 });
         }
     }
