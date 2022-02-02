@@ -1,14 +1,14 @@
-if(!window.WH) {
+if (!window.WH) {
     window.WH = {};
-    window.WH.debug = function (...args) { console.log(args); };
+    window.WH.debug = function (...args) {
+        console.log(args);
+    };
     window.WH.defaultAnimation = `Stand`;
 }
-const axios = (() =>
-{
+const axios = (() => {
     try {
         return require(`axios`);
-    }
-    catch (e) {
+    } catch (e) {
         // eslint-disable-next-line no-undef
         return jQuery.ajax;
     }
@@ -56,8 +56,6 @@ async function findItemsInEquipments(equipments) {
 }
 
 
-
-
 /**
  *
  * @return {[{}]}
@@ -68,12 +66,12 @@ async function findItemsInEquipments(equipments) {
  * @param {int} gender
  * @returns {Promise<AxiosResponse<{{}}>}
  */
-async function findRaceGenderOptions (race, gender) {
+async function findRaceGenderOptions(race, gender) {
     const options = await axios({
         url: `https://wow.zamimg.com/modelviewer/live/meta/charactercustomization2/${race}_${gender}.json`,
         method: `get`
     });
-    if(options.data) {
+    if (options.data) {
         return options.data;
     } else {
         return options;
@@ -87,7 +85,7 @@ async function findRaceGenderOptions (race, gender) {
  * @param {int} displayId: DisplayId of hte item
  * @return {Promise<boolean|*>}
  */
-async function getDisplaySlot (item, slot, displayId) {
+async function getDisplaySlot(item, slot, displayId) {
     try {
         await axios({
             url: `https://wow.zamimg.com/modelviewer/live/meta/armor/${slot}/${displayId}.json`,
@@ -171,7 +169,7 @@ class WowModelViewer extends ZamModelViewer {
  * @param {{}} character: A json representation of a character
  * @return {Promise<Lf>}
  */
-async function generateModels (aspect, containerSelector, character) {
+async function generateModels(aspect, containerSelector, character) {
     const fullOptions = await findRaceGenderOptions(
         character.race,
         character.gender
@@ -210,7 +208,7 @@ async function generateModels (aspect, containerSelector, character) {
  * @param {{}}fullOptions: Zaming API character options payload
  * @return {Promise<[]>}
  */
-async function getOptions (character, fullOptions) {
+async function getOptions(character, fullOptions) {
     const options = fullOptions.Options;
     const characterPart = {
         Face: `face`,
@@ -242,7 +240,9 @@ async function getOptions (character, fullOptions) {
     const ret = [];
     for (const prop in characterPart) {
         const part = options.find(e => e.Name === prop);
-        if (!part) { continue; }
+        if (!part) {
+            continue;
+        }
         const newOption = {
             optionId: part.Id,
             choiceId: (characterPart[prop]) ? part.Choices[character[characterPart[prop]]].Id : part.Choices[0].Id
@@ -259,7 +259,7 @@ async function getOptions (character, fullOptions) {
  * @param {int} gender
  * @return {string}
  */
-function characterGenderRaceToModel (race, gender) {
+function characterGenderRaceToModel(race, gender) {
     const retGender = (gender === 1) ? `female` : `male`;
     return raceNumberToName(race) + retGender;
 }
@@ -269,7 +269,7 @@ function characterGenderRaceToModel (race, gender) {
  * @param {int} race
  * @return {string}
  */
-function raceNumberToName (race) {
+function raceNumberToName(race) {
     return {
         1: `human`,
         2: `orc`,
