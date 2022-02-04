@@ -1,14 +1,14 @@
-if(!window.WH) {
+if (!window.WH) {
     window.WH = {};
-    window.WH.debug = function (...args) { console.log(args); };
+    window.WH.debug = function (...args) {
+        console.log(args);
+    };
     window.WH.defaultAnimation = `Stand`;
 }
-const axios = (() =>
-{
+const axios = (() => {
     try {
         return require(`axios`);
-    }
-    catch (e) {
+    } catch (e) {
         // eslint-disable-next-line no-undef
         return jQuery.ajax;
     }
@@ -56,8 +56,6 @@ async function findItemsInEquipments(equipments) {
 }
 
 
-
-
 /**
  *
  * @return {[{}]}
@@ -68,12 +66,12 @@ async function findItemsInEquipments(equipments) {
  * @param {int} gender
  * @returns {Promise<AxiosResponse<{{}}>}
  */
-async function findRaceGenderOptions (race, gender) {
+async function findRaceGenderOptions(race, gender) {
     const options = await axios({
         url: `https://wow.zamimg.com/modelviewer/live/meta/charactercustomization2/${race}_${gender}.json`,
         method: `get`
     });
-    if(options.data) {
+    if (options.data) {
         return options.data;
     } else {
         return options;
@@ -87,7 +85,7 @@ async function findRaceGenderOptions (race, gender) {
  * @param {int} displayId: DisplayId of hte item
  * @return {Promise<boolean|*>}
  */
-async function getDisplaySlot (item, slot, displayId) {
+async function getDisplaySlot(item, slot, displayId) {
     try {
         await axios({
             url: `https://wow.zamimg.com/modelviewer/live/meta/armor/${slot}/${displayId}.json`,
@@ -133,14 +131,376 @@ async function getDisplaySlot (item, slot, displayId) {
     };
 }
 
+// eslint-disable-next-line no-undef
+class WowModelViewer extends ZamModelViewer {
+    getListAnimations() {
+        return [
+            `ArtBowLoop`,
+            `ArtDualLoop`,
+            `ArtFistsLoop`,
+            `ArtMainLoop`,
+            `ArtOffLoop`,
+            `ArtShieldLoop`,
+            `Attack1H`,
+            `Attack1HPierce`,
+            `Attack2H`,
+            `Attack2HL`,
+            `Attack2HLoosePierce`,
+            `AttackBow`,
+            `AttackCrossbow`,
+            `AttackFL`,
+            `AttackFLOff`,
+            `AttackFist1H`,
+            `AttackFist1HOff`,
+            `AttackJoust`,
+            `AttackOff`,
+            `AttackOffPierce`,
+            `AttackRifle`,
+            `AttackThrown`,
+            `AttackUnarmed`,
+            `BackFlipLoop`,
+            `BackFlipStart`,
+            `BattleRoar`,
+            `BreathOfFire`,
+            `CastCurseLeft`,
+            `CastCurseRight`,
+            `CastOutStrong`,
+            `CastStrongLeft`,
+            `CastStrongRight`,
+            `CastStrongUpLeft`,
+            `CastStrongUpRight`,
+            `CastSweepLeft`,
+            `CastSweepRight`,
+            `CastTwistUpBoth`,
+            `ChannelCastDirected`,
+            `ChannelCastOmni`,
+            `ChannelCastOmniUp`,
+            `CombatAbility1H01`,
+            `CombatAbility1H01Off`,
+            `CombatAbility1H02`,
+            `CombatAbility1H02Off`,
+            `CombatAbility1H03Off`,
+            `CombatAbility1HBig01`,
+            `CombatAbility1HOffPierce`,
+            `CombatAbility1HPierce`,
+            `CombatAbility2H01`,
+            `CombatAbility2H02`,
+            `CombatAbility2H03`,
+            `CombatAbility2HBig01`,
+            `CombatAbility2HBig02`,
+            `CombatAbilityDualWield01`,
+            `CombatAbilityGlv01`,
+            `CombatAbilityGlvBig01`,
+            `CombatAbilityGlvBig02`,
+            `CombatAbilityGlvBig03`,
+            `CombatAbilityGlvOff01`,
+            `CombatBladeStorm`,
+            `CombatChargeEnd`,
+            `CombatChargeLoop`,
+            `CombatCritical`,
+            `CombatEviscerate`,
+            `CombatExecute`,
+            `CombatFinishingMove`,
+            `CombatFuriousStrikes`,
+            `CombatLeapEnd`,
+            `CombatLeapStart`,
+            `CombatMutilate`,
+            `CombatPistolShotOff`,
+            `CombatShieldBash`,
+            `CombatShieldThrow`,
+            `CombatStompLeft`,
+            `CombatStompRight`,
+            `CombatThrow`,
+            `CombatWhirlwind`,
+            `CombatWound`,
+            `Cower`,
+            `DHBladeDance1`,
+            `DHBladeDance2`,
+            `DHBladeDance3`,
+            `DHCombatRun`,
+            `DHCombatSprint`,
+            `DHGlide`,
+            `DHMeteorStrike`,
+            `Death`,
+            `DeathStrike`,
+            `DkCast1HFront`,
+            `Dodge`,
+            `DoubleJump`,
+            `DoubleJumpStart`,
+            `DragonStomp`,
+            `DressingRoom`,
+            `Drown`,
+            `Drowned`,
+            `DruReadySpellCast`,
+            `DruSpellPrecastBoth`,
+            `DruSpellPrecastBothChannel`,
+            `EmoteApplaud`,
+            `EmoteBeg`,
+            `EmoteBow`,
+            `EmoteCheer`,
+            `EmoteChicken`,
+            `EmoteCry`,
+            `EmoteDance`,
+            `EmoteEat`,
+            `EmoteEatNoSheathe`,
+            `EmoteFlex`,
+            `EmoteKiss`,
+            `EmoteKneel`,
+            `EmoteLaugh`,
+            `EmoteNo`,
+            `EmotePoint`,
+            `EmotePointNoSheathe`,
+            `EmoteReadEnd`,
+            `EmoteReadLoop`,
+            `EmoteReadStart`,
+            `EmoteRoar`,
+            `EmoteRude`,
+            `EmoteSalute`,
+            `EmoteSaluteNoSheathe`,
+            `EmoteShout`,
+            `EmoteShy`,
+            `EmoteStunNoSheathe`,
+            `EmoteTalk`,
+            `EmoteTalkExclamation`,
+            `EmoteTalkNoSheathe`,
+            `EmoteTalkQuestion`,
+            `EmoteTrain`,
+            `EmoteUseStanding`,
+            `EmoteUseStandingNoSheathe`,
+            `EmoteWave`,
+            `EmoteWork`,
+            `EmoteWorkNoSheathe`,
+            `EmoteYes`,
+            `FacePose`,
+            `Fall`,
+            `FelRushEnd`,
+            `FelRushLoop`,
+            `FishingCast`,
+            `FishingLoop`,
+            `FlyingKick`,
+            `FlyingKickEnd`,
+            `FlyingKickStart`,
+            `GlvThrowMain`,
+            `GlvThrownOff`,
+            `HandsClosed`,
+            `HipSheath`,
+            `HoldBow`,
+            `HoldCrossbow`,
+            `HoldJoust`,
+            `HoldRifle`,
+            `HoldThrown`,
+            `Hover`,
+            `Jump`,
+            `JumpEnd`,
+            `JumpLandRun`,
+            `JumpStart`,
+            `Kick`,
+            `KneelEnd`,
+            `KneelLoop`,
+            `KneelStart`,
+            `Knockdown`,
+            `LoadBow`,
+            `LoadCrossbow`,
+            `LoadJoust`,
+            `LoadRifle`,
+            `LocReadySpellCast`,
+            `LocSpellCastBothFront`,
+            `LocSpellPrecastBoth`,
+            `LocSpellPrecastBothChannel`,
+            `LocSummon`,
+            `Loot`,
+            `MagReadySpellCast`,
+            `MagSpellCastBothFront`,
+            `MagSpellPrecastBoth`,
+            `MagSpellPrecastBothChannel`,
+            `Meditate`,
+            `Monk2HLIdle`,
+            `MonkDefenseAttackUnarmed`,
+            `MonkDefenseAttackUnarmedOff`,
+            `MonkDefenseParryUnarmed`,
+            `MonkDefenseReadyUnarmed`,
+            `MonkDefenseSpecialUnarmed`,
+            `MonkHealAttackUnarmed`,
+            `MonkHealChannelCastDirected`,
+            `MonkHealChannelCastOmni`,
+            `MonkHealReadySpellDirected`,
+            `MonkHealReadySpellOmni`,
+            `MonkHealReadyUnarmed`,
+            `MonkHealSpellCastDirected`,
+            `MonkHealSpellCastOmni`,
+            `MonkOffenseAttackUnarmed`,
+            `MonkOffenseAttackUnarmedOff`,
+            `MonkOffenseAttackWeapon`,
+            `MonkOffenseParryUnarmed`,
+            `MonkOffenseReadyUnarmed`,
+            `MonkOffenseSpecialUnarmed`,
+            `Mount`,
+            `MountChopper`,
+            `MountWide`,
+            `Mutilate`,
+            `PalSpellCast1HUp`,
+            `PalSpellCastRightFront`,
+            `PalSpellPrecastRight`,
+            `PalmStrike`,
+            `Parry1H`,
+            `Parry2H`,
+            `Parry2HL`,
+            `ParryFL`,
+            `ParryFist1H`,
+            `ParryGlv`,
+            `ParryUnarmed`,
+            `PriHoverBackward`,
+            `PriHoverForward`,
+            `PriHoverLeft`,
+            `PriHoverRight`,
+            `PriReadyPostSpellCast`,
+            `PriReadySpellCast`,
+            `PriSpellCastBothFront`,
+            `PriSpellCastBothFrontChannel`,
+            `PriSpellCastBothUp`,
+            `PriSpellCastBothUpChannel`,
+            `PriSpellPrecastBoth`,
+            `PriSpellPrecastBothChannel`,
+            `Ready1H`,
+            `Ready2H`,
+            `Ready2HL`,
+            `ReadyBow`,
+            `ReadyCrossbow`,
+            `ReadyFL`,
+            `ReadyFist1H`,
+            `ReadyGlv`,
+            `ReadyJoust`,
+            `ReadyRifle`,
+            `ReadySpellDirected`,
+            `ReadySpellOmni`,
+            `ReadyThrown`,
+            `ReadyUnarmed`,
+            `ReclinedMount`,
+            `ReclinedMountPassenger`,
+            `RisingSunKick`,
+            `Roll`,
+            `RollEnd`,
+            `RollStart`,
+            `RoundHouseKick`,
+            `Run`,
+            `RunBackwards`,
+            `ShaReadySpellCast`,
+            `ShaSpellCastBothFront`,
+            `ShaSpellPrecastBoth`,
+            `ShaSpellPrecastBothChannel`,
+            `Sheath`,
+            `ShieldBash`,
+            `ShieldBlock`,
+            `ShuffleLeft`,
+            `ShuffleRight`,
+            `SingleJumpStart`,
+            `SitChairHigh`,
+            `SitChairLow`,
+            `SitChairMed`,
+            `SitGround`,
+            `SitGroundDown`,
+            `SitGroundUp`,
+            `Slam`,
+            `Sleep`,
+            `SleepDown`,
+            `SleepUp`,
+            `Special1H`,
+            `Special2H`,
+            `SpecialDual`,
+            `SpecialFL`,
+            `SpecialFist1H`,
+            `SpecialUnarmed`,
+            `SpellCastDirected`,
+            `SpellCastOmni`,
+            `SpellKneelEnd`,
+            `SpellKneelLoop`,
+            `SpellKneelStart`,
+            `SpellSleepDown`,
+            `SpinningKick`,
+            `Sprint`,
+            `Stand`,
+            `StandCharacterCreate`,
+            `StandWound`,
+            `StealthRun`,
+            `StealthStand`,
+            `StealthWalk`,
+            `Stop`,
+            `Stormstrike`,
+            `Strangulate`,
+            `Stun`,
+            `Swim`,
+            `SwimBackwards`,
+            `SwimIdle`,
+            `SwimLeft`,
+            `SwimRight`,
+            `SwimRun`,
+            `SwimWalk`,
+            `ThousandFists`,
+            `Torpedo`,
+            `UseStandingEnd`,
+            `UseStandingLoop`,
+            `UseStandingStart`,
+            `WABarrelHold`,
+            `WABarrelWalk`,
+            `WACrateHold`,
+            `WADrunkDrink`,
+            `WADrunkStand`,
+            `WADrunkWalk`,
+            `WAGuardStand01`,
+            `WAGuardStand02`,
+            `WAGuardStand03`,
+            `WAGuardStand04`,
+            `WAHammerLoop`,
+            `WASackHold`,
+            `WAScrubbing`,
+            `WAWheelBarrowStand`,
+            `WAWheelBarrowWalk`,
+            `Walk`,
+            `Walkbackwards`,
+            `Whirlwind`
+        ];
+    }
+
+    /**
+     * Change character distance
+     * @param {int} val
+     */
+    setDistance(val) {
+        this.renderer.distance = val;
+    }
+
+    setFullscreen(val) {
+        super.setFullscreen(val);
+    }
+
+    /**
+     *
+     * @param {string} val
+     */
+    setAnimation(val) {
+        if (!this.getListAnimations().includes(val)) {
+            console.warn(`${this.constructor.name}: Animation ${val} not found`);
+        }
+        this.renderer.models[0].setAnimation(val);
+    }
+
+    /**
+     *
+     * @param {boolean} val
+     */
+    setAnimPaused(val) {
+        this.renderer.models[0].setAnimPaused(val);
+    }
+}
+
 /**
- * Generate the wow model character
+ *
  * @param {int} aspect: Size of the character
  * @param {string} containerSelector: jQuery selector on the container
  * @param {{}} character: A json representation of a character
- * @return {Promise<Lf>}
+ * @returns {Promise<WowModelViewer>}
  */
-async function generateModels (aspect, containerSelector, character) {
+async function generateModels(aspect, containerSelector, character) {
     const fullOptions = await findRaceGenderOptions(
         character.race,
         character.gender
@@ -170,7 +530,7 @@ async function generateModels (aspect, containerSelector, character) {
     };
 
     // eslint-disable-next-line no-undef
-    return new ZamModelViewer(models);
+    return new WowModelViewer(models);
 }
 
 /**
@@ -179,7 +539,7 @@ async function generateModels (aspect, containerSelector, character) {
  * @param {{}}fullOptions: Zaming API character options payload
  * @return {Promise<[]>}
  */
-async function getOptions (character, fullOptions) {
+async function getOptions(character, fullOptions) {
     const options = fullOptions.Options;
     const characterPart = {
         Face: `face`,
@@ -211,7 +571,9 @@ async function getOptions (character, fullOptions) {
     const ret = [];
     for (const prop in characterPart) {
         const part = options.find(e => e.Name === prop);
-        if (!part) { continue; }
+        if (!part) {
+            continue;
+        }
         const newOption = {
             optionId: part.Id,
             choiceId: (characterPart[prop]) ? part.Choices[character[characterPart[prop]]].Id : part.Choices[0].Id
@@ -228,7 +590,7 @@ async function getOptions (character, fullOptions) {
  * @param {int} gender
  * @return {string}
  */
-function characterGenderRaceToModel (race, gender) {
+function characterGenderRaceToModel(race, gender) {
     const retGender = (gender === 1) ? `female` : `male`;
     return raceNumberToName(race) + retGender;
 }
@@ -238,7 +600,7 @@ function characterGenderRaceToModel (race, gender) {
  * @param {int} race
  * @return {string}
  */
-function raceNumberToName (race) {
+function raceNumberToName(race) {
     return {
         1: `human`,
         2: `orc`,
