@@ -15,6 +15,9 @@
     WoW model viewer
 </h1>
 <div id="model_3d"></div>
+<button onclick="randAnimation()">Random animation</button>
+<button onclick="pauseAnimation()">Pause animation</button>
+<button onclick="fullScreen()">Full Screen</button>
 </body>
 <style>
     body, #model_3d {
@@ -35,6 +38,7 @@
 <script type="module">
     import {findItemsInEquipments, generateModels} from '../../index.js'
 
+    window.isPaused = false;
     const character = {
         "race": 7,
         "gender": 1,
@@ -154,10 +158,26 @@
             "transmog": {},
             "slot": 18
         }];
+    let model;
     findItemsInEquipments(equipments)
-        .then(e => {
+        .then(async e => {
             character.items = e;
-            generateModels(1, `#model_3d`, character);
+            model = await generateModels(1, `#model_3d`, character);
         });
+
+    window.randAnimation = () => {
+        const animationList = model.getListAnimations()
+        const random = Math.floor(Math.random() * animationList.length);
+        model.setAnimation(animationList[random])
+    }
+
+    window.pauseAnimation = () => {
+        window.isPaused = !window.isPaused
+        model.setAnimPaused(window.isPaused)
+    }
+
+    window.fullScreen = () => {
+        model.setFullscreen(true)
+    }
 </script>
 </html>

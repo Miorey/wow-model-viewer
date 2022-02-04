@@ -48,8 +48,9 @@ new Vue({
                 "facialStyle": 5,
                 "items": [[1, 1170], [3, 4925], [5, 9575], [6, 25235], [7, 2311], [8, 21154], [9, 14618], [10, 9534], [15, 17238], [21, 20379], [22, 28787]]
             };
-            await generateModels(1, id, character);
+            window.zam1 = await generateModels(1, id, character);
             await generateModels(1, id2, this._changeBodyParts(character));
+            window.zam1.setAnimation(`Run`);
         },
         /**
          *
