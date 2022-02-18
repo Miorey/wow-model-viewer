@@ -168,21 +168,51 @@ class WowModelViewer extends ZamModelViewer {
 
 /**
  *
- * @param {int} aspect: Size of the character
- * @param {string} containerSelector: jQuery selector on the container
- * @param {{}} character: A json representation of a character
- * @returns {Promise<WowModelViewer>}
+ * @param model: {{}|{{id, type}}}
+ * @returns {Promise<{models: {id: string, type: number}, charCustomization: {options: []}, items: (*|*[])}|{models: {id, type}}>}
  */
-async function generateModels(aspect, containerSelector, character) {
+async function optionsFromModel(model) {
+    if (model.id && model.type) {
+        // NPC or item
+        return {
+            models: {
+                id: model.id,
+                type: model.type
+            }
+        };
+    }
+
+    // CHARACTER OPTIONS
+    // This is how we describe a character properties
     const fullOptions = await findRaceGenderOptions(
-        character.race,
-        character.gender
+        model.race,
+        model.gender
     );
 
     // slot ids on model viewer
-    const characterItems = (character.items) ? character.items.filter(e => !NOT_DISPLAYED_SLOTS.includes(e[0])) : [];
+    const characterItems = (model.items) ? model.items.filter(e => !NOT_DISPLAYED_SLOTS.includes(e[0])) : [];
+    const options = await getOptions(model, fullOptions);
+    return {
+        items: characterItems,
+        charCustomization: {
+            options: options
+        },
+        models: {
+            id: characterGenderRaceToModel(model.race, model.gender),
+            type: 16
+        },
+    };
+}
 
-    const options = await getOptions(character, fullOptions);
+/**
+ *
+ * @param {int} aspect: Size of the character
+ * @param {string} containerSelector: jQuery selector on the container
+ * @param {{}|{id: int, type: int}} model: A json representation of a character
+ * @returns {Promise<WowModelViewer>}
+ */
+async function generateModels(aspect, containerSelector, model) {
+    const modelOptions = await optionsFromModel(model);
     const models = {
         type: 2,
         contentPath: `https://wow.zamimg.com/modelviewer/live/`,
@@ -190,17 +220,9 @@ async function generateModels(aspect, containerSelector, character) {
         container: jQuery(containerSelector),
         aspect: aspect,
         hd: true,
-        models:
-            {
-                id: characterGenderRaceToModel(character.race, character.gender),
-                type: 16
-            },
-        items: characterItems,
-        zoom: 2,
-        charCustomization: {
-            options: options
-        }
+        ...modelOptions
     };
+    window.models = models;
 
     // eslint-disable-next-line no-undef
     return new WowModelViewer(models);
