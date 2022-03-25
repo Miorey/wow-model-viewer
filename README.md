@@ -243,6 +243,35 @@ Returns the list of all available animations
 model.getListAnimations()
 ```
 
+### NPC and Items display
+
+To display the npc and items you can call `generateModels` with:
+- aspect (int)
+- element selector (string)
+- type and display id (object)
+
+To get the npc display ids you can go [here](https://wow.tools/dbc/?dbc=creature&build=9.2.5.42850#page=1&search=Arthas)
+
+Prince of Lordaeron:
+```js
+const model = await generateModels(1, `#model_3d`, {type: 8, id: 24949});
+```
+
+To display Atiesh, Greatstaff of the Guardian
+```js
+const model = await generateModels(1, `#model_3d`, {type: 1, id: 193841});
+```
+
+#### Table of types
+
+Description     | Type 
+:--------------:|:----:|
+NPC             |  8   | 
+Main Weapon     |  1   | 
+Helmet     |  2   | 
+
+
+
 ### Advertising time
 
 This library was made for [Murloc Village](https://wotlk.murlocvillage.com/).
