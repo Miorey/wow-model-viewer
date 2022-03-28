@@ -268,7 +268,9 @@ Description     | Type
 :--------------:|:----:|
 NPC             |  8   | 
 Main Weapon     |  1   | 
+Off Weapon     |  1   | 
 Helmet     |  2   | 
+Shoulder | 4 | 
 
 
 

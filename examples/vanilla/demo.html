@@ -14,13 +14,20 @@
 <h1>
     WoW model viewer
 </h1>
-<div id="model_3d"></div>
+<div class="model_3d" id="model_3d1"></div>
+<div class="model_3d" id="model_3d2"></div>
+<div class="model_3d" id="model_3d3"></div>
 </body>
 <style>
-    body, #model_3d {
-        width: 55%;
+    body {
         background: #333;
         color: #bbbb00;
+    }
+
+    .model_3d {
+        width: 33%;
+        background: #333;
+        float: left;
     }
 
     h1 {
@@ -46,16 +53,8 @@
         "items": [[1, 1170], [3, 4925], [5, 9575], [6, 25235], [7, 2311], [8, 21154], [9, 14618], [10, 9534], [15, 17238], [21, 20379], [22, 28787]]
     };
 
-    //
-    // models: {type: 8, id: 22235},
-    // models: {type: 1, id: 193841}, weapon
-    // models: {type: 2, id: 15308}, head
-    // models: {type: 1, id: 34077},unknown
-    // const model = await generateModels(1, `#model_3d`, character);
-    //
-    // const model = await generateModels(1, `#model_3d`, {type: 8, id: 22235});
-    // const model = await generateModels(1, `#model_3d`, {type: 1, id: 193841});
-    // const model = await generateModels(1, `#model_3d`, {type: 2, id: 15308});
-    window.model = model;
+    window.model1 = await generateModels(1, `#model_3d2`, character);
+    window.model2 = await generateModels(1, `#model_3d1`, {type: 1, id: 193841});
+    window.model3 = await generateModels(1, `#model_3d3`, {type: 8, id: 24949});
 </script>
 </html>
