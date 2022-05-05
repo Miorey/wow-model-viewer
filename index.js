@@ -14,6 +14,19 @@ const NOT_DISPLAYED_SLOTS = [
     14, // trinket2
 ];
 
+const RACES = {
+    1: `human`,
+    2: `orc`,
+    3: `dwarf`,
+    4: `nightelf`,
+    5: `scourge`,
+    6: `tauren`,
+    7: `gnome`,
+    8: `troll`,
+    10: `bloodelf`,
+    11: `draenei`
+};
+
 /**
  * Returns a 2 dimensional list the inner list contains on first position the item slot, the second the item
  * display-id ex: [[1,1170],[3,4925]]
@@ -25,6 +38,7 @@ async function findItemsInEquipments(equipments) {
         if (NOT_DISPLAYED_SLOTS.includes(equipment.slot)) {
             continue;
         }
+
         const displayedItem = (Object.keys(equipment.transmog).length !== 0) ? equipment.transmog : equipment.item;
         const displaySlot = await getDisplaySlot(
             displayedItem.entry,
@@ -37,13 +51,11 @@ async function findItemsInEquipments(equipments) {
     }
     return equipments
         .filter(e => e.displaySlot)
-        .map(e => {
-            return [
+        .map(e => [
                 e.displaySlot,
                 e.displayId
-            ];
-        });
-
+            ]
+    );
 }
 
 /**
@@ -56,9 +68,9 @@ async function findRaceGenderOptions(race, gender) {
     const options = await fetch(`https://wow.zamimg.com/modelviewer/live/meta/charactercustomization2/${race}_${gender}.json`).then((response) => response.json());
     if (options.data) {
         return options.data;
-    } else {
-        return options;
     }
+
+    return options;
 }
 
 /**
@@ -93,6 +105,7 @@ async function getDisplaySlot(item, slot, displayId) {
         16: 21, // main hand
         18: 22 // off hand
     }[slot];
+
     if (!retSlot) {
         console.warn(`Item: ${item} display: ${displayId} or slot: ${slot} not found for `);
 
@@ -155,9 +168,7 @@ async function optionsFromModel(model) {
     if (model.id && model.type) {
         // NPC or item
         const { id, type } = model;
-        return {
-            models: { id, type }
-        };
+        return { models: { id, type } };
     }
 
     const {race, gender } = model;
@@ -279,18 +290,7 @@ function characterGenderRaceToModel(race, gender) {
  * @return {string}
  */
 function raceNumberToName(race) {
-    return {
-        1: `human`,
-        2: `orc`,
-        3: `dwarf`,
-        4: `nightelf`,
-        5: `scourge`,
-        6: `tauren`,
-        7: `gnome`,
-        8: `troll`,
-        10: `bloodelf`,
-        11: `draenei`
-    }[race];
+    return RACES[race];
 }
 
 export {
