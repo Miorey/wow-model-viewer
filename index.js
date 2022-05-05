@@ -1,7 +1,7 @@
 if (!window.WH) {
     window.WH = {};
     window.WH.debug = function (...args) {
-        console.log(args);
+        // console.log(args);
     };
     window.WH.defaultAnimation = `Stand`;
 }
@@ -174,19 +174,20 @@ class WowModelViewer extends ZamModelViewer {
 async function optionsFromModel(model) {
     if (model.id && model.type) {
         // NPC or item
+        const { id, type } = model;
         return {
-            models: {
-                id: model.id,
-                type: model.type
-            }
+            models: { id, type }
         };
     }
+
+    const {race, gender } = model;
+
 
     // CHARACTER OPTIONS
     // This is how we describe a character properties
     const fullOptions = await findRaceGenderOptions(
-        model.race,
-        model.gender
+        race,
+        gender
     );
 
     // slot ids on model viewer
@@ -198,7 +199,7 @@ async function optionsFromModel(model) {
             options: options
         },
         models: {
-            id: characterGenderRaceToModel(model.race, model.gender),
+            id: characterGenderRaceToModel(race, gender),
             type: 16
         },
     };
@@ -266,12 +267,14 @@ async function getOptions(character, fullOptions) {
     const ret = [];
     for (const prop in characterPart) {
         const part = options.find(e => e.Name === prop);
+
         if (!part) {
             continue;
         }
+
         const newOption = {
             optionId: part.Id,
-            choiceId: (characterPart[prop]) ? part.Choices[character[characterPart[prop]]].Id : part.Choices[0].Id
+            choiceId: (characterPart[prop]) ? part.Choices[character[characterPart[prop]]]?.Id : part.Choices[0].Id
         };
         ret.push(newOption);
     }
