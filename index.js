@@ -6,17 +6,6 @@ if (!window.WH) {
     window.WH.defaultAnimation = `Stand`;
 }
 
-
-const axios = (() => {
-    try {
-        return require(`axios`);
-    } catch (e) {
-        // eslint-disable-next-line no-undef
-        return jQuery.ajax;
-    }
-})();
-
-
 const NOT_DISPLAYED_SLOTS = [
     2, // neck
     11, // finger1
@@ -61,13 +50,10 @@ async function findItemsInEquipments(equipments) {
  *
  * @param {int} race
  * @param {int} gender
- * @returns {Promise<AxiosResponse<{{}}>}
+ * @returns {Promise<>}
  */
 async function findRaceGenderOptions(race, gender) {
-    const options = await axios({
-        url: `https://wow.zamimg.com/modelviewer/live/meta/charactercustomization2/${race}_${gender}.json`,
-        method: `get`
-    });
+    const options = await fetch(`https://wow.zamimg.com/modelviewer/live/meta/charactercustomization2/${race}_${gender}.json`).then((response) => response.json());
     if (options.data) {
         return options.data;
     } else {
@@ -84,20 +70,14 @@ async function findRaceGenderOptions(race, gender) {
  */
 async function getDisplaySlot(item, slot, displayId) {
     try {
-        await axios({
-            url: `https://wow.zamimg.com/modelviewer/live/meta/armor/${slot}/${displayId}.json`,
-            method: `get`
-        });
+        await fetch(`https://wow.zamimg.com/modelviewer/live/meta/armor/${slot}/${displayId}.json`).then(response => response.json());
 
         return {
             displaySlot: slot,
             displayId: displayId
         };
     } catch (e) {
-        const resp = await axios({
-            url: `https://wotlk.murlocvillage.com/api/items/${item}/${displayId}`,
-            method: `get`
-        });
+        const resp = await fetch(`https://wotlk.murlocvillage.com/api/items/${item}/${displayId}`).then((response) => response.json());
         const res = resp.data ? resp.data : resp;
         if (res.newDisplayId !== displayId) {
             return {

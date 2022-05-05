@@ -21,9 +21,6 @@
     "url": "https://github.com/Miorey/wow-model-viewer/issues"
   },
   "homepage": "https://github.com/Miorey/wow-model-viewer#readme",
-  "dependencies": {
-    "axios": "^0.24.0"
-  },
   "devDependencies": {
     "eslint": "^7.32.0",
     "mocha": "^8.4.0"
