@@ -27,6 +27,8 @@ const RACES = {
     11: `draenei`
 };
 
+const CONTENT_PATH = 'https://wow.zamimg.com/modelviewer/live/';
+
 /**
  * Returns a 2 dimensional list the inner list contains on first position the item slot, the second the item
  * display-id ex: [[1,1170],[3,4925]]
@@ -65,7 +67,7 @@ async function findItemsInEquipments(equipments) {
  * @returns {Promise<>}
  */
 async function findRaceGenderOptions(race, gender) {
-    const options = await fetch(`https://wow.zamimg.com/modelviewer/live/meta/charactercustomization2/${race}_${gender}.json`).then((response) => response.json());
+    const options = await fetch(`${CONTENT_PATH}meta/charactercustomization2/${race}_${gender}.json`).then((response) => response.json());
     if (options.data) {
         return options.data;
     }
@@ -82,7 +84,7 @@ async function findRaceGenderOptions(race, gender) {
  */
 async function getDisplaySlot(item, slot, displayId) {
     try {
-        await fetch(`https://wow.zamimg.com/modelviewer/live/meta/armor/${slot}/${displayId}.json`).then(response => response.json());
+        await fetch(`${CONTENT_PATH}meta/armor/${slot}/${displayId}.json`).then(response => response.json());
 
         return {
             displaySlot: slot,
@@ -207,7 +209,7 @@ async function generateModels(aspect, containerSelector, model) {
     const modelOptions = await optionsFromModel(model);
     const models = {
         type: 2,
-        contentPath: `https://wow.zamimg.com/modelviewer/live/`,
+        contentPath: CONTENT_PATH,
         // eslint-disable-next-line no-undef
         container: jQuery(containerSelector),
         aspect: aspect,
