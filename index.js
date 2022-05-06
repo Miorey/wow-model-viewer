@@ -6,7 +6,7 @@ if (!window.WH) {
     window.WH.defaultAnimation = `Stand`;
 }
 
-const CONTENT_PATH = 'https://wow.zamimg.com/modelviewer/live/';
+const CONTENT_PATH = `https://wow.zamimg.com/modelviewer/live/`;
 
 const NOT_DISPLAYED_SLOTS = [
     2, // neck
@@ -81,10 +81,10 @@ async function findItemsInEquipments(equipments) {
     return equipments
         .filter(e => e.displaySlot)
         .map(e => [
-                e.displaySlot,
-                e.displayId
-            ]
-    );
+            e.displaySlot,
+            e.displayId
+        ]
+        );
 }
 
 /**
@@ -192,11 +192,11 @@ class WowModelViewer extends ZamModelViewer {
 async function optionsFromModel(model) {
     if (model.id && model.type) {
         // NPC or item
-        const { id, type } = model;
-        return { models: { id, type } };
+        const {id, type} = model;
+        return {models: {id, type}};
     }
 
-    const { race, gender } = model;
+    const {race, gender} = model;
 
     // CHARACTER OPTIONS
     // This is how we describe a character properties
@@ -250,9 +250,9 @@ async function generateModels(aspect, containerSelector, model) {
 
 /**
  *
- * @param character
- * @param {{}}fullOptions: Zaming API character options payload
- * @return {Promise<[]>}
+ * @param character: {}
+ * @param {{}} fullOptions: Zaming API character options payload
+ * @returns {*[]}
  */
 function getOptions(character, fullOptions) {
     const options = fullOptions.Options;
@@ -266,7 +266,7 @@ function getOptions(character, fullOptions) {
 
         const newOption = {
             optionId: part.Id,
-            choiceId: (CHARACTER_PART[prop]) ? part.Choices[character[CHARACTER_PART[prop]]]?.Id : part.Choices[0].Id
+            choiceId: (CHARACTER_PART[prop]) ? part.Choices[character[CHARACTER_PART[prop]]].Id : part.Choices[0].Id
         };
         ret.push(newOption);
     }
