@@ -5,7 +5,6 @@
     "serve": "vue-cli-service serve --port 31000"
   },
   "dependencies": {
-    "axios": "^0.24.0",
     "vue": "^2.6.12",
     "wow-model-viewer": "*"
   },
