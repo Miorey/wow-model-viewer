@@ -6,6 +6,8 @@ if (!window.WH) {
     window.WH.defaultAnimation = `Stand`;
 }
 
+const CONTENT_PATH = 'https://wow.zamimg.com/modelviewer/live/';
+
 const NOT_DISPLAYED_SLOTS = [
     2, // neck
     11, // finger1
@@ -27,7 +29,32 @@ const RACES = {
     11: `draenei`
 };
 
-const CONTENT_PATH = 'https://wow.zamimg.com/modelviewer/live/';
+const CHARACTER_PART = {
+    Face: `face`,
+    "Skin Color": `skin`,
+    "Hair Style": `hairStyle`,
+    "Hair Color": `hairColor`,
+    "Facial Hair": `facialStyle`,
+    Mustache: `facialStyle`,
+    Beard: `facialStyle`,
+    Sideburns: `facialStyle`,
+    "Face Shape": `facialStyle`,
+    Eyebrow: `facialStyle`,
+    "Jaw Features": undefined,
+    "Face Features": undefined,
+    "Skin Type": undefined,
+    Ears: undefined,
+    Horns: undefined,
+    Blindfold: undefined,
+    Tattoo: undefined,
+    "Eye Color": undefined,
+    "Tattoo Color": undefined,
+    Armbands: undefined,
+    "Jewelry Color": undefined,
+    Bracelets: undefined,
+    Necklace: undefined,
+    Earring: undefined
+};
 
 /**
  * Returns a 2 dimensional list the inner list contains on first position the item slot, the second the item
@@ -137,10 +164,6 @@ class WowModelViewer extends ZamModelViewer {
         this.renderer.distance = val;
     }
 
-    setFullscreen(val) {
-        super.setFullscreen(val);
-    }
-
     /**
      * Change the animation
      * @param {string} val
@@ -173,8 +196,7 @@ async function optionsFromModel(model) {
         return { models: { id, type } };
     }
 
-    const {race, gender } = model;
-
+    const { race, gender } = model;
 
     // CHARACTER OPTIONS
     // This is how we describe a character properties
@@ -185,14 +207,18 @@ async function optionsFromModel(model) {
 
     // slot ids on model viewer
     const characterItems = (model.items) ? model.items.filter(e => !NOT_DISPLAYED_SLOTS.includes(e[0])) : [];
-    const options = await getOptions(model, fullOptions);
+    const options = getOptions(model, fullOptions);
+
+    const retGender = (gender === 1) ? `female` : `male`;
+    const raceToModelId = RACES[race] + retGender;
+
     return {
         items: characterItems,
         charCustomization: {
             options: options
         },
         models: {
-            id: characterGenderRaceToModel(race, gender),
+            id: raceToModelId,
             type: 16
         },
     };
@@ -228,37 +254,10 @@ async function generateModels(aspect, containerSelector, model) {
  * @param {{}}fullOptions: Zaming API character options payload
  * @return {Promise<[]>}
  */
-async function getOptions(character, fullOptions) {
+function getOptions(character, fullOptions) {
     const options = fullOptions.Options;
-    const characterPart = {
-        Face: `face`,
-        "Skin Color": `skin`,
-        "Hair Style": `hairStyle`,
-        "Hair Color": `hairColor`,
-        "Facial Hair": `facialStyle`,
-        Mustache: `facialStyle`,
-        Beard: `facialStyle`,
-        Sideburns: `facialStyle`,
-        "Face Shape": `facialStyle`,
-        Eyebrow: `facialStyle`,
-        "Jaw Features": undefined,
-        "Face Features": undefined,
-        "Skin Type": undefined,
-        Ears: undefined,
-        Horns: undefined,
-        Blindfold: undefined,
-        Tattoo: undefined,
-        "Eye Color": undefined,
-        "Tattoo Color": undefined,
-        Armbands: undefined,
-        "Jewelry Color": undefined,
-        Bracelets: undefined,
-        Necklace: undefined,
-        Earring: undefined
-    };
-
     const ret = [];
-    for (const prop in characterPart) {
+    for (const prop in CHARACTER_PART) {
         const part = options.find(e => e.Name === prop);
 
         if (!part) {
@@ -267,7 +266,7 @@ async function getOptions(character, fullOptions) {
 
         const newOption = {
             optionId: part.Id,
-            choiceId: (characterPart[prop]) ? part.Choices[character[characterPart[prop]]]?.Id : part.Choices[0].Id
+            choiceId: (CHARACTER_PART[prop]) ? part.Choices[character[CHARACTER_PART[prop]]]?.Id : part.Choices[0].Id
         };
         ret.push(newOption);
     }
@@ -275,30 +274,9 @@ async function getOptions(character, fullOptions) {
     return ret;
 }
 
-/**
- *
- * @param {int} race
- * @param {int} gender
- * @return {string}
- */
-function characterGenderRaceToModel(race, gender) {
-    const retGender = (gender === 1) ? `female` : `male`;
-    return raceNumberToName(race) + retGender;
-}
-
-/**
- * Returns the race name from race number
- * @param {int} race
- * @return {string}
- */
-function raceNumberToName(race) {
-    return RACES[race];
-}
-
 export {
     findRaceGenderOptions,
     generateModels,
-    raceNumberToName,
     getDisplaySlot,
     findItemsInEquipments
 };
