@@ -84,7 +84,7 @@ async function findItemsInEquipments(equipments) {
                 e.displaySlot,
                 e.displayId
             ]
-    );
+        );
 }
 
 /**
@@ -192,11 +192,11 @@ class WowModelViewer extends ZamModelViewer {
 async function optionsFromModel(model) {
     if (model.id && model.type) {
         // NPC or item
-        const { id, type } = model;
-        return { models: { id, type } };
+        const {id, type} = model;
+        return {models: {id, type}};
     }
 
-    const { race, gender } = model;
+    const {race, gender} = model;
 
     // CHARACTER OPTIONS
     // This is how we describe a character properties
@@ -248,6 +248,11 @@ async function generateModels(aspect, containerSelector, model) {
     return new WowModelViewer(models);
 }
 
+function optionalChaining(choice) {
+    //todo replace by `part.Choices[character[CHARACTER_PART[prop]]]?.Id` when it works on almost all frameworks
+    return choice ? choice.Id : undefined;
+}
+
 /**
  *
  * @param character
@@ -266,7 +271,7 @@ function getOptions(character, fullOptions) {
 
         const newOption = {
             optionId: part.Id,
-            choiceId: (CHARACTER_PART[prop]) ? part.Choices[character[CHARACTER_PART[prop]]]?.Id : part.Choices[0].Id
+            choiceId: (CHARACTER_PART[prop]) ? optionalChaining(part.Choices[character[CHARACTER_PART[prop]]]) : part.Choices[0].Id
         };
         ret.push(newOption);
     }
