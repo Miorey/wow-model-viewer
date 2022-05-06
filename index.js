@@ -6,7 +6,7 @@ if (!window.WH) {
     window.WH.defaultAnimation = `Stand`;
 }
 
-const CONTENT_PATH = `https://wow.zamimg.com/modelviewer/live/`;
+const CONTENT_PATH = 'https://wow.zamimg.com/modelviewer/live/';
 
 const NOT_DISPLAYED_SLOTS = [
     2, // neck
@@ -81,9 +81,9 @@ async function findItemsInEquipments(equipments) {
     return equipments
         .filter(e => e.displaySlot)
         .map(e => [
-            e.displaySlot,
-            e.displayId
-        ]
+                e.displaySlot,
+                e.displayId
+            ]
         );
 }
 
@@ -248,11 +248,16 @@ async function generateModels(aspect, containerSelector, model) {
     return new WowModelViewer(models);
 }
 
+function optionalChaining(choice) {
+    //todo replace by `part.Choices[character[CHARACTER_PART[prop]]]?.Id` when it works on almost all frameworks
+    return choice ? choice.Id : undefined;
+}
+
 /**
  *
- * @param character: {}
- * @param {{}} fullOptions: Zaming API character options payload
- * @returns {*[]}
+ * @param character
+ * @param {{}}fullOptions: Zaming API character options payload
+ * @return {Promise<[]>}
  */
 function getOptions(character, fullOptions) {
     const options = fullOptions.Options;
@@ -266,7 +271,7 @@ function getOptions(character, fullOptions) {
 
         const newOption = {
             optionId: part.Id,
-            choiceId: (CHARACTER_PART[prop]) ? part.Choices[character[CHARACTER_PART[prop]]].Id : part.Choices[0].Id
+            choiceId: (CHARACTER_PART[prop]) ? optionalChaining(part.Choices[character[CHARACTER_PART[prop]]]) : part.Choices[0].Id
         };
         ret.push(newOption);
     }
