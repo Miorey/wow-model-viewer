@@ -64,6 +64,21 @@ generateModels(1, `#model_3d`, character);
 To have more explanation about the `character` json please refer to
 [Advanced usage with items and transmogrification](./README.md)
 
+### Start locally
+
+You can simulate a web-server in your machine using `http-server`.
+
+It's easy to install using npm:
+
+```
+npm install --global http-server
+```
+
+afterwards, you can run a webserver inside the project using:
+```
+http-server ./
+```
+
 ### Vanilla JS
 
 To load the character my beautiful female gnome warlock
