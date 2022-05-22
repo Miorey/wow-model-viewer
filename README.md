@@ -180,7 +180,7 @@ Slot     |      Body       | Is displayed
 17       |    Off Hand     |   Yes
 18       |     Ranged      |   Yes
 19       |     Tabard      |   Yes
-20       |   Chest (new)   |   Yes
+20       |   Chest (Robe)  |   Yes
 21       | Main Hand (new) |   Yes
 22       | Off Hand (new)  |   Yes
 
@@ -283,9 +283,9 @@ Description     | Type
 :--------------:|:----:|
 NPC             |  8   | 
 Main Weapon     |  1   | 
-Off Weapon     |  1   | 
-Helmet     |  2   | 
-Shoulder | 4 | 
+Off Weapon      |  1   | 
+Helmet          |  2   | 
+Shoulder        |  4   | 
 
 
 
