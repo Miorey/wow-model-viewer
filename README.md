@@ -281,12 +281,17 @@ const model = await generateModels(1, `#model_3d`, {type: 1, id: 193841});
 
 Description     | Type 
 :--------------:|:----:|
-NPC             |  8   | 
-Main Weapon     |  1   | 
-Off Weapon      |  1   | 
-Helmet          |  2   | 
-Shoulder        |  4   | 
-
+Item             | 1   |
+Helm             | 2   |
+Shoulder         | 4   |
+NPC              | 8   |
+Character        | 16  |
+Humanoidnpc      | 32  |
+Object           | 64  |
+Armor            | 128 |
+Path             | 256 |
+Itemvisual       | 512 |
+Collection       | 102 |
 
 
 ### Advertising time
