@@ -85,7 +85,7 @@ async function findItemsInEquipments(equipments) {
  *
  * @param {number} race
  * @param {number} gender
- * @returns {Promise<>}
+ * @returns {Promise<Object>}
  */
 async function findRaceGenderOptions(race, gender) {
     const options = await fetch(`${CONTENT_PATH}meta/charactercustomization2/${race}_${gender}.json`).then((response) => response.json());
@@ -100,10 +100,22 @@ async function findRaceGenderOptions(race, gender) {
  *
  * @param {number} item: Item id
  * @param {number} slot: Item slot number
- * @param {number} displayId: DisplayId of hte item
+ * @param {number} displayId: DisplayId of the item
  * @return {Promise<boolean|*>}
  */
 async function getDisplaySlot(item, slot, displayId) {
+    if (typeof item !== `number`) {
+        throw new Error(`item must be a number`);
+    }
+
+    if (typeof slot !== `number`) {
+        throw new Error(`slot must be a number`);
+    }
+
+    if (typeof displayId !== `number`) {
+        throw new Error(`displayId must be a number`);
+    }
+
     try {
         await fetch(`${CONTENT_PATH}meta/armor/${slot}/${displayId}.json`).then(response => response.json());
 

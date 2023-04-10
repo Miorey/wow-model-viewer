@@ -4,7 +4,7 @@
   "description": "Generate World of Warcraft 3D model with body parts customization and items.",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --debug"
   },
   "repository": {
     "type": "git",
