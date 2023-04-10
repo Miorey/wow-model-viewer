@@ -13,6 +13,7 @@ module.exports = {
     env: {
         "browser": true,
         "node": true,
+        "jest/globals": true,
         "es6": true
     },
     extends: [
@@ -35,5 +36,5 @@ module.exports = {
         "no-console": `off`,
     },
     // required to lint *.vue files
-    "plugins": [],
+    "plugins": [`jest`],
 };
