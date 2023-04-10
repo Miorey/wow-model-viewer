@@ -2,7 +2,7 @@ const {describe, it} = require(`@jest/globals`);
 
 import './mocks.js';
 // Import the module to be tested
-import {findRaceGenderOptions, getDisplaySlot} from '../index';
+import {findItemsInEquipments, findRaceGenderOptions, getDisplaySlot} from '../index';
 
 describe(`getDisplaySlot`, () => {
 
@@ -156,5 +156,53 @@ describe(`findRaceGenderOptions`, () => {
         expect(fetch).toHaveBeenCalledWith(`https://wow.zamimg.com/modelviewer/live/meta/charactercustomization2/2_1.json`);
 
         expect(result).toEqual(mockResponse);
+    });
+});
+
+
+describe(`findItemsInEquipments`, () => {
+
+
+    beforeEach(() => {
+        global.fetch = jest.fn().mockImplementation(() =>
+            Promise.resolve({
+                json: () => Promise.resolve(),
+            })
+        );
+    });
+
+    afterEach(() => {
+        global.fetch.mockClear();
+        delete global.fetch;
+    });
+
+    it(`should return an empty array if given an empty array`, async () => {
+        const result = await findItemsInEquipments([]);
+        expect(result).toEqual([]);
+    });
+
+    it(`should return an array of equipment display IDs and display slots`, async () => {
+        const equipments = [
+            {item: {entry: 123, displayid: 456}, transmog: {entry: 789, displayid: 321}, slot: 1},
+            {item: {entry: 234, displayid: 567}, transmog: {}, slot: 2},
+            {item: {entry: 345, displayid: 678}, transmog: {}, slot: 3},
+            {item: {entry: 456, displayid: 789}, transmog: {entry: 123, displayid: 456}, slot: 4}
+        ];
+        const result = await findItemsInEquipments(equipments);
+        expect(result).toEqual([
+            [1, 321],
+            [3, 678],
+            [4, 456]
+        ]);
+    });
+
+    it(`should throw an error if item is not a number`, async () => {
+        const equipments = [{item: `invalid`, transmog: {}, slot: 1}];
+        await expect(findItemsInEquipments(equipments)).rejects.toThrowError(`item must be a number`);
+    });
+
+    it(`should throw an error if slot is not a number`, async () => {
+        const equipments = [{item: {entry: 123, displayid: 456}, transmog: {}, slot: `invalid`}];
+        await expect(findItemsInEquipments(equipments)).rejects.toThrowError(`slot must be a number`);
     });
 });
