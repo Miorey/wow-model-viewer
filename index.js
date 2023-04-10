@@ -1,5 +1,6 @@
 if (!window.WH) {
     window.WH = {};
+    // eslint-disable-next-line no-unused-vars
     window.WH.debug = function (...args) {
         // console.log(args);
     };
@@ -57,7 +58,7 @@ const CHARACTER_PART = {
 };
 
 /**
- * Returns a 2 dimensional list the inner list contains on first position the item slot, the second the item
+ * Returns a 2-dimensional list the inner list contains on first position the item slot, the second the item
  * display-id ex: [[1,1170],[3,4925]]
  * @param {*[{item: {entry: number, displayid: number}, transmog: {entry: number, displayid: number}, slot: number}]} equipments
  * @returns {Promise<number[]>}
