@@ -2,13 +2,24 @@ const {describe, it} = require(`@jest/globals`);
 
 import './mocks.js';
 // Import the module to be tested
-import {getDisplaySlot} from '../index';
-
-global.fetch = jest.fn(() => Promise.resolve({
-    json: () => Promise.resolve({})
-}));
+import {findRaceGenderOptions, getDisplaySlot} from '../index';
 
 describe(`getDisplaySlot`, () => {
+
+
+    beforeEach(() => {
+        global.fetch = jest.fn().mockImplementation(() =>
+            Promise.resolve({
+                json: () => Promise.resolve(),
+            })
+        );
+    });
+
+    afterEach(() => {
+        global.fetch.mockClear();
+        delete global.fetch;
+    });
+
     it(`should return display slot and display id`, async () => {
         // eslint-disable-next-line no-debugger
         const item = 1234;
@@ -114,5 +125,36 @@ describe(`getDisplaySlot`, () => {
         expect(global.fetch).not.toHaveBeenCalledWith(
             `https://wow.zamimg.com/modelviewer/live/meta/armor/${item}/${displayId}`
         );
+    });
+});
+
+
+describe(`findRaceGenderOptions`, () => {
+    const mockResponse = [
+        {id: 1, name: `Race 1`},
+        {id: 2, name: `Race 2`},
+        {id: 3, name: `Race 3`},
+    ];
+
+    beforeEach(() => {
+        global.fetch = jest.fn().mockImplementation(() =>
+            Promise.resolve({
+                json: () => Promise.resolve(mockResponse),
+            })
+        );
+    });
+
+    afterEach(() => {
+        global.fetch.mockClear();
+        delete global.fetch;
+    });
+
+    it(`should fetch race and gender options and return them`, async () => {
+        const result = await findRaceGenderOptions(2, 1);
+
+        expect(fetch).toHaveBeenCalledTimes(1);
+        expect(fetch).toHaveBeenCalledWith(`https://wow.zamimg.com/modelviewer/live/meta/charactercustomization2/2_1.json`);
+
+        expect(result).toEqual(mockResponse);
     });
 });

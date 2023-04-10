@@ -88,7 +88,10 @@ async function findItemsInEquipments(equipments) {
  * @returns {Promise<Object>}
  */
 async function findRaceGenderOptions(race, gender) {
-    const options = await fetch(`${CONTENT_PATH}meta/charactercustomization2/${race}_${gender}.json`).then((response) => response.json());
+    const options = await fetch(`${CONTENT_PATH}meta/charactercustomization2/${race}_${gender}.json`)
+        .then(
+            (response) => response.json()
+        );
     if (options.data) {
         return options.data;
     }
