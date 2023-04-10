@@ -23,6 +23,7 @@
   "homepage": "https://github.com/Miorey/wow-model-viewer#readme",
   "devDependencies": {
     "eslint": "^7.32.0",
-    "mocha": "^8.4.0"
+    "mocha": "^10.2.0",
+    "typescript": "^5.0.4"
   }
 }

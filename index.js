@@ -6,7 +6,7 @@ if (!window.WH) {
     window.WH.defaultAnimation = `Stand`;
 }
 
-const CONTENT_PATH = 'https://wow.zamimg.com/modelviewer/live/';
+const CONTENT_PATH = `https://wow.zamimg.com/modelviewer/live/`;
 
 const NOT_DISPLAYED_SLOTS = [
     2, // neck
@@ -60,7 +60,7 @@ const CHARACTER_PART = {
  * Returns a 2 dimensional list the inner list contains on first position the item slot, the second the item
  * display-id ex: [[1,1170],[3,4925]]
  * @param {*[{item: {entry: number, displayid: number}, transmog: {entry: number, displayid: number}, slot: number}]} equipments
- * @returns {Promise<int[]>}
+ * @returns {Promise<number[]>}
  */
 async function findItemsInEquipments(equipments) {
     for (const equipment of equipments) {
@@ -81,16 +81,16 @@ async function findItemsInEquipments(equipments) {
     return equipments
         .filter(e => e.displaySlot)
         .map(e => [
-                e.displaySlot,
-                e.displayId
-            ]
+            e.displaySlot,
+            e.displayId
+        ]
         );
 }
 
 /**
  *
- * @param {int} race
- * @param {int} gender
+ * @param {number} race
+ * @param {number} gender
  * @returns {Promise<>}
  */
 async function findRaceGenderOptions(race, gender) {
@@ -104,9 +104,9 @@ async function findRaceGenderOptions(race, gender) {
 
 /**
  *
- * @param {int} item: Item id
- * @param {int} slot: Item slot number
- * @param {int} displayId: DisplayId of hte item
+ * @param {number} item: Item id
+ * @param {number} slot: Item slot number
+ * @param {number} displayId: DisplayId of hte item
  * @return {Promise<boolean|*>}
  */
 async function getDisplaySlot(item, slot, displayId) {
@@ -158,7 +158,7 @@ class WowModelViewer extends ZamModelViewer {
 
     /**
      * Change character distance
-     * @param {int} val
+     * @param {number} val
      */
     setDistance(val) {
         this.renderer.distance = val;
@@ -226,9 +226,9 @@ async function optionsFromModel(model) {
 
 /**
  *
- * @param {int} aspect: Size of the character
+ * @param {number} aspect: Size of the character
  * @param {string} containerSelector: jQuery selector on the container
- * @param {{}|{id: int, type: int}} model: A json representation of a character
+ * @param {{}|{id: number, type: number}} model: A json representation of a character
  * @returns {Promise<WowModelViewer>}
  */
 async function generateModels(aspect, containerSelector, model) {
