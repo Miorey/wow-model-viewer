@@ -3,8 +3,10 @@
   "version": "1.0.3",
   "description": "Generate World of Warcraft 3D model with body parts customization and items.",
   "main": "index.js",
+  "types": "./types/index.d.ts",
   "scripts": {
-    "test": "mocha ./test/"
+    "prepublish": "npx -p typescript tsc index.js wow_model_viewer.js  --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -22,7 +24,13 @@
   },
   "homepage": "https://github.com/Miorey/wow-model-viewer#readme",
   "devDependencies": {
+    "@babel/core": "^7.21.4",
+    "@babel/preset-env": "^7.21.4",
     "eslint": "^7.32.0",
-    "mocha": "^8.4.0"
+    "eslint-plugin-jest": "^27.2.1",
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
+    "npm": "^9.6.4",
+    "typescript": "^5.0.4"
   }
 }

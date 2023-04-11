@@ -1,12 +1,6 @@
-if (!window.WH) {
-    window.WH = {};
-    window.WH.debug = function (...args) {
-        // console.log(args);
-    };
-    window.WH.defaultAnimation = `Stand`;
-}
+import {WowModelViewer} from './wow_model_viewer.js';
 
-const CONTENT_PATH = 'https://wow.zamimg.com/modelviewer/live/';
+const CONTENT_PATH = `https://wow.zamimg.com/modelviewer/live/`;
 
 const NOT_DISPLAYED_SLOTS = [
     2, // neck
@@ -57,10 +51,10 @@ const CHARACTER_PART = {
 };
 
 /**
- * Returns a 2 dimensional list the inner list contains on first position the item slot, the second the item
+ * Returns a 2-dimensional list the inner list contains on first position the item slot, the second the item
  * display-id ex: [[1,1170],[3,4925]]
  * @param {*[{item: {entry: number, displayid: number}, transmog: {entry: number, displayid: number}, slot: number}]} equipments
- * @returns {Promise<int[]>}
+ * @returns {Promise<number[]>}
  */
 async function findItemsInEquipments(equipments) {
     for (const equipment of equipments) {
@@ -81,20 +75,23 @@ async function findItemsInEquipments(equipments) {
     return equipments
         .filter(e => e.displaySlot)
         .map(e => [
-                e.displaySlot,
-                e.displayId
-            ]
+            e.displaySlot,
+            e.displayId
+        ]
         );
 }
 
 /**
  *
- * @param {int} race
- * @param {int} gender
- * @returns {Promise<>}
+ * @param {number} race
+ * @param {number} gender
+ * @returns {Promise<Object>}
  */
 async function findRaceGenderOptions(race, gender) {
-    const options = await fetch(`${CONTENT_PATH}meta/charactercustomization2/${race}_${gender}.json`).then((response) => response.json());
+    const options = await fetch(`${CONTENT_PATH}meta/charactercustomization2/${race}_${gender}.json`)
+        .then(
+            (response) => response.json()
+        );
     if (options.data) {
         return options.data;
     }
@@ -104,12 +101,24 @@ async function findRaceGenderOptions(race, gender) {
 
 /**
  *
- * @param {int} item: Item id
- * @param {int} slot: Item slot number
- * @param {int} displayId: DisplayId of hte item
+ * @param {number} item: Item id
+ * @param {number} slot: Item slot number
+ * @param {number} displayId: DisplayId of the item
  * @return {Promise<boolean|*>}
  */
 async function getDisplaySlot(item, slot, displayId) {
+    if (typeof item !== `number`) {
+        throw new Error(`item must be a number`);
+    }
+
+    if (typeof slot !== `number`) {
+        throw new Error(`slot must be a number`);
+    }
+
+    if (typeof displayId !== `number`) {
+        throw new Error(`displayId must be a number`);
+    }
+
     try {
         await fetch(`${CONTENT_PATH}meta/armor/${slot}/${displayId}.json`).then(response => response.json());
 
@@ -150,39 +159,6 @@ async function getDisplaySlot(item, slot, displayId) {
     };
 }
 
-// eslint-disable-next-line no-undef
-class WowModelViewer extends ZamModelViewer {
-    getListAnimations() {
-        return [...new Set(this.renderer.models[0].an.map(e => e.j))];
-    }
-
-    /**
-     * Change character distance
-     * @param {int} val
-     */
-    setDistance(val) {
-        this.renderer.distance = val;
-    }
-
-    /**
-     * Change the animation
-     * @param {string} val
-     */
-    setAnimation(val) {
-        if (!this.getListAnimations().includes(val)) {
-            console.warn(`${this.constructor.name}: Animation ${val} not found`);
-        }
-        this.renderer.models[0].setAnimation(val);
-    }
-
-    /**
-     * Play / Pause the animation
-     * @param {boolean} val
-     */
-    setAnimPaused(val) {
-        this.renderer.models[0].setAnimPaused(val);
-    }
-}
 
 /**
  *
@@ -226,9 +202,9 @@ async function optionsFromModel(model) {
 
 /**
  *
- * @param {int} aspect: Size of the character
+ * @param {number} aspect: Size of the character
  * @param {string} containerSelector: jQuery selector on the container
- * @param {{}|{id: int, type: int}} model: A json representation of a character
+ * @param {{}|{id: number, type: number}} model: A json representation of a character
  * @returns {Promise<WowModelViewer>}
  */
 async function generateModels(aspect, containerSelector, model) {
@@ -283,5 +259,5 @@ export {
     findRaceGenderOptions,
     generateModels,
     getDisplaySlot,
-    findItemsInEquipments
+    findItemsInEquipments,
 };
