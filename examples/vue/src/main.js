@@ -2,7 +2,7 @@
 
 
 import Vue from 'vue';
-import {findItemsInEquipments, generateModels} from '../../../index.js';
+import {findItemsInEquipments, generateModels} from 'wow-model-viewer';
 //import {generateModels, findItemsInEquipments} from 'wow-model-viewer';
 
 // Create the app

@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "vue": "^2.6.12",
-    "wow-model-viewer": "*"
+    "wow-model-viewer": "1.1.0"
   },
   "devDependencies": {
     "@vue/cli-service": "^4.5.11",

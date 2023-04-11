@@ -15,8 +15,8 @@
     WoW model viewer
 </h1>
 <div class="model_3d" id="model_3d1"></div>
-<div class="model_3d" id="model_3d2"></div>
-<div class="model_3d" id="model_3d3"></div>
+<div class="model_3d" id="model_3d2">Clock</div>
+<div class="model_3d" id="model_3d3">Rotation</div>
 </body>
 <style>
     body {
@@ -53,8 +53,23 @@
         "items": [[1, 1170], [3, 4925], [5, 9575], [6, 25235], [7, 2311], [8, 21154], [9, 14618], [10, 9534], [15, 17238], [21, 20379], [22, 28787]]
     };
 
-    window.model1 = await generateModels(1, `#model_3d2`, character);
-    window.model2 = await generateModels(1, `#model_3d1`, {type: 1, id: 193841});
+    window.model1 = await generateModels(1, `#model_3d1`, character);
+    window.model2 = await generateModels(1, `#model_3d2`, {type: 1, id: 193841});
     window.model3 = await generateModels(1, `#model_3d3`, {type: 8, id: 24949});
+    setInterval(() => {
+        const date = new Date;
+        window.model2.setAzimuth(2 * Math.PI * (date.getSeconds() / 60))
+        window.model2.setZenith(Math.PI)
+    }, 1000)
+
+    let angle = 0
+    setInterval(() => {
+        if (angle === 20000) {
+            angle = 10000
+        }
+        angle += 10
+        window.model3.setAzimuth(2 * Math.PI * (angle / 10000))
+        window.model2.setZenith(Math.PI)
+    }, 1)
 </script>
 </html>

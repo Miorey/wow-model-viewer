@@ -258,6 +258,16 @@ Returns the list of all available animations
 model.getListAnimations()
 ```
 
+Set animation angle to the zenith
+```js
+model.setZenith(Math.PI)
+```
+
+Set animation angle to the azimuth
+```js
+model.setAzimuth(Math.PI)
+```
+
 ### NPC and Items display
 
 To display the npc and items you can call `generateModels` with:

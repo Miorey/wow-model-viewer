@@ -19,4 +19,24 @@ export class WowModelViewer {
      * @param {boolean} val
      */
     setAnimPaused(val: boolean): void;
+    /**
+     * Set azimuth value this value is the angle to the azimuth based on PI
+     * @param {number} val
+     */
+    setAzimuth(val: number): void;
+    /**
+     * Set zenith value this value is the angle to the azimuth based on PI
+     * @param {number} val
+     */
+    setZenith(val: number): void;
+    /**
+     * Returns azimuth value this value is the angle to the azimuth based on PI
+     * @return {number}
+     */
+    getAzimuth(): number;
+    /**
+     * Returns zenith value this value is the angle to the azimuth based on PI
+     * @return {number}
+     */
+    getZenith(): number;
 }

@@ -45,6 +45,38 @@ class WowModelViewer extends ZamModelViewer {
     setAnimPaused(val) {
         this.renderer.models[0].setAnimPaused(val);
     }
+
+    /**
+     * Set azimuth value this value is the angle to the azimuth based on PI
+     * @param {number} val
+     */
+    setAzimuth(val) {
+        this.renderer.azimuth = val;
+    }
+
+    /**
+     * Set zenith value this value is the angle to the azimuth based on PI
+     * @param {number} val
+     */
+    setZenith(val) {
+        this.renderer.zenith = val;
+    }
+
+    /**
+     * Returns azimuth value this value is the angle to the azimuth based on PI
+     * @return {number}
+     */
+    getAzimuth() {
+        return this.renderer.azimuth;
+    }
+
+    /**
+     * Returns zenith value this value is the angle to the azimuth based on PI
+     * @return {number}
+     */
+    getZenith() {
+        return this.renderer.zenith;
+    }
 }
 
 export {
