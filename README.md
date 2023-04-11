@@ -21,6 +21,8 @@ This library requires jQuery 3.x and Wowhead ZamModelViewer to be loaded in your
 
 The library can be used either be used in vanilla javascript and framework context
 
+You have some usage examples [here](https://github.com/Miorey/wow-model-viewer/tree/examples/example)
+
 ### Framework
 
 With a js framework add the requirements files in your main html file in my Vue.js example this refers to
