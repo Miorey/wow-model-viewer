@@ -1,4 +1,4 @@
-const wowModelViewer = require("../../index.js")
+import {generateModels} from 'wow-model-viewer'
 
 class MyDemo {
     // Define a constructor to initialize the page
@@ -26,7 +26,7 @@ class MyDemo {
             "facialStyle": 5,
             "items": [[1, 1170], [3, 4925], [5, 9575], [6, 25235], [7, 2311], [8, 21154], [9, 14618], [10, 9534], [15, 17238], [21, 20379], [22, 28787]]
         };
-        return wowModelViewer.generateModels(1, `#${this.modelId}`, model);
+        return generateModels(1, `#${this.modelId}`, model);
     }
 }
 

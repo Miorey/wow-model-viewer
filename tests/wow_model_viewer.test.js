@@ -57,5 +57,35 @@ describe(`WowModelViewer`, () => {
             expect(() => viewer.setAnimPaused(``)).toThrow(`Empty value not allowed`);
         });
     });
+
+    describe(`setAzimuth`, () => {
+        it(`should change the azimuth angle`, () => {
+            const initialAzimuth = viewer.getAzimuth();
+            viewer.setAzimuth(0.5);
+            expect(viewer.getAzimuth()).toBe(0.5);
+            viewer.setAzimuth(initialAzimuth);
+        });
+    });
+
+    describe(`setZenith`, () => {
+        it(`should change the zenith angle`, () => {
+            const initialZenith = viewer.getZenith();
+            viewer.setZenith(0.5);
+            expect(viewer.getZenith()).toBe(0.5);
+            viewer.setZenith(initialZenith);
+        });
+    });
+
+    describe(`getAzimuth`, () => {
+        it(`should return the azimuth angle`, () => {
+            expect(viewer.getAzimuth()).toBe(0);
+        });
+    });
+
+    describe(`getZenith`, () => {
+        it(`should return the zenith angle`, () => {
+            expect(viewer.getZenith()).toBe(0);
+        });
+    });
 });
 

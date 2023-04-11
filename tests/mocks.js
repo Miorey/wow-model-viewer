@@ -20,7 +20,9 @@ class ZamModelViewer {
                     }
                 }
             }],
-            distance: 100
+            distance: 100,
+            azimuth: 0,
+            zenith: 0
         };
     }
 
