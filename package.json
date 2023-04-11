@@ -3,8 +3,10 @@
   "version": "1.0.3",
   "description": "Generate World of Warcraft 3D model with body parts customization and items.",
   "main": "index.js",
+  "types": "./types/index.d.ts",
   "scripts": {
-    "test": "jest --debug"
+    "prepublish": "npx -p typescript tsc index.js wow_model_viewer.js  --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
