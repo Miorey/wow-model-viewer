@@ -16,7 +16,7 @@ class WowModelViewer extends ZamModelViewer {
      * @returns {Array.<string>}
      */
     getListAnimations() {
-        return [...new Set(this.renderer.models[0].an.map(e => e.j))];
+        return [...new Set(this.renderer.models[0].ap.map(e => e.j))];
     }
 
     /**
