@@ -151,6 +151,8 @@ troll    | 8
 bloodelf | 10
 draenei  | 11
 
+The `gender` is `0` for female `1` for male.
+
 The items is a 2 dimensional array the inner array contains the following values
 `[ slot, display-id ]` the slot is the body part where the stuff is displayed.\
 **Don't mismatch `display-id` and `item`** \
