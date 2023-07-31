@@ -272,6 +272,11 @@ Set animation angle to the azimuth
 model.setAzimuth(Math.PI)
 ```
 
+Remove any reference to the model object preventing **memory leak**
+```js
+model.destroy()
+```
+
 ### NPC and Items display
 
 To display the npc and items you can call `generateModels` with:
