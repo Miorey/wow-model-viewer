@@ -7,9 +7,9 @@
 export function findRaceGenderOptions(race: number, gender: number): Promise<any>;
 /**
  *
- * @param {number} aspect: Size of the character
- * @param {string} containerSelector: jQuery selector on the container
- * @param {{}|{id: number, type: number}} model: A json representation of a character
+ * @param aspect {number}: Size of the character
+ * @param containerSelector {string}: jQuery selector on the container
+ * @param model {{}|{id: number, type: number}}: A json representation of a character
  * @returns {Promise<WowModelViewer>}
  */
 export function generateModels(aspect: number, containerSelector: string, model: {} | {
@@ -18,9 +18,9 @@ export function generateModels(aspect: number, containerSelector: string, model:
 }): Promise<WowModelViewer>;
 /**
  *
- * @param {number} item: Item id
- * @param {number} slot: Item slot number
- * @param {number} displayId: DisplayId of the item
+ * @param item{number}: Item id
+ * @param slot{number}: Item slot number
+ * @param displayId{number}: DisplayId of the item
  * @return {Promise<boolean|*>}
  */
 export function getDisplaySlot(item: number, slot: number, displayId: number): Promise<boolean | any>;

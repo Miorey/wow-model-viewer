@@ -101,9 +101,9 @@ async function findRaceGenderOptions(race, gender) {
 
 /**
  *
- * @param {number} item: Item id
- * @param {number} slot: Item slot number
- * @param {number} displayId: DisplayId of the item
+ * @param item{number}: Item id
+ * @param slot{number}: Item slot number
+ * @param displayId{number}: DisplayId of the item
  * @return {Promise<boolean|*>}
  */
 async function getDisplaySlot(item, slot, displayId) {
@@ -128,7 +128,7 @@ async function getDisplaySlot(item, slot, displayId) {
         };
     } catch (e) {
         const resp = await fetch(`https://wotlk.murlocvillage.com/api/items/${item}/${displayId}`).then((response) => response.json());
-        const res = resp.data ? resp.data : resp;
+        const res = resp.data || resp;
         if (res.newDisplayId !== displayId) {
             return {
                 displaySlot: slot,
@@ -162,7 +162,9 @@ async function getDisplaySlot(item, slot, displayId) {
 
 /**
  *
- * @param model: {{}|{{id, type}}}
+ * @param {Object} model - The model object to generate options from.
+ * @param {string} model.id - The unique identifier of the model.
+ * @param {number} model.type - The type of the model.
  * @returns {Promise<{models: {id: string, type: number}, charCustomization: {options: []}, items: (*|*[])}|{models: {id, type}}>}
  */
 async function optionsFromModel(model) {
@@ -202,9 +204,9 @@ async function optionsFromModel(model) {
 
 /**
  *
- * @param {number} aspect: Size of the character
- * @param {string} containerSelector: jQuery selector on the container
- * @param {{}|{id: number, type: number}} model: A json representation of a character
+ * @param aspect {number}: Size of the character
+ * @param containerSelector {string}: jQuery selector on the container
+ * @param model {{}|{id: number, type: number}}: A json representation of a character
  * @returns {Promise<WowModelViewer>}
  */
 async function generateModels(aspect, containerSelector, model) {
@@ -232,7 +234,7 @@ function optionalChaining(choice) {
 /**
  *
  * @param character
- * @param {{}}fullOptions: Zaming API character options payload
+ * @param fullOptions {{}}: Zaming API character options payload
  * @return {Promise<[]>}
  */
 function getOptions(character, fullOptions) {
