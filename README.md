@@ -159,7 +159,7 @@ The items is a 2 dimensional array the inner array contains the following values
 Ex for the following
 item: [Atiesh, Greatstaff of the Guardian](https://www.wowhead.com/item=22632/atiesh-greatstaff-of-the-guardian)
 the `display-id` is `193838` to find it inspect. \
-![img.png](images/view_3d.png) \
+![img.webp](images/view_3d.webp) \
 For some items a new `display-id` is set for those items a new slot is made. This library manage those `display-id` so
 basically you don't care.
 
