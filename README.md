@@ -1,4 +1,4 @@
-![img.png](images/mirror2.gif) \
+![Mirror Demo](https://miorey.github.io/wow-model-viewer/images/mirror.gif)
 
 # WoW Model viewer
 
@@ -312,6 +312,14 @@ Path             | 256 |
 Itemvisual       | 512 |
 Collection       | 102 |
 
+# Contribute
+
+Each contribution to this lib have to take in account js doc and typescript
+To generate the TypecSript declaration please execute the following:
+
+```basj
+npx -p typescript tsc index.js wow_model_viewer.js  --declaration --allowJs --emitDeclarationOnly --outDir types
+```
 
 ### Advertising time
 
