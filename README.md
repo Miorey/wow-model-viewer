@@ -318,7 +318,7 @@ Each contribution to this lib have to take in account js doc and typescript
 To generate the TypecSript declaration please execute the following:
 
 ```basj
-npx -p typescript tsc index.js wow_model_viewer.js  --declaration --allowJs --emitDeclarationOnly --outDir types
+npm run prepublish
 ```
 
 ### Advertising time
