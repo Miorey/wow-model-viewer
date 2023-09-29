@@ -58,7 +58,7 @@ describe(`getDisplaySlot`, () => {
                     json: () => Promise.resolve(mockSuccessResponse),
                 })
             } else {
-                throw Error(`No url`)
+                throw Error(`No good url ${url} !== ${goodUrl}`)
             }
         })
 

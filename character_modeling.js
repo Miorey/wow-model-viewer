@@ -150,7 +150,7 @@ async function getDisplaySlot(item, slot, displayId) {
             displayId: displayId
         }
     } catch (e) {
-        const resp = await fetch(`${WOTLK_TO_RETAIL_DISPLAY_ID_API}/api/items/${item}/${displayId}`).then((response) => response.json())
+        const resp = await fetch(`${WOTLK_TO_RETAIL_DISPLAY_ID_API}api/items/${item}/${displayId}`).then((response) => response.json())
         const res = resp.data || resp
         if (res.newDisplayId !== displayId) {
             return {
