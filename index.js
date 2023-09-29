@@ -1,6 +1,6 @@
-import {WowModelViewer} from './wow_model_viewer.js';
+import {WowModelViewer} from './wow_model_viewer.js'
 
-const CONTENT_PATH = `https://wow.zamimg.com/modelviewer/live/`;
+const CONTENT_PATH = `https://wow.zamimg.com/modelviewer/live/`
 
 const NOT_DISPLAYED_SLOTS = [
     2, // neck
@@ -8,7 +8,7 @@ const NOT_DISPLAYED_SLOTS = [
     12, // finger1
     13, // trinket1
     14, // trinket2
-];
+]
 
 const RACES = {
     1: `human`,
@@ -21,7 +21,7 @@ const RACES = {
     8: `troll`,
     10: `bloodelf`,
     11: `draenei`
-};
+}
 
 const CHARACTER_PART = {
     Face: `face`,
@@ -48,7 +48,7 @@ const CHARACTER_PART = {
     Bracelets: undefined,
     Necklace: undefined,
     Earring: undefined
-};
+}
 
 /**
  * Returns a 2-dimensional list the inner list contains on first position the item slot, the second the item
@@ -59,18 +59,18 @@ const CHARACTER_PART = {
 async function findItemsInEquipments(equipments) {
     for (const equipment of equipments) {
         if (NOT_DISPLAYED_SLOTS.includes(equipment.slot)) {
-            continue;
+            continue
         }
 
-        const displayedItem = (Object.keys(equipment.transmog).length !== 0) ? equipment.transmog : equipment.item;
+        const displayedItem = (Object.keys(equipment.transmog).length !== 0) ? equipment.transmog : equipment.item
         const displaySlot = await getDisplaySlot(
             displayedItem.entry,
             equipment.slot,
             displayedItem.displayid
-        );
-        equipment.displaySlot = displaySlot.displaySlot;
-        equipment.displayId = displaySlot.displayId;
-        Object.assign(displaySlot, equipment);
+        )
+        equipment.displaySlot = displaySlot.displaySlot
+        equipment.displayId = displaySlot.displayId
+        Object.assign(displaySlot, equipment)
     }
     return equipments
         .filter(e => e.displaySlot)
@@ -78,7 +78,7 @@ async function findItemsInEquipments(equipments) {
             e.displaySlot,
             e.displayId
         ]
-        );
+        )
 }
 
 /**
@@ -91,12 +91,12 @@ async function findRaceGenderOptions(race, gender) {
     const options = await fetch(`${CONTENT_PATH}meta/charactercustomization2/${race}_${gender}.json`)
         .then(
             (response) => response.json()
-        );
+        )
     if (options.data) {
-        return options.data;
+        return options.data
     }
 
-    return options;
+    return options
 }
 
 /**
@@ -108,32 +108,32 @@ async function findRaceGenderOptions(race, gender) {
  */
 async function getDisplaySlot(item, slot, displayId) {
     if (typeof item !== `number`) {
-        throw new Error(`item must be a number`);
+        throw new Error(`item must be a number`)
     }
 
     if (typeof slot !== `number`) {
-        throw new Error(`slot must be a number`);
+        throw new Error(`slot must be a number`)
     }
 
     if (typeof displayId !== `number`) {
-        throw new Error(`displayId must be a number`);
+        throw new Error(`displayId must be a number`)
     }
 
     try {
-        await fetch(`${CONTENT_PATH}meta/armor/${slot}/${displayId}.json`).then(response => response.json());
+        await fetch(`${CONTENT_PATH}meta/armor/${slot}/${displayId}.json`).then(response => response.json())
 
         return {
             displaySlot: slot,
             displayId: displayId
-        };
+        }
     } catch (e) {
-        const resp = await fetch(`https://wotlk.murlocvillage.com/api/items/${item}/${displayId}`).then((response) => response.json());
-        const res = resp.data || resp;
+        const resp = await fetch(`https://wotlk.murlocvillage.com/api/items/${item}/${displayId}`).then((response) => response.json())
+        const res = resp.data || resp
         if (res.newDisplayId !== displayId) {
             return {
                 displaySlot: slot,
                 displayId: res.newDisplayId
-            };
+            }
         }
     }
 
@@ -142,21 +142,21 @@ async function getDisplaySlot(item, slot, displayId) {
         5: 20, // chest
         16: 21, // main hand
         18: 22 // off hand
-    }[slot];
+    }[slot]
 
     if (!retSlot) {
-        console.warn(`Item: ${item} display: ${displayId} or slot: ${slot} not found for `);
+        console.warn(`Item: ${item} display: ${displayId} or slot: ${slot} not found for `)
 
         return {
             displaySlot: slot,
             displayId: displayId
-        };
+        }
     }
 
     return {
         displaySlot: retSlot,
         displayId: displayId
-    };
+    }
 }
 
 
@@ -170,25 +170,25 @@ async function getDisplaySlot(item, slot, displayId) {
 async function optionsFromModel(model) {
     if (model.id && model.type) {
         // NPC or item
-        const {id, type} = model;
-        return {models: {id, type}};
+        const {id, type} = model
+        return {models: {id, type}}
     }
 
-    const {race, gender} = model;
+    const {race, gender} = model
 
     // CHARACTER OPTIONS
     // This is how we describe a character properties
     const fullOptions = await findRaceGenderOptions(
         race,
         gender
-    );
+    )
 
     // slot ids on model viewer
-    const characterItems = (model.items) ? model.items.filter(e => !NOT_DISPLAYED_SLOTS.includes(e[0])) : [];
-    const options = getOptions(model, fullOptions);
+    const characterItems = (model.items) ? model.items.filter(e => !NOT_DISPLAYED_SLOTS.includes(e[0])) : []
+    const options = getOptions(model, fullOptions)
 
-    const retGender = (gender === 1) ? `female` : `male`;
-    const raceToModelId = RACES[race] + retGender;
+    const retGender = (gender === 1) ? `female` : `male`
+    const raceToModelId = RACES[race] + retGender
 
     return {
         items: characterItems,
@@ -199,7 +199,7 @@ async function optionsFromModel(model) {
             id: raceToModelId,
             type: 16
         },
-    };
+    }
 }
 
 /**
@@ -210,7 +210,7 @@ async function optionsFromModel(model) {
  * @returns {Promise<WowModelViewer>}
  */
 async function generateModels(aspect, containerSelector, model) {
-    const modelOptions = await optionsFromModel(model);
+    const modelOptions = await optionsFromModel(model)
     const models = {
         type: 2,
         contentPath: CONTENT_PATH,
@@ -219,16 +219,16 @@ async function generateModels(aspect, containerSelector, model) {
         aspect: aspect,
         hd: true,
         ...modelOptions
-    };
-    window.models = models;
+    }
+    window.models = models
 
     // eslint-disable-next-line no-undef
-    return new WowModelViewer(models);
+    return new WowModelViewer(models)
 }
 
 function optionalChaining(choice) {
     //todo replace by `part.Choices[character[CHARACTER_PART[prop]]]?.Id` when it works on almost all frameworks
-    return choice ? choice.Id : undefined;
+    return choice ? choice.Id : undefined
 }
 
 /**
@@ -238,23 +238,23 @@ function optionalChaining(choice) {
  * @return {Promise<[]>}
  */
 function getOptions(character, fullOptions) {
-    const options = fullOptions.Options;
-    const ret = [];
+    const options = fullOptions.Options
+    const ret = []
     for (const prop in CHARACTER_PART) {
-        const part = options.find(e => e.Name === prop);
+        const part = options.find(e => e.Name === prop)
 
         if (!part) {
-            continue;
+            continue
         }
 
         const newOption = {
             optionId: part.Id,
             choiceId: (CHARACTER_PART[prop]) ? optionalChaining(part.Choices[character[CHARACTER_PART[prop]]]) : part.Choices[0].Id
-        };
-        ret.push(newOption);
+        }
+        ret.push(newOption)
     }
 
-    return ret;
+    return ret
 }
 
 export {
@@ -262,4 +262,4 @@ export {
     generateModels,
     getDisplaySlot,
     findItemsInEquipments,
-};
+}
