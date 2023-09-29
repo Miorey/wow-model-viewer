@@ -39,4 +39,13 @@ export class WowModelViewer {
      * @return {number}
      */
     getZenith(): number;
+    /**
+     * This methode is based on `updateViewer` from Paperdoll.js (https://wow.zamimg.com/js/Paperdoll.js?3ee7ec5121)
+     *
+     * @param {number} slot
+     * @param {number} displayId
+     * @param {number} enchant
+     */
+    updateViewer(slot: number, displayId: number, enchant: number): void;
 }
+export const WH: any;

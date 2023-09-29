@@ -16,37 +16,41 @@ class ZamModelViewer {
                 },
                 setAnimPaused: function (val) {
                     if (val === ``) {
-                        throw new Error(`Empty value not allowed`);
+                        throw new Error(`Empty value not allowed`)
                     }
                 }
             }],
             distance: 100,
             azimuth: 0,
             zenith: 0
-        };
+        }
     }
 
     getModel() {
-        return this.renderer.models[0];
+        return this.renderer.models[0]
     }
 
     getDistance() {
-        return this.renderer.distance;
+        return this.renderer.distance
     }
 
     setDistance(val) {
-        this.renderer.distance = val;
+        this.renderer.distance = val
     }
 
     setAnimation(val) {
-        this.getModel().setAnimation(val);
+        this.getModel().setAnimation(val)
     }
 
     setAnimPaused(val) {
-        this.getModel().setAnimPaused(val);
+        this.getModel().setAnimPaused(val)
+    }
+
+    method() {
+        // This is a mock function, so let's leave it empty.
     }
 
 }
 
 
-global.ZamModelViewer = ZamModelViewer;
+global.ZamModelViewer = ZamModelViewer
