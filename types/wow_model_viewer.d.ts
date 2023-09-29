@@ -1,4 +1,29 @@
 export class WowModelViewer {
+    _currentCharacterOptions: number;
+    _characterGender: any;
+    _characterRace: any;
+    set currentCharacterOptions(arg: number);
+    get currentCharacterOptions(): number;
+    /**
+     *
+     * @param {number} value
+     */
+    set characterGender(arg: number);
+    /**
+     *
+     * @return {number|null}
+     */
+    get characterGender(): number;
+    /**
+     *
+     * @param {number} value
+     */
+    set characterRace(arg: number);
+    /**
+     *
+     * @return {number|null}
+     */
+    get characterRace(): number;
     /**
      * Returns the list of animation names
      * @returns {Array.<string>}
@@ -47,5 +72,5 @@ export class WowModelViewer {
      * @param enchant {number}: Enchant (experimental not tested)
      */
     updateItemViewer(slot: number, displayId: number, enchant: number): void;
+    setNewAppearance(options: any): void;
 }
-export const WH: any;

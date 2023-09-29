@@ -1,48 +1,59 @@
-if (!window.WH) {
-    window.WH = {}
-    window.WH.debug = function (...args) { console.log(args) }
-    window.WH.defaultAnimation = `Stand`
-    window.WH.Wow = {
-        Item: {
-            INVENTORY_TYPE_HEAD: 1,
-            INVENTORY_TYPE_NECK: 2,
-            INVENTORY_TYPE_SHOULDERS: 3,
-            INVENTORY_TYPE_SHIRT: 4,
-            INVENTORY_TYPE_CHEST: 5,
-            INVENTORY_TYPE_WAIST: 6,
-            INVENTORY_TYPE_LEGS: 7,
-            INVENTORY_TYPE_FEET: 8,
-            INVENTORY_TYPE_WRISTS: 9,
-            INVENTORY_TYPE_HANDS: 10,
-            INVENTORY_TYPE_FINGER: 11,
-            INVENTORY_TYPE_TRINKET: 12,
-            INVENTORY_TYPE_ONE_HAND: 13,
-            INVENTORY_TYPE_SHIELD: 14,
-            INVENTORY_TYPE_RANGED: 15,
-            INVENTORY_TYPE_BACK: 16,
-            INVENTORY_TYPE_TWO_HAND: 17,
-            INVENTORY_TYPE_BAG: 18,
-            INVENTORY_TYPE_TABARD: 19,
-            INVENTORY_TYPE_ROBE: 20,
-            INVENTORY_TYPE_MAIN_HAND: 21,
-            INVENTORY_TYPE_OFF_HAND: 22,
-            INVENTORY_TYPE_HELD_IN_OFF_HAND: 23,
-            INVENTORY_TYPE_PROJECTILE: 24,
-            INVENTORY_TYPE_THROWN: 25,
-            INVENTORY_TYPE_RANGED_RIGHT: 26,
-            INVENTORY_TYPE_QUIVER: 27,
-            INVENTORY_TYPE_RELIC: 28,
-            INVENTORY_TYPE_PROFESSION_TOOL: 29,
-            INVENTORY_TYPE_PROFESSION_ACCESSORY: 30
-        }
+import {getCharacterOptions} from "./character_modeling.js"
 
-    }
-    // eslint-disable-next-line no-undef
-}
-const WH = window.WH
 
 // eslint-disable-next-line no-undef
 class WowModelViewer extends ZamModelViewer {
+    _currentCharacterOptions = 0 // Direct property initialization
+    _characterGender = null
+    _characterRace = null
+
+
+    // Getter for the attribute
+    get currentCharacterOptions() {
+        return this._currentCharacterOptions
+    }
+
+    // Setter for the attribute
+    set currentCharacterOptions(value) {
+        this._currentCharacterOptions = value
+    }
+
+
+
+    /**
+     *
+     * @return {number|null}
+     */
+    get characterGender() {
+        return this._characterGender
+    }
+
+
+    /**
+     *
+     * @param {number} value
+     */
+    set characterGender(value) {
+        this._characterGender = value
+    }
+
+
+
+    /**
+     *
+     * @return {number|null}
+     */
+    get characterRace() {
+        return this._characterRace
+    }
+
+    /**
+     *
+     * @param {number} value
+     */
+    set characterRace(value) {
+        this._characterRace = value
+    }
 
     /**
      * Returns the list of animation names
@@ -123,10 +134,8 @@ class WowModelViewer extends ZamModelViewer {
         if (slot === s.INVENTORY_TYPE_SHOULDERS) {
             // this.method(`setShouldersOverride`, [this.getShouldersOverrideData()]);
         }
-        let a = slot
-        if (a === s.INVENTORY_TYPE_ROBE) {
-            a = s.INVENTORY_TYPE_CHEST
-        }
+        const a = (slot === s.INVENTORY_TYPE_ROBE) ? s.INVENTORY_TYPE_CHEST : slot
+
         window.WH.debug(`Clearing model viewer slot:`, a.toString())
         this.method(`clearSlots`, slot.toString())
         if (displayId) {
@@ -138,9 +147,18 @@ class WowModelViewer extends ZamModelViewer {
             }]])
         }
     }
+
+    setNewAppearance(options) {
+        if(!this.currentCharacterOptions) {
+            throw Error(`Character options are not set`)
+        }
+        const characterOptions = getCharacterOptions(options, this.currentCharacterOptions)
+        const race = this.characterRace
+        const gender = this.characterGender
+        this.method(`setAppearance`, {race: race, gender: gender, options: characterOptions})
+    }
 }
 
 export {
     WowModelViewer,
-    WH
 }
