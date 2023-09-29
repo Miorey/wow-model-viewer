@@ -69,11 +69,12 @@ function optionalChaining(choice) {
  * @param {number} character.race - Description for race.
  * @param {number} character.skin - Description for skin.
  * @param {Object} fullOptions - Zaming API character options payload.
- * @return {Promise<[]>}
+ * @return {[]}
  */
 function getCharacterOptions(character, fullOptions) {
     const options = fullOptions.Options
     const ret = []
+    debugger
     for (const prop in CHARACTER_PART) {
         const part = options.find(e => e.Name === prop)
 
@@ -150,7 +151,8 @@ async function getDisplaySlot(item, slot, displayId) {
             displayId: displayId
         }
     } catch (e) {
-        const resp = await fetch(`${WOTLK_TO_RETAIL_DISPLAY_ID_API}api/items/${item}/${displayId}`).then((response) => response.json())
+        const resp = await fetch(`${WOTLK_TO_RETAIL_DISPLAY_ID_API}api/items/${item}/${displayId}`)
+            .then((response) => response.json())
         const res = resp.data || resp
         if (res.newDisplayId !== displayId) {
             return {

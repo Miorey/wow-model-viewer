@@ -46,9 +46,12 @@ class ZamModelViewer {
         this.getModel().setAnimPaused(val)
     }
 
-    method() {
-        // This is a mock function, so let's leave it empty.
+    method(methodName, args) {
+        if (methodName === `setAppearance`) {
+            this.appearance = args
+        }
     }
+
 
 }
 

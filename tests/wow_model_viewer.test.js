@@ -4,6 +4,10 @@ import './mocks.js'
 
 // Import the module to be tested
 import {WowModelViewer} from '../wow_model_viewer'
+import {
+    getCharacterOptions
+} from '../character_modeling.js'
+
 
 describe(`WowModelViewer`, () => {
     /** @type{WowModelViewer} **/
@@ -12,6 +16,27 @@ describe(`WowModelViewer`, () => {
     beforeEach(() => {
         viewer = new WowModelViewer()
     })
+
+    describe(`Getters and Setters`, () => {
+        it(`should get and set currentCharacterOptions`, () => {
+            expect(viewer.currentCharacterOptions).toBe(0)
+            viewer.currentCharacterOptions = 5
+            expect(viewer.currentCharacterOptions).toBe(5)
+        })
+
+        it(`should get and set characterGender`, () => {
+            expect(viewer.characterGender).toBeNull()
+            viewer.characterGender = 1
+            expect(viewer.characterGender).toBe(1)
+        })
+
+        it(`should get and set characterRace`, () => {
+            expect(viewer.characterRace).toBeNull()
+            viewer.characterRace = 2
+            expect(viewer.characterRace).toBe(2)
+        })
+    })
+
 
     describe(`getListAnimations`, () => {
         it(`should return an array of animation names`, () => {
@@ -129,6 +154,52 @@ describe(`WowModelViewer`, () => {
             spy.mockRestore()
         })
     })
+
+    describe(`setNewAppearance`, () => {
+        it(`should set new appearance based on given options and character attributes`, () => {
+            // Given: A character object and fullOptions mock
+            const character = {
+                face: 1,
+                facialStyle: 1,
+                gender: 1,
+                hairColor: 1,
+                hairStyle: 1,
+                items: [[1, 2], [2, 3]],
+                race: 1,
+                skin: 1
+            }
+
+            viewer.currentCharacterOptions = {
+                Options: [
+                ]
+            }
+            viewer.characterRace = character.race
+            viewer.characterGender = character.gender
+
+            const spy = jest.spyOn(viewer, `method`).mockImplementation()
+
+            // When: We set a new appearance
+            viewer.setNewAppearance(character)
+
+            // Then: Expect method to have been called with a certain payload
+            // Here, you might need to adjust the expected payload based on your actual mapping
+            expect(spy).toHaveBeenCalledWith(`setAppearance`, {
+                race: character.race,
+                gender: character.gender,
+                options: expect.any(Array) // or a more specific structure if needed
+            })
+
+            spy.mockRestore()
+        })
+
+        it(`should throw an error if currentCharacterOptions is not set`, () => {
+            viewer.currentCharacterOptions = 0 // Unset the options
+
+            expect(() => viewer.setNewAppearance({})).toThrow(`Character options are not set`)
+        })
+    })
+
+
 
 })
 
