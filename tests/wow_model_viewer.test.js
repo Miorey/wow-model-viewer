@@ -88,11 +88,11 @@ describe(`WowModelViewer`, () => {
         })
     })
 
-    describe(`updateViewer`, () => {
+    describe(`updateItemViewer`, () => {
         it(`should clear the model viewer slot`, () => {
             const spy = jest.spyOn(viewer, `method`).mockImplementation()
 
-            viewer.updateViewer(5, 100, 1)
+            viewer.updateItemViewer(5, 100, 1)
             expect(spy).toHaveBeenCalledWith(`clearSlots`, `5`)
 
             spy.mockRestore()
@@ -101,7 +101,7 @@ describe(`WowModelViewer`, () => {
         it(`should set items if displayId is provided`, () => {
             const spy = jest.spyOn(viewer, `method`).mockImplementation()
 
-            viewer.updateViewer(5, 100, 1)
+            viewer.updateItemViewer(5, 100, 1)
             expect(spy).toHaveBeenCalledWith(`setItems`, [[{
                 slot: 5,
                 display: 100,
@@ -114,7 +114,7 @@ describe(`WowModelViewer`, () => {
         it(`should not set items if displayId is not provided`, () => {
             const spy = jest.spyOn(viewer, `method`).mockImplementation()
 
-            viewer.updateViewer(5, null, 1)
+            viewer.updateItemViewer(5, null, 1)
             expect(spy).not.toHaveBeenCalledWith(`setItems`, expect.anything())
 
             spy.mockRestore()
@@ -123,7 +123,7 @@ describe(`WowModelViewer`, () => {
         it(`should convert INVENTORY_TYPE_ROBE slot to INVENTORY_TYPE_CHEST`, () => {
             const spy = jest.spyOn(window.WH, `debug`).mockImplementation()
 
-            viewer.updateViewer(window.WH.Wow.Item.INVENTORY_TYPE_ROBE, 100, 1)
+            viewer.updateItemViewer(window.WH.Wow.Item.INVENTORY_TYPE_ROBE, 100, 1)
             expect(spy).toHaveBeenCalledWith(`Clearing model viewer slot:`, window.WH.Wow.Item.INVENTORY_TYPE_CHEST.toString())
 
             spy.mockRestore()

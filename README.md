@@ -277,6 +277,13 @@ Remove any reference to the model object preventing **memory leak**
 model.destroy()
 ```
 
+Change character items without reload the full view. (This works only for characters not for NPCs / creature)
+```js
+// paramters(slot, displayId, enchant)
+model.updateItemViewer()
+```
+
+
 ### NPC and Items display
 
 To display the npc and items you can call `generateModels` with:

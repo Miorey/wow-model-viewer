@@ -118,7 +118,7 @@ class WowModelViewer extends ZamModelViewer {
      * @param {number} displayId
      * @param {number} enchant
      */
-    updateViewer(slot, displayId, enchant) {
+    updateItemViewer(slot, displayId, enchant) {
         const s = window.WH.Wow.Item
         if (slot === s.INVENTORY_TYPE_SHOULDERS) {
             // this.method(`setShouldersOverride`, [this.getShouldersOverrideData()]);

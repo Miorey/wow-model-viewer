@@ -46,6 +46,6 @@ export class WowModelViewer {
      * @param {number} displayId
      * @param {number} enchant
      */
-    updateViewer(slot: number, displayId: number, enchant: number): void;
+    updateItemViewer(slot: number, displayId: number, enchant: number): void;
 }
 export const WH: any;
