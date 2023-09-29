@@ -1,26 +1,26 @@
 module.exports = {
     root: true,
     parserOptions: {
-        "sourceType": `module`,
-        "ecmaVersion": 2018,
-        "ecmaFeatures": {
-            "globalReturn": false,
-            "impliedStrict": false,
-            "jsx": false,
-            "experimentalObjectRestSpread": true
+        sourceType: `module`,
+        ecmaVersion: 2020,
+        ecmaFeatures: {
+            globalReturn: false,
+            impliedStrict: false,
+            jsx: false,
+            experimentalObjectRestSpread: true
         }
     },
     env: {
-        "browser": true,
-        "node": true,
+        browser: true,
+        node: true,
         "jest/globals": true,
-        "es6": true
+        es6: true
     },
     extends: [
         `eslint:recommended`
     ],
     rules: {
-        "indent": [
+        indent: [
             `error`,
             4
         ],
@@ -28,13 +28,17 @@ module.exports = {
             `error`,
             `unix`
         ],
-        "semi": [2, `always`],
-        "quotes": [
+        "quote-props": [`error`, `as-needed`],
+        quotes: [
             `error`,
             `backtick`
         ],
         "no-console": `off`,
+        semi: [
+            `error`,
+            `never`
+        ]
     },
     // required to lint *.vue files
-    "plugins": [`jest`],
-};
+    plugins: [`jest`],
+}
