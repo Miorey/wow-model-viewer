@@ -280,7 +280,7 @@ model.destroy()
 Change character items without reload the full view. (This works only for characters not for NPCs / creature)
 ```js
 // paramters(slot, displayId, enchant)
-model.updateItemViewer()
+model.updateItemViewer(1, 178278, 0)
 ```
 
 

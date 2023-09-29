@@ -42,9 +42,9 @@ export class WowModelViewer {
     /**
      * This methode is based on `updateViewer` from Paperdoll.js (https://wow.zamimg.com/js/Paperdoll.js?3ee7ec5121)
      *
-     * @param {number} slot
-     * @param {number} displayId
-     * @param {number} enchant
+     * @param slot {number}: Item slot number
+     * @param displayId {number}: Item display id
+     * @param enchant {number}: Enchant (experimental not tested)
      */
     updateItemViewer(slot: number, displayId: number, enchant: number): void;
 }
