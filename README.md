@@ -283,6 +283,17 @@ Change character items without reload the full view. (This works only for charac
 model.updateItemViewer(1, 178278, 0)
 ```
 
+Change character appearance without reloading:
+```js
+model.setNewAppearance({
+    "skin": 4,
+    "face": 0,
+    "hairStyle": 5,
+    "hairColor": 5,
+    "facialStyle": 5,
+})
+```
+
 
 ### NPC and Items display
 
