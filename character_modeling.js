@@ -74,7 +74,6 @@ function optionalChaining(choice) {
 function getCharacterOptions(character, fullOptions) {
     const options = fullOptions.Options
     const ret = []
-    debugger
     for (const prop in CHARACTER_PART) {
         const part = options.find(e => e.Name === prop)
 

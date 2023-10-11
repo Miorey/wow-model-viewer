@@ -338,8 +338,3 @@ To generate the TypecSript declaration please execute the following:
 ```basj
 npm run prepublish
 ```
-
-### Advertising time
-
-This library was made for [Murloc Village](https://wotlk.murlocvillage.com/).
-

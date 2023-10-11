@@ -1,9 +1,11 @@
+global.fetch = require(`node-fetch`)
 const {describe, it} = require(`@jest/globals`)
 
 import './mocks.js'
 // Import the module to be tested
 import {findItemsInEquipments, findRaceGenderOptions, getDisplaySlot} from '../index'
 
+global.fetch = jest.fn()
 describe(`getDisplaySlot`, () => {
 
 
@@ -38,7 +40,7 @@ describe(`getDisplaySlot`, () => {
 
         expect(result).toEqual({displaySlot: slot, displayId: displayId})
         expect(global.fetch).toHaveBeenCalledWith(
-            `https://wow.zamimg.com/modelviewer/live/meta/armor/${slot}/${displayId}.json`
+            `http://localhost:3001/modelviewer/live/meta/armor/${slot}/${displayId}.json`
         )
     })
 
@@ -85,7 +87,7 @@ describe(`getDisplaySlot`, () => {
 
         expect(result).toEqual({displaySlot: slot, displayId: displayId})
         expect(global.fetch).toHaveBeenCalledWith(
-            `https://wow.zamimg.com/modelviewer/live/meta/armor/${slot}/${displayId}.json`
+            `http://localhost:3001/modelviewer/live/meta/armor/${slot}/${displayId}.json`
         )
     })
 
@@ -105,7 +107,7 @@ describe(`getDisplaySlot`, () => {
 
         expect(result).toEqual({displaySlot: slot, displayId: displayId})
         expect(global.fetch).toHaveBeenCalledWith(
-            `https://wow.zamimg.com/modelviewer/live/meta/armor/${slot}/${displayId}.json`
+            `http://localhost:3001/modelviewer/live/meta/armor/${slot}/${displayId}.json`
         )
     })
 
@@ -123,7 +125,7 @@ describe(`getDisplaySlot`, () => {
 
         await expect(getDisplaySlot(item, slot, displayId)).rejects.toThrow(`displayId must be a number`)
         expect(global.fetch).not.toHaveBeenCalledWith(
-            `https://wow.zamimg.com/modelviewer/live/meta/armor/${item}/${displayId}`
+            `http://localhost:3001/modelviewer/live/meta/armor/${item}/${displayId}`
         )
     })
 })
@@ -150,11 +152,14 @@ describe(`findRaceGenderOptions`, () => {
     })
 
     it(`should fetch race and gender options and return them`, async () => {
+        fetch.mockResolvedValueOnce({
+            json: jest.fn().mockResolvedValueOnce(mockResponse)
+        })
+
         const result = await findRaceGenderOptions(2, 1)
 
         expect(fetch).toHaveBeenCalledTimes(1)
-        expect(fetch).toHaveBeenCalledWith(`https://wow.zamimg.com/modelviewer/live/meta/charactercustomization2/2_1.json`)
-
+        expect(fetch).toHaveBeenCalledWith(`http://localhost:3001/modelviewer/live/meta/charactercustomization2/2_1.json`)
         expect(result).toEqual(mockResponse)
     })
 })
