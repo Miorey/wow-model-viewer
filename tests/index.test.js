@@ -10,6 +10,7 @@ describe(`getDisplaySlot`, () => {
 
 
     beforeEach(() => {
+        window.WOTLK_TO_RETAIL_DISPLAY_ID_API=`http://itemtest.com/`
         global.fetch = jest.fn().mockImplementation(() =>
             Promise.resolve({
                 json: () => Promise.resolve(),
@@ -52,7 +53,7 @@ describe(`getDisplaySlot`, () => {
         // Mock fetch response
         const mockSuccessResponse = {data: {newDisplayId: 9012}}
 
-        const goodUrl = `https://wotlk.murlocvillage.com/api/items/${item}/${displayId}`
+        const goodUrl = `http://itemtest.com//${item}/${displayId}`
 
         jest.spyOn(global, `fetch`).mockImplementation((url) => {
             if (url === goodUrl) {
