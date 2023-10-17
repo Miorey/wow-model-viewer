@@ -10,7 +10,6 @@ window.CONTENT_PATH = `http://localhost:2999/modelviewer/live/`;
 class MyDemo {
     // Define a constructor to initialize the page
     constructor(private modelId1: string, private modelId2: string) {
-        console.log(window.CONTENT_PATH)
     }
 
     // Define a method to generate the HTML for the page
@@ -25,7 +24,6 @@ class MyDemo {
     }
 
     async generateCharacter() {
-        console.log(`generateCharacter`, window.CONTENT_PATH)
         const model = {
             "race": 7,
             "gender": 1,
