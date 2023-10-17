@@ -1,5 +1,5 @@
 window.CONTENT_PATH=`http://localhost:3001/modelviewer/live/`
-window.WOTLK_TO_RETAIL_DISPLAY_ID_API=undefined
+window.WOTLK_TO_RETAIL_DISPLAY_ID_API=`https://wotlk.murlocvillage.com/`
 
 
 if (!window.WH) {

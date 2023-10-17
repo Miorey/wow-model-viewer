@@ -6,15 +6,57 @@ This library allows eu to generate a 3d model character with his customization a
 use [Wowhead](https://classic.wowhead.com/) libraries to generate the rendering. This lib is made to work with WotLK (
 WOW 3x) but with some little changes it should work on retail version.
 
-## Requirements
+## 🛠 Requirements
+To utilize this library effectively, you need a copy of specific files sourced from Wowhead. While there are various methods 
+to obtain these files, this document demonstrates the use of a replica server.
 
-This library requires jQuery 3.x and Wowhead ZamModelViewer to be loaded in your html pages.
+> ⚠️ Warning: The gaming data belongs to Wowhead. It's recommended to use them for personal purposes or small-scale projects, and definitely not for large commercial endeavors.
+
+### CORS policies
+Bypass using a replica server. This lib calls the replica, which fetches files from the gaming repository.
+For this purpose, you can use  [bypass-cors-policies](https://github.com/Miorey/bypass-cors-policies), which is specifically designed for such use cases. 
+You can use it with docker or node.js.
+
+#### 🐳 Using Docker
+To run the replica server with docker use following `docker-compose.yml`
+```yml
+version: '3'
+
+services:
+  bypass-cors-policies:
+    image: miorey/bypass-cors-policies:v1
+    environment:
+      - SERVER_NAME=https://wow.zamimg.com
+    volumes:
+      - ./storage:/usr/src/app/storage
+    ports:
+      - "2999:3000"
+```
+
+Run `docker-compose up`
+
+#### Node.js
+Alternatively, use Node.js for more details, refer to the: [doc](https://github.com/Miorey/bypass-cors-policies#local-setup).
+
+### Additional library
+
+This library depends on jQuery 3.x and the Wowhead ZamModelViewer. Ensure they're loaded in your HTML pages:
 
 ```html
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://wow.zamimg.com/modelviewer/live/viewer/viewer.min.js"></script>
+```
+
+### Setup
+
+Lastly, you must set up the `CONTENT_PATH` environment variable. 
+This indicates the location of the data required to render the canvas. 
+If you're using the provided `docker-compose` example, then:
+
+```js
+    window.CONTENT_PATH = `http://localhost:2999/modelviewer/live/`
 ```
 
 ## Usage
