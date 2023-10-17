@@ -2,7 +2,7 @@ module.exports = {
     root: true,
     parserOptions: {
         sourceType: `module`,
-        ecmaVersion: 2022,
+        ecmaVersion: 2018,
         ecmaFeatures: {
             globalReturn: false,
             impliedStrict: false,

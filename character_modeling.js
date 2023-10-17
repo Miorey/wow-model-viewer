@@ -1,4 +1,5 @@
-import {WOTLK_TO_RETAIL_DISPLAY_ID_API, CONTENT_PATH} from "./setup.js"
+
+import "./setup.js"
 
 const NOT_DISPLAYED_SLOTS = [
     2, // neck
@@ -74,7 +75,6 @@ function optionalChaining(choice) {
 function getCharacterOptions(character, fullOptions) {
     const options = fullOptions.Options
     const ret = []
-    debugger
     for (const prop in CHARACTER_PART) {
         const part = options.find(e => e.Name === prop)
 
@@ -144,14 +144,18 @@ async function getDisplaySlot(item, slot, displayId) {
     }
 
     try {
-        await fetch(`${CONTENT_PATH}meta/armor/${slot}/${displayId}.json`).then(response => response.json())
+        await fetch(`${window.CONTENT_PATH}meta/armor/${slot}/${displayId}.json`)
+            .then(response => response.json())
 
         return {
             displaySlot: slot,
             displayId: displayId
         }
     } catch (e) {
-        const resp = await fetch(`${WOTLK_TO_RETAIL_DISPLAY_ID_API}api/items/${item}/${displayId}`)
+        if(!window.WOTLK_TO_RETAIL_DISPLAY_ID_API){
+            throw Error(`Item not found and window.WOTLK_TO_RETAIL_DISPLAY_ID_API not set`)
+        }
+        const resp = await fetch(`${window.WOTLK_TO_RETAIL_DISPLAY_ID_API}/${item}/${displayId}`)
             .then((response) => response.json())
         const res = resp.data || resp
         if (res.newDisplayId !== displayId) {
@@ -225,7 +229,7 @@ async function findItemsInEquipments(equipments) {
  * @returns {Promise<Object>}
  */
 async function findRaceGenderOptions(race, gender) {
-    const options = await fetch(`${CONTENT_PATH}meta/charactercustomization2/${race}_${gender}.json`)
+    const options = await fetch(`${window.CONTENT_PATH}meta/charactercustomization2/${race}_${gender}.json`)
         .then(
             (response) => response.json()
         )

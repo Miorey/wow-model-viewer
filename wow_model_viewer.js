@@ -3,58 +3,6 @@ import {getCharacterOptions} from "./character_modeling.js"
 
 // eslint-disable-next-line no-undef
 class WowModelViewer extends ZamModelViewer {
-    _currentCharacterOptions = 0 // Direct property initialization
-    _characterGender = null
-    _characterRace = null
-
-
-    // Getter for the attribute
-    get currentCharacterOptions() {
-        return this._currentCharacterOptions
-    }
-
-    // Setter for the attribute
-    set currentCharacterOptions(value) {
-        this._currentCharacterOptions = value
-    }
-
-
-
-    /**
-     *
-     * @return {number|null}
-     */
-    get characterGender() {
-        return this._characterGender
-    }
-
-
-    /**
-     *
-     * @param {number} value
-     */
-    set characterGender(value) {
-        this._characterGender = value
-    }
-
-
-
-    /**
-     *
-     * @return {number|null}
-     */
-    get characterRace() {
-        return this._characterRace
-    }
-
-    /**
-     *
-     * @param {number} value
-     */
-    set characterRace(value) {
-        this._characterRace = value
-    }
-
     /**
      * Returns the list of animation names
      * @returns {Array.<string>}
@@ -158,6 +106,42 @@ class WowModelViewer extends ZamModelViewer {
         this.method(`setAppearance`, {race: race, gender: gender, options: characterOptions})
     }
 }
+
+// Instance variables
+WowModelViewer.prototype._currentCharacterOptions = 0
+WowModelViewer.prototype._characterGender = null
+WowModelViewer.prototype._characterRace = null
+
+// Getter and Setter for currentCharacterOptions
+Object.defineProperty(WowModelViewer.prototype, `currentCharacterOptions`, {
+    get: function() {
+        return this._currentCharacterOptions
+    },
+    set: function(value) {
+        this._currentCharacterOptions = value
+    }
+})
+
+// Getter and Setter for characterGender
+Object.defineProperty(WowModelViewer.prototype, `characterGender`, {
+    get: function() {
+        return this._characterGender
+    },
+    set: function(value) {
+        this._characterGender = value
+    }
+})
+
+// Getter and Setter for characterRace
+Object.defineProperty(WowModelViewer.prototype, `characterRace`, {
+    get: function() {
+        return this._characterRace
+    },
+    set: function(value) {
+        this._characterRace = value
+    }
+})
+
 
 export {
     WowModelViewer,

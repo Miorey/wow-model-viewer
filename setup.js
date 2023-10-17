@@ -1,5 +1,5 @@
-const CONTENT_PATH = `https://wow.zamimg.com/modelviewer/live/`
-const WOTLK_TO_RETAIL_DISPLAY_ID_API= `https://wotlk.murlocvillage.com/`
+window.CONTENT_PATH=`http://localhost:3001/modelviewer/live/`
+window.WOTLK_TO_RETAIL_DISPLAY_ID_API=`https://wotlk.murlocvillage.com/`
 
 
 if (!window.WH) {
@@ -47,6 +47,4 @@ const WH = window.WH
 
 export {
     WH,
-    CONTENT_PATH,
-    WOTLK_TO_RETAIL_DISPLAY_ID_API
 }

@@ -6,7 +6,7 @@ import {
     findItemsInEquipments
 } from "./character_modeling.js"
 
-import { CONTENT_PATH } from "./setup.js"
+import "./setup.js"
 
 /**
  *
@@ -34,7 +34,7 @@ async function generateModels(aspect, containerSelector, model) {
     }
     const models = {
         type: 2,
-        contentPath: CONTENT_PATH,
+        contentPath: window.CONTENT_PATH,
         // eslint-disable-next-line no-undef
         container: jQuery(containerSelector),
         aspect: aspect,

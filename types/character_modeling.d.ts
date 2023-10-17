@@ -65,7 +65,7 @@ export function getDisplaySlot(item: number, slot: number, displayId: number): P
  * @param {number} character.race - Description for race.
  * @param {number} character.skin - Description for skin.
  * @param {Object} fullOptions - Zaming API character options payload.
- * @return {Promise<[]>}
+ * @return {[]}
  */
 export function getCharacterOptions(character: {
     face: number;
@@ -76,4 +76,4 @@ export function getCharacterOptions(character: {
     items: Array<Array<number>>;
     race: number;
     skin: number;
-}, fullOptions: any): Promise<[]>;
+}, fullOptions: any): [];
