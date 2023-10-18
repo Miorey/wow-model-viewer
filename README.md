@@ -386,6 +386,6 @@ Collection       | 102 |
 Each contribution to this lib have to take in account js doc and typescript
 To generate the TypecSript declaration please execute the following:
 
-```basj
+```bash
 npm run prepublish
 ```
