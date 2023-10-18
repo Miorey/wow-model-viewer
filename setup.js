@@ -1,5 +1,9 @@
-window.CONTENT_PATH=`http://localhost:3001/modelviewer/live/`
-window.WOTLK_TO_RETAIL_DISPLAY_ID_API=`https://wotlk.murlocvillage.com/`
+if(!window.CONTENT_PATH){
+    window.CONTENT_PATH =`http://localhost:3001/modelviewer/live/`
+}
+if(!window.CONTENT_PATH){
+    window.WOTLK_TO_RETAIL_DISPLAY_ID_API=`https://wotlk.murlocvillage.com/`
+}
 
 
 if (!window.WH) {
