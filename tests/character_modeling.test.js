@@ -51,7 +51,7 @@ describe(`Character Modeling functions`, () => {
         expect(result).toEqual({
             items: [],
             charCustomization: { options: [] },
-            models: { id: `humanfemale`, type: 16 }
+            models: { id: 2, type: 16 }
         })
     })
 
