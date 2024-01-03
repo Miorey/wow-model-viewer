@@ -9,19 +9,6 @@ const NOT_DISPLAYED_SLOTS = [
     14, // trinket2
 ]
 
-const RACES = {
-    1: `human`,
-    2: `orc`,
-    3: `dwarf`,
-    4: `nightelf`,
-    5: `scourge`,
-    6: `tauren`,
-    7: `gnome`,
-    8: `troll`,
-    10: `bloodelf`,
-    11: `draenei`
-}
-
 const CHARACTER_PART = {
     Face: `face`,
     "Skin Color": `skin`,
@@ -106,8 +93,6 @@ function optionsFromModel(model, fullOptions) {
     const characterItems = (model.items) ? model.items.filter(e => !NOT_DISPLAYED_SLOTS.includes(e[0])) : []
     const options = getCharacterOptions(model, fullOptions)
 
-    const retGender = (gender === 1) ? `female` : `male`
-    const raceToModelId = RACES[race] + retGender
 
     return {
         items: characterItems,
@@ -115,7 +100,7 @@ function optionsFromModel(model, fullOptions) {
             options: options
         },
         models: {
-            id: raceToModelId,
+            id: race*2-1+gender,
             type: 16
         },
     }
@@ -229,7 +214,8 @@ async function findItemsInEquipments(equipments) {
  * @returns {Promise<Object>}
  */
 async function findRaceGenderOptions(race, gender) {
-    const options = await fetch(`${window.CONTENT_PATH}meta/charactercustomization2/${race}_${gender}.json`)
+    const raceGender = race * 2 - 1 + gender
+    const options = await fetch(`${window.CONTENT_PATH}meta/charactercustomization/${raceGender}.json`)
         .then(
             (response) => response.json()
         )
@@ -243,7 +229,6 @@ async function findRaceGenderOptions(race, gender) {
 export {
     optionsFromModel,
     findRaceGenderOptions,
-    RACES,
     findItemsInEquipments,
     getDisplaySlot,
     getCharacterOptions

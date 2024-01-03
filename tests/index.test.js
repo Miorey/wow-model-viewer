@@ -160,7 +160,7 @@ describe(`findRaceGenderOptions`, () => {
         const result = await findRaceGenderOptions(2, 1)
 
         expect(fetch).toHaveBeenCalledTimes(1)
-        expect(fetch).toHaveBeenCalledWith(`http://localhost:3001/modelviewer/live/meta/charactercustomization2/2_1.json`)
+        expect(fetch).toHaveBeenCalledWith(`http://localhost:3001/modelviewer/live/meta/charactercustomization/4.json`)
         expect(result).toEqual(mockResponse)
     })
 })
