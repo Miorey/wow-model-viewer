@@ -5,7 +5,7 @@ declare global {
 }
 
 
-window.CONTENT_PATH = `http://localhost:2999/modelviewer/live/`;
+window.CONTENT_PATH = `http://localhost:3000/modelviewer/live/`;
 
 class MyDemo {
     // Define a constructor to initialize the page
