@@ -26,18 +26,6 @@ export function optionsFromModel(model: any, fullOptions: {}): {
  * @returns {Promise<Object>}
  */
 export function findRaceGenderOptions(race: number, gender: number): Promise<any>;
-export const RACES: {
-    1: string;
-    2: string;
-    3: string;
-    4: string;
-    5: string;
-    6: string;
-    7: string;
-    8: string;
-    10: string;
-    11: string;
-};
 /**
  * Returns a 2-dimensional list the inner list contains on first position the item slot, the second the item
  * display-id ex: [[1,1170],[3,4925]]

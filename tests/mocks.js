@@ -2,15 +2,15 @@ class ZamModelViewer {
     constructor() {
         this.renderer = {
             models: [{
-                ap: [{
-                    j: `animation1`
+                am: [{
+                    l: `animation1`
                 }, {
-                    j: `animation2`
+                    l: `animation2`
                 }, {
-                    j: `animation3`
+                    l: `animation3`
                 }],
                 setAnimation: function (val) {
-                    if (!this.ap.find(e => e.j === val)) {
+                    if (!this.am.find(e => e.l === val)) {
                         // nothing
                     }
                 },
