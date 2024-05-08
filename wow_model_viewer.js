@@ -25,7 +25,6 @@ class WowModelViewer extends ZamModelViewer {
      * @param {string} val
      */
     setAnimation(val) {
-        console.log(this.getListAnimations())
         if (!this.getListAnimations().includes(val)) {
             console.warn(`${this.constructor.name}: Animation ${val} not found`)
         }
