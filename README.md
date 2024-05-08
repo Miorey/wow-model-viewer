@@ -382,7 +382,8 @@ Itemvisual       | 512 |
 Collection       | 102 |
 
 # Updates
-As this library is based on a minified version of the Wowhead model viewer, regular upgrades of this library may require you to clear your cached data. If you are using a Docker container named 'bypass-cors-policies', you can follow these steps to clean up the cache:
+As this library is based on a minified version of the Wowhead model viewer, regular upgrades of this library may require you to clear your cached data. 
+If you are using a Docker  `bypass-cors-policies` container, you can follow these steps to clean up the cache:
 
 ```sh
 docker exec -it [container_id_or_name] /bin/sh
