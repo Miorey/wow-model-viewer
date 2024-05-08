@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  bypass-cors-policies:
+    image: miorey/bypass-cors-policies:v1
+    environment:
+      - SERVER_NAME=https://wow.zamimg.com
+    volumes:
+      - ./storage:/usr/src/app/storage
+    ports:
+      - "2999:3000"
