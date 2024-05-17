@@ -23,8 +23,9 @@ const CHARACTER_PART = {
     "Jaw Features": undefined,
     "Face Features": undefined,
     "Skin Type": undefined,
-    Ears: undefined,
-    Horns: undefined,
+    Ears: `ears`,
+    "Fur Color": `furColor`,
+    Snout: `snout`,
     Blindfold: undefined,
     Tattoo: undefined,
     "Eye Color": undefined,
@@ -33,7 +34,13 @@ const CHARACTER_PART = {
     "Jewelry Color": undefined,
     Bracelets: undefined,
     Necklace: undefined,
-    Earring: undefined
+    Earring: undefined,
+    "Primary Color": `primaryColor`,
+    "Secondary Color Strength": `secondaryColorStrength`,
+    "Secondary Color": `secondaryColor`,
+    "Horn Color": `hornColor`,
+    Horns: `horns`,
+    "Body Size": `bodySize`
 }
 
 
