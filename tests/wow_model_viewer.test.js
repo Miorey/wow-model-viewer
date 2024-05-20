@@ -4,9 +4,6 @@ import './mocks.js'
 
 // Import the module to be tested
 import {WowModelViewer} from '../wow_model_viewer'
-import {
-    getCharacterOptions
-} from '../character_modeling.js'
 
 
 describe(`WowModelViewer`, () => {

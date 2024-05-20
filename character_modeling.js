@@ -9,38 +9,40 @@ const NOT_DISPLAYED_SLOTS = [
     14, // trinket2
 ]
 
-const CHARACTER_PART = {
-    Face: `face`,
-    "Skin Color": `skin`,
-    "Hair Style": `hairStyle`,
-    "Hair Color": `hairColor`,
-    "Facial Hair": `facialStyle`,
-    Mustache: `facialStyle`,
-    Beard: `facialStyle`,
-    Sideburns: `facialStyle`,
-    "Face Shape": `facialStyle`,
-    Eyebrow: `facialStyle`,
-    "Jaw Features": undefined,
-    "Face Features": undefined,
-    "Skin Type": undefined,
-    Ears: `ears`,
-    "Fur Color": `furColor`,
-    Snout: `snout`,
-    Blindfold: undefined,
-    Tattoo: undefined,
-    "Eye Color": undefined,
-    "Tattoo Color": undefined,
-    Armbands: undefined,
-    "Jewelry Color": undefined,
-    Bracelets: undefined,
-    Necklace: undefined,
-    Earring: undefined,
-    "Primary Color": `primaryColor`,
-    "Secondary Color Strength": `secondaryColorStrength`,
-    "Secondary Color": `secondaryColor`,
-    "Horn Color": `hornColor`,
-    Horns: `horns`,
-    "Body Size": `bodySize`
+const characterPart = () => {
+    return{
+        Face: `face`,
+        "Skin Color": `skin`,
+        "Hair Style": `hairStyle`,
+        "Hair Color": `hairColor`,
+        "Facial Hair": `facialStyle`,
+        Mustache: `facialStyle`,
+        Beard: `facialStyle`,
+        Sideburns: `facialStyle`,
+        "Face Shape": `facialStyle`,
+        Eyebrow: `facialStyle`,
+        "Jaw Features": undefined,
+        "Face Features": undefined,
+        "Skin Type": undefined,
+        Ears: (window.WOTLK_TO_RETAIL_DISPLAY_ID_API) ? undefined : `ears`,
+        "Fur Color": (window.WOTLK_TO_RETAIL_DISPLAY_ID_API) ? undefined : `furColor`,
+        Snout: `snout`,
+        Blindfold: undefined,
+        Tattoo: undefined,
+        "Eye Color": undefined,
+        "Tattoo Color": undefined,
+        Armbands: undefined,
+        "Jewelry Color": undefined,
+        Bracelets: undefined,
+        Necklace: undefined,
+        Earring: undefined,
+        "Primary Color": (window.WOTLK_TO_RETAIL_DISPLAY_ID_API) ? undefined : `primaryColor`,
+        "Secondary Color Strength": (window.WOTLK_TO_RETAIL_DISPLAY_ID_API) ? undefined : `secondaryColorStrength`,
+        "Secondary Color": (window.WOTLK_TO_RETAIL_DISPLAY_ID_API) ? undefined : `secondaryColor`,
+        "Horn Color": (window.WOTLK_TO_RETAIL_DISPLAY_ID_API) ? undefined : `hornColor`,
+        Horns: (window.WOTLK_TO_RETAIL_DISPLAY_ID_API) ? undefined : `horns`,
+        "Body Size": (window.WOTLK_TO_RETAIL_DISPLAY_ID_API) ? undefined : `bodySize`
+    }
 }
 
 
@@ -69,7 +71,7 @@ function optionalChaining(choice) {
 function getCharacterOptions(character, fullOptions) {
     const options = fullOptions.Options
     const ret = []
-    for (const prop in CHARACTER_PART) {
+    for (const prop in characterPart()) {
         const part = options.find(e => e.Name === prop)
 
         if (!part) {
@@ -78,7 +80,7 @@ function getCharacterOptions(character, fullOptions) {
 
         const newOption = {
             optionId: part.Id,
-            choiceId: (CHARACTER_PART[prop]) ? optionalChaining(part.Choices[character[CHARACTER_PART[prop]]]) : part.Choices[0].Id
+            choiceId: (characterPart()[prop]) ? optionalChaining(part.Choices[character[characterPart()[prop]]]) : part.Choices[0].Id
         }
         ret.push(newOption)
     }
@@ -238,5 +240,6 @@ export {
     findRaceGenderOptions,
     findItemsInEquipments,
     getDisplaySlot,
-    getCharacterOptions
+    getCharacterOptions,
+    characterPart
 }
