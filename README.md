@@ -3,8 +3,7 @@
 # WoW Model viewer
 
 This library allows eu to generate a 3d model character with his customization and items. It is
-use [Wowhead](https://classic.wowhead.com/) libraries to generate the rendering. This lib is made to work with WotLK (
-WOW 3x) but with some little changes it should work on retail version.
+use [Wowhead](https://classic.wowhead.com/) libraries to generate the rendering. This lib works with WotLK and Retail wow versions.
 
 ## 🛠 Requirements
 To utilize this library effectively, you need a copy of specific files sourced from Wowhead. While there are various methods 
@@ -60,6 +59,21 @@ OR
 
 ### Setup
 
+#### WotLK or Retail ?
+The library works well with both retail and WotLK. 
+For WotLK, some adjustments need to be made. 
+By default, the library is set up to work with WotLK by using this URL to retrieve the display ID for old items.
+```js
+ window.WOTLK_TO_RETAIL_DISPLAY_ID_API=`https://wotlk.murlocvillage.com/api/items`
+```
+
+When you want to use the lib for wow retail you just need to set this var to `undefined`:
+```js
+ window.WOTLK_TO_RETAIL_DISPLAY_ID_API=undefined
+```
+
+#### Data Path
+
 Lastly, you must set up the `CONTENT_PATH` environment variable. 
 This indicates the location of the data required to render the canvas. 
 If you're using the provided `docker-compose` example, then:
@@ -67,6 +81,7 @@ If you're using the provided `docker-compose` example, then:
 ```js
     window.CONTENT_PATH = `http://localhost:2999/modelviewer/live/`
 ```
+
 
 ## Usage
 
