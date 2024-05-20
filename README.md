@@ -201,6 +201,19 @@ gnome    | 7
 troll    | 8
 bloodelf | 10
 draenei  | 11
+worgen  | 22
+pandaren  | 24
+nightborne  | 27
+highmountaintauren  | 28
+voidelf  | 29
+lightforgeddraenei  | 30
+zandalaritroll  | 31
+kultiran  | 32
+darkirondwarf  | 34
+vulpera  | 35
+magharorc  | 36
+mechagnome  | 37
+dracthyr  | 45
 
 The `gender` is `0` for female `1` for male.
 
@@ -393,6 +406,11 @@ cd storage/
 rm -rf *
 ```
 If you are not using this Docker container, please adapt the cleanup process according to your environment.
+
+if you are useing Vulpera(race=35) ,`face` `furColor` `ears` `snout` options is reqiured.
+
+if you use dracthyr(race=45) `primaryColor` `secondaryColorStrength` `secondaryColor` `bodySize` `horns` `hornColor` options is reqiured.
+
 
 # Contribute
 
