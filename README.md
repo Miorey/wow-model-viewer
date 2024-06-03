@@ -214,6 +214,7 @@ scourge  | 5
 tauren   | 6
 gnome    | 7
 troll    | 8
+goblin | 9
 bloodelf | 10
 draenei  | 11
 worgen  | 22
