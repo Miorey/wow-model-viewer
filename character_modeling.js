@@ -10,7 +10,7 @@ const NOT_DISPLAYED_SLOTS = [
 ]
 
 const characterPart = () => {
-    return{
+    const ret = {
         Face: `face`,
         "Skin Color": `skin`,
         "Hair Style": `hairStyle`,
@@ -43,6 +43,8 @@ const characterPart = () => {
         Horns: (window.WOTLK_TO_RETAIL_DISPLAY_ID_API) ? undefined : `horns`,
         "Body Size": (window.WOTLK_TO_RETAIL_DISPLAY_ID_API) ? undefined : `bodySize`
     }
+    console.log(ret)
+    return ret
 }
 
 
@@ -70,6 +72,7 @@ function optionalChaining(choice) {
  */
 function getCharacterOptions(character, fullOptions) {
     const options = fullOptions.Options
+    const missingChoice = []
     const ret = []
     for (const prop in characterPart()) {
         const part = options.find(e => e.Name === prop)
@@ -82,8 +85,12 @@ function getCharacterOptions(character, fullOptions) {
             optionId: part.Id,
             choiceId: (characterPart()[prop]) ? optionalChaining(part.Choices[character[characterPart()[prop]]]) : part.Choices[0].Id
         }
+        if(newOption.choiceId === undefined) {
+            missingChoice.push(characterPart()[prop])
+        }
         ret.push(newOption)
     }
+    console.warn(`In character: `, character, `the following options are missing`, missingChoice)
 
     return ret
 }
