@@ -5,11 +5,18 @@ if(!window.WOTLK_TO_RETAIL_DISPLAY_ID_API){
     window.WOTLK_TO_RETAIL_DISPLAY_ID_API=`https://wotlk.murlocvillage.com/api/items`
 }
 
+class WebP {
+    getImageExtension() {
+        return `.webp`
+    }
+
+}
 
 if (!window.WH) {
     window.WH = {}
     window.WH.debug = function (...args) { console.log(args) }
     window.WH.defaultAnimation = `Stand`
+    window.WH.WebP = new WebP()
     window.WH.Wow = {
         Item: {
             INVENTORY_TYPE_HEAD: 1,
