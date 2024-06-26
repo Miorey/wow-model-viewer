@@ -170,14 +170,22 @@
 <div class="content">
     <div class="container">
         <div class="box">
-            <h2>Jane Doe</h2>
+            <h2>John Doe</h2>
             <p>Character display</p>
-            <div id="model_3d3"></div>
+            <div id="model_3d1"></div>
             <div class="button-container">
-                <button onclick="randAnimation(window.model3)">Rand animation</button>
-                <button onclick="fullScreen(window.model3)">Full Screen</button>
-                <button onclick="switchEquipment(window.model3)">Switch Equipment</button>
-                <button onclick="switchApparence(window.model3)">Switch Appearance</button>
+                <button onclick="randAnimation(window.model1)">Rand animation</button>
+                <button onclick="fullScreen(window.model1)">Full Screen</button>
+            </div>
+        </div>
+
+        <div class="box">
+            <h2>John Smith</h2>
+            <p>Character display</p>
+            <div id="model_3d2"></div>
+            <div class="button-container">
+                <button onclick="randAnimation(window.model2)">Rand animation</button>
+                <button onclick="fullScreen(window.model2)">Full Screen</button>
             </div>
         </div>
     </div>
@@ -186,7 +194,6 @@
 <div class="footer">
     <p>Made with ❤️ by
         <a class="highlight-link" href="https://miorey.github.io/">Miorey</a> -
-
         <a class="highlight-link" href="https://github.com/Miorey/wow-model-viewer">Github</a> -
         <a class="highlight-link" href="https://www.npmjs.com/package/wow-model-viewer">npm</a>
     </p>
@@ -194,7 +201,6 @@
 </body>
 <script type="module">
     window.CONTENT_PATH = `http://localhost:3000/modelviewer/classic/`
-    window.EXPANSION =`classic`
     window.WOTLK_TO_RETAIL_DISPLAY_ID_API = undefined
     import {generateModels} from './index.js';
 
@@ -206,17 +212,21 @@
         "hairStyle": 2,
         "hairColor": 2,
         "facialStyle": 2,
-        "items": [[3, 680018], [21, 679611]]
+        "items": [[3, 680018]]
         // "items": [[21, 679611]]
     };
+    const character2 = {
+        "race": 1,
+        "gender": 0,
+        "items": [[21, 679611]],
+        "noCharCustomization": true
+    }
 
-    window.model3 = await generateModels(2.5, `#model_3d3`, character);
+
+    window.model1 = await generateModels(2.5, `#model_3d1`, character);
+    window.model2 = await generateModels(2.5, `#model_3d2`, character2, "classic");
     window.isPaused = false;
-    window.isDefaultItems = true;
-    window.isDefaultApparence = true;
 
-
-    let direction = 10
 
     /**
      *
@@ -231,22 +241,11 @@
     window.pauseAnimation = () => {
         window.isPaused = !window.isPaused
         window.model1.setAnimPaused(window.isPaused)
+        window.model2.setAnimPaused(window.isPaused)
     }
 
     window.fullScreen = (model) => {
         model.setFullscreen(true)
-    }
-
-    window.switchEquipment = () => {
-        window.isDefaultItems = !window.isDefaultItems
-        // const items = (window.isDefaultItems) ? []
-        // for(const item of items) {
-        //     window.model3.updateItemViewer(item[0], item[1], 0)
-        // }
-    }
-
-    window.changeDirection = () => {
-        direction = -1 * direction
     }
 </script>
 </html>
