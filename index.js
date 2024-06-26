@@ -3,7 +3,8 @@ import {
     findRaceGenderOptions,
     optionsFromModel,
     getDisplaySlot,
-    findItemsInEquipments
+    findItemsInEquipments,
+    modelingType
 } from "./character_modeling.js"
 
 import "./setup.js"
@@ -13,9 +14,10 @@ import "./setup.js"
  * @param aspect {number}: Size of the character
  * @param containerSelector {string}: jQuery selector on the container
  * @param model {{}|{id: number, type: number}}: A json representation of a character
+ * @param env {('classic'|'live')}: select game enve
  * @returns {Promise<WowModelViewer>}
  */
-async function generateModels(aspect, containerSelector, model) {
+async function generateModels(aspect, containerSelector, model, env=`live`) {
     let modelOptions
     let fullOptions
     if (model.id && model.type) {
@@ -32,15 +34,29 @@ async function generateModels(aspect, containerSelector, model) {
         )
         modelOptions = optionsFromModel(model, fullOptions)
     }
+    if(env === `classic`) {
+        modelOptions = {
+            dataEnv: `classic`,
+            env: `classic`,
+            gameDataEnv: `classic`,
+            hd: false,
+            ...modelOptions
+        }
+    } else {
+        modelOptions = {
+            hd: true,
+            ...modelOptions
+        }
+    }
     const models = {
         type: 2,
         contentPath: window.CONTENT_PATH,
         // eslint-disable-next-line no-undef
         container: jQuery(containerSelector),
         aspect: aspect,
-        hd: true,
         ...modelOptions
     }
+    console.log(`Creating viewer with options`, models)
 
     // eslint-disable-next-line no-undef
     const wowModelViewer =  await new WowModelViewer(models)
@@ -58,4 +74,5 @@ export {
     generateModels,
     getDisplaySlot,
     findItemsInEquipments,
+    modelingType
 }

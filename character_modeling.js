@@ -9,6 +9,20 @@ const NOT_DISPLAYED_SLOTS = [
     14, // trinket2
 ]
 
+const modelingType = {
+    ARMOR: 128,
+    CHARACTER: 16,
+    COLLECTION: 1024,
+    HELM: 2,
+    HUMANOIDNPC: 32,
+    ITEM: 1,
+    ITEMVISUAL: 512,
+    NPC: 8,
+    OBJECT: 64,
+    PATH: 256,
+    SHOULDER: 4
+}
+
 const characterPart = () => {
     const ret = {
         Face: `face`,
@@ -108,18 +122,20 @@ function optionsFromModel(model, fullOptions) {
     // slot ids on model viewer
     const characterItems = (model.items) ? model.items.filter(e => !NOT_DISPLAYED_SLOTS.includes(e[0])) : []
     const options = getCharacterOptions(model, fullOptions)
-
-
-    return {
+    let charCustomization = {
+        options: options
+    }
+    const ret = {
         items: characterItems,
-        charCustomization: {
-            options: options
-        },
         models: {
             id: race*2-1+gender,
-            type: 16
+            type: modelingType.CHARACTER
         },
     }
+    if(!model.noCharCustomization) {
+        ret.charCustomization = charCustomization
+    }
+    return ret
 }
 
 
@@ -129,9 +145,10 @@ function optionsFromModel(model, fullOptions) {
  * @param item{number}: Item id
  * @param slot{number}: Item slot number
  * @param displayId{number}: DisplayId of the item
+ * @param env {('classic'|'live')}: select game env
  * @return {Promise<boolean|*>}
  */
-async function getDisplaySlot(item, slot, displayId) {
+async function getDisplaySlot(item, slot, displayId, env=`live`) {
     if (typeof item !== `number`) {
         throw new Error(`item must be a number`)
     }
@@ -145,7 +162,10 @@ async function getDisplaySlot(item, slot, displayId) {
     }
 
     try {
-        await fetch(`${window.CONTENT_PATH}meta/armor/${slot}/${displayId}.json`)
+        const jsonPath = (env === `classic` && [21, 22].includes(slot)) ?
+            `${window.CONTENT_PATH}meta/item/${displayId}.json` :
+            `${window.CONTENT_PATH}meta/armor/${slot}/${displayId}.json`
+        await fetch(jsonPath)
             .then(response => response.json())
 
         return {
@@ -195,9 +215,10 @@ async function getDisplaySlot(item, slot, displayId) {
  * Returns a 2-dimensional list the inner list contains on first position the item slot, the second the item
  * display-id ex: [[1,1170],[3,4925]]
  * @param {*[{item: {entry: number, displayid: number}, transmog: {entry: number, displayid: number}, slot: number}]} equipments
+ * @param env {('classic'|'live')}: select game enve
  * @returns {Promise<number[]>}
  */
-async function findItemsInEquipments(equipments) {
+async function findItemsInEquipments(equipments, env=`live`) {
     for (const equipment of equipments) {
         if (NOT_DISPLAYED_SLOTS.includes(equipment.slot)) {
             continue
@@ -207,7 +228,8 @@ async function findItemsInEquipments(equipments) {
         const displaySlot = await getDisplaySlot(
             displayedItem.entry,
             equipment.slot,
-            displayedItem.displayid
+            displayedItem.displayid,
+            env
         )
         equipment.displaySlot = displaySlot.displaySlot
         equipment.displayId = displaySlot.displayId
@@ -248,5 +270,6 @@ export {
     findItemsInEquipments,
     getDisplaySlot,
     getCharacterOptions,
-    characterPart
+    characterPart,
+    modelingType
 }
