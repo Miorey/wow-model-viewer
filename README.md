@@ -6,14 +6,14 @@ This library allows eu to generate a 3d model character with his customization a
 use [Wowhead](https://classic.wowhead.com/) libraries to generate the rendering. This lib works with WotLK and Retail wow versions.
 
 ## 🛠 Requirements
-To utilize this library effectively, you need a copy of specific files sourced from Wowhead. While there are various methods 
+To utilize this library effectively, you need a copy of specific files sourced from Wowhead. While there are various methods
 to obtain these files, this document demonstrates the use of a replica server.
 
 > ⚠️ Warning: The gaming data belongs to Wowhead. It's recommended to use them for personal purposes or small-scale projects, and definitely not for large commercial endeavors.
 
 ### CORS policies
 Bypass using a replica server. This lib calls the replica, which fetches files from the gaming repository.
-For this purpose, you can use  [bypass-cors-policies](https://github.com/Miorey/bypass-cors-policies), which is specifically designed for such use cases. 
+For this purpose, you can use  [bypass-cors-policies](https://github.com/Miorey/bypass-cors-policies), which is specifically designed for such use cases.
 You can use it with docker or node.js.
 
 #### 🐳 Using Docker
@@ -50,7 +50,7 @@ Regarding the `viewer.min.js` you can download it from zaming or from your local
 ```
 AND
 ```html
-<script src="http://localhost:2999/modelviewer/live/viewer/viewer.min.js"></script>
+<script src="http://localhost:3000/modelviewer/live/viewer/viewer.min.js"></script>
 ```
 OR
 ```html
@@ -60,8 +60,8 @@ OR
 ### Setup
 
 #### WotLK or Retail ?
-The library works well with both retail and WotLK. 
-For WotLK, some adjustments need to be made. 
+The library works well with both retail and WotLK.
+For WotLK, some adjustments need to be made.
 By default, the library is set up to work with WotLK by using this URL to retrieve the display ID for old items.
 ```js
  window.WOTLK_TO_RETAIL_DISPLAY_ID_API=`https://wotlk.murlocvillage.com/api/items`
@@ -74,12 +74,12 @@ When you want to use the lib for wow retail you just need to set this var to `un
 
 #### Data Path
 
-Lastly, you must set up the `CONTENT_PATH` environment variable. 
-This indicates the location of the data required to render the canvas. 
+Lastly, you must set up the `CONTENT_PATH` environment variable.
+This indicates the location of the data required to render the canvas.
 If you're using the provided `docker-compose` example, then:
 
 ```js
-    window.CONTENT_PATH = `http://localhost:2999/modelviewer/live/`
+    window.CONTENT_PATH = `http://localhost:3000/modelviewer/live/`
 ```
 
 
@@ -157,7 +157,7 @@ To load the character my beautiful female gnome warlock
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
             integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
             crossorigin="anonymous"></script>
-    <script src="http://localhost:2999/modelviewer/live/viewer/viewer.min.js"></script>
+    <script src="http://localhost:3000/modelviewer/live/viewer/viewer.min.js"></script>
     <script type="module" src="./index.js"></script>
 </head>
 <body>
@@ -191,14 +191,14 @@ The description of the character is
 
 ```json
 {
-    "race":7,
-    "gender":1,
-    "skin":4,
-    "face":0,
-    "hairStyle":5,
-    "hairColor":5,
-    "facialStyle":5,
-    "items": [[1,1170],[3,4925],[5,9575],[6,25235],[7,2311],[8,21154],[9,14618],[10,9534],[15,17238],[21,20379],[22,28787]]
+  "race":7,
+  "gender":1,
+  "skin":4,
+  "face":0,
+  "hairStyle":5,
+  "hairColor":5,
+  "facialStyle":5,
+  "items": [[1,1170],[3,4925],[5,9575],[6,25235],[7,2311],[8,21154],[9,14618],[10,9534],[15,17238],[21,20379],[22,28787]]
 }
 ```
 
@@ -386,32 +386,61 @@ To get the npc display ids you can go [here](https://wow.tools/dbc/?dbc=creature
 
 Prince of Lordaeron:
 ```js
-const model = await generateModels(1, `#model_3d`, {type: 8, id: 24949});
+const model = await generateModels(1, `#model_3d`, {type: modelingType.NPC, id: 24949});
 ```
 
 To display Atiesh, Greatstaff of the Guardian
 ```js
-const model = await generateModels(1, `#model_3d`, {type: 1, id: 193841});
+const model = await generateModels(1, `#model_3d`, {type: modelingType.ITEM, id: 193841});
 ```
 
 #### Table of types
 
-Description     | Type 
-:--------------:|:----:|
-Item             | 1   |
-Helm             | 2   |
-Shoulder         | 4   |
-NPC              | 8   |
-Character        | 16  |
-Humanoidnpc      | 32  |
-Object           | 64  |
-Armor            | 128 |
-Path             | 256 |
-Itemvisual       | 512 |
-Collection       | 102 |
+Description     | Type | `modelingType`    |
+:--------------:|:----:|:-----------------:|
+Item            | 1    | `.ITEM`           |
+Helm            | 2    | `.HELM`           |
+Shoulder        | 4    | `.SHOULDER`       |
+NPC             | 8    | `.NPC`            |
+Character       | 16   | `.CHARACTER`      |
+Humanoidnpc     | 32   | `.HUMANOIDNPC`    |
+Object          | 64   | `.OBJECT`         |
+Armor           | 128  | `.ARMOR`          |
+Path            | 256  | `.PATH`           |
+Itemvisual      | 512  | `.ITEMVISUAL`     |
+Collection      | 1024 | `.COLLECTION`     |
+
+### Classic character display.
+To display the character of WoW classic you need to change your scripts:
+```html
+<script src="http://localhost:3000/modelviewer/classic/viewer/viewer.min.js"></script>
+```
+and change following vars to:
+```js
+    window.CONTENT_PATH = `http://localhost:3000/modelviewer/classic/`
+    window.WOTLK_TO_RETAIL_DISPLAY_ID_API = undefined
+```
+when you call `generateModels` you need to add a new param at the end `"classic"`
+
+```js
+generateModels(1.5, `#model_3d1`, character, "classic");
+```
+⚠️For some items you can't display them with a customize character look, in this case you need to use
+a new option `"noCharCustomization": true`.
+
+Ex:
+```js
+const character2 = {
+    "race": 1,
+    "gender": 0,
+    "items": [[21, 679611]],
+    "noCharCustomization": true
+}
+window.model2 = await generateModels(1.5, `#model_3d2`, character2, "classic");
+```
 
 # Updates
-As this library is based on a minified version of the Wowhead model viewer, regular upgrades of this library may require you to clear your cached data. 
+As this library is based on a minified version of the Wowhead model viewer, regular upgrades of this library may require you to clear your cached data.
 If you are using a Docker  `bypass-cors-policies` container, you can follow these steps to clean up the cache:
 
 ```sh

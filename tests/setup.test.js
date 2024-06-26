@@ -17,3 +17,4 @@ describe(`WH`, () => {
         expect(expect(WH.WebP.getImageExtension()).toEqual(`.webp`))
     })
 })
+
