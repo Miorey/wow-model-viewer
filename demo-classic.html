@@ -25,7 +25,7 @@
     <script crossorigin="anonymous"
             integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
             src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="http://localhost:2999/modelviewer/live/viewer/viewer.min.js"></script>
+    <script src="http://localhost:3000/modelviewer/classic/viewer/viewer.min.js"></script>
     <script src="./index.js" type="module"></script>
     <link href="https://fonts.cdnfonts.com/css/lifecraft" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -111,7 +111,7 @@
         }
 
         .box {
-            flex: 1;
+            flex: 10;
             padding: 20px;
         }
 
@@ -170,25 +170,6 @@
 <div class="content">
     <div class="container">
         <div class="box">
-            <h2>Arthas</h2>
-            <p>NPC display</p>
-            <div id="model_3d1"></div>
-            <div class="button-container">
-                <button onclick="randAnimation(window.model1)">Rand animation</button>
-                <button onclick="pauseAnimation()">Pause animation</button>
-                <button onclick="fullScreen(window.model1)">Full Screen</button>
-                <button onclick="changeDirection()">Change rotation</button>
-            </div>
-        </div>
-        <div class="box">
-            <h2>Atiesh GreatClock of the guardian</h2>
-            <p>Item display</p>
-            <div id="model_3d2"></div>
-            <div class="button-container">
-                <button onclick="fullScreen(window.model2)">Full Screen</button>
-            </div>
-        </div>
-        <div class="box">
             <h2>Jane Doe</h2>
             <p>Character display</p>
             <div id="model_3d3"></div>
@@ -212,43 +193,30 @@
 </div>
 </body>
 <script type="module">
-    window.CONTENT_PATH = `http://localhost:2999/modelviewer/live/`
+    window.CONTENT_PATH = `http://localhost:3000/modelviewer/classic/`
+    window.EXPANSION =`classic`
     window.WOTLK_TO_RETAIL_DISPLAY_ID_API = undefined
     import {generateModels} from './index.js';
 
     const character = {
-        "race": 45,
+        "race": 1,
         "gender": 0,
-        "skin": 1,
-        "primaryColor": 1,
-        "face": 0,
-        "ears": 1,
-        "items": [[1, 1170], [3, 4925], [5, 9575], [6, 25235], [7, 2311], [8, 21154], [9, 14618], [10, 9534], [15, 17238], [21, 20379], [22, 28787]]
+        "skin": 2,
+        "face": 2,
+        "hairStyle": 2,
+        "hairColor": 2,
+        "facialStyle": 2,
+        "items": [[3, 680018], [21, 679611]]
+        // "items": [[21, 679611]]
     };
 
-    window.model1 = await generateModels(1, `#model_3d1`, {type: 8, id: 24949});
-    window.model2 = await generateModels(1, `#model_3d2`, {type: 1, id: 193841});
-    window.model3 = await generateModels(1, `#model_3d3`, character);
+    window.model3 = await generateModels(2.5, `#model_3d3`, character);
     window.isPaused = false;
     window.isDefaultItems = true;
     window.isDefaultApparence = true;
 
-    setInterval(() => {
-        const date = new Date;
-        window.model2.setAzimuth(2 * Math.PI * (date.getSeconds() / 60))
-        window.model2.setZenith(Math.PI)
-    }, 1000)
 
-    let angle = 0
     let direction = 10
-    setInterval(() => {
-        if (Math.abs(angle) >= 2000000) {
-            angle = 0
-        }
-        angle += direction
-        window.model1.setAzimuth(2 * Math.PI * (angle / 10000))
-        window.model2.setZenith(Math.PI)
-    }, 1)
 
     /**
      *
@@ -271,33 +239,10 @@
 
     window.switchEquipment = () => {
         window.isDefaultItems = !window.isDefaultItems
-        const items = (window.isDefaultItems) ? [[1, 1170], [5, 9575], [21, 20379], [22, 28787], [3, 4925]] : [[1, 178278], [20, 30581], [21, 193841], [22, null], [3, 30623]]
-        for(const item of items) {
-            window.model3.updateItemViewer(item[0], item[1], 0)
-        }
-    }
-
-    window.switchApparence = () => {
-        window.isDefaultApparence = !window.isDefaultApparence
-        if(!window.isDefaultApparence) {
-
-            window.model3.setNewAppearance({
-                "skin": 4,
-                "face": 0,
-                "hairStyle": 1,
-                "hairColor": 8,
-                "facialStyle": 5,
-            })
-        } else {
-
-            window.model3.setNewAppearance({
-                "skin": 4,
-                "face": 0,
-                "hairStyle": 5,
-                "hairColor": 5,
-                "facialStyle": 5,
-            })
-        }
+        // const items = (window.isDefaultItems) ? []
+        // for(const item of items) {
+        //     window.model3.updateItemViewer(item[0], item[1], 0)
+        // }
     }
 
     window.changeDirection = () => {
