@@ -4,6 +4,12 @@ if(!window.CONTENT_PATH){
 if(!window.WOTLK_TO_RETAIL_DISPLAY_ID_API){
     window.WOTLK_TO_RETAIL_DISPLAY_ID_API=`https://wotlk.murlocvillage.com/api/items`
 }
+if(!window.fullScreenDisabled){
+    window.fullScreenDisabled = false
+}
+if(!window.zoomDisabled){
+    window.zoomDisabled = false
+}
 
 class WebP {
     getImageExtension() {
@@ -58,4 +64,43 @@ const WH = window.WH
 
 export {
     WH,
+}
+
+function firstOnApply (opts) {
+    var elements = opts.elements
+    var events = opts.events
+    var isDelegated = opts.isDelegated || false
+    elements.each(function (i, element) {
+        var eventsListeners = $._data(element, 'events')
+        $.each(events, function (i, event) {
+            var curEventListeners = eventsListeners[event]
+            var delegatedListeners = curEventListeners.slice(0, curEventListeners.delegateCount)
+            var vanillaListeners = curEventListeners.slice(curEventListeners.delegateCount)
+
+            if (isDelegated) {
+                delegatedListeners.unshift(delegatedListeners.pop())
+                Array.prototype.splice.apply(
+                    curEventListeners,
+                    [0, curEventListeners.delegateCount].concat(delegatedListeners)
+                )
+            } else {
+                vanillaListeners.unshift(vanillaListeners.pop())
+                Array.prototype.splice.apply(
+                    curEventListeners,
+                    [curEventListeners.delegateCount, vanillaListeners.length].concat(vanillaListeners)
+                )
+            }
+        })
+    })
+}
+
+$.fn.firstOn = function () {
+    var args = $.makeArray(arguments)
+    $.fn.on.apply(this, args)
+    var eventsString = args[0]
+    firstOnApply({
+        elements: this,
+        events: eventsString.split(' ')
+    })
+    return this
 }

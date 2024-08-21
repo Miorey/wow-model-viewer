@@ -64,12 +64,12 @@ async function generateModels(aspect, containerSelector, model, env=`live`, disa
     const wowModelViewer =  await new WowModelViewer(models)
 
     // override wowhead events listeners
-    if ( disableFullScreen === true ){
-        jQuery(containerSelector + ' canvas').off('dblclick'); // disable full screen
-    }
-    if ( disableZoom === true ){
-        jQuery(containerSelector + ' canvas').off('DOMMouseScroll mousewheel'); // disable zoom
-    }
+    $(containerSelector + ' canvas').firstOn('dblclick', (event) => {
+        if ( window.fullScreenDisabled === true) event.stopImmediatePropagation();
+    })
+    $(containerSelector + ' canvas').firstOn('DOMMouseScroll mousewheel', (event) => {
+        if ( window.zoomDisabled === true) event.stopImmediatePropagation();
+    })
 
     if(fullOptions) {
         wowModelViewer.currentCharacterOptions = fullOptions

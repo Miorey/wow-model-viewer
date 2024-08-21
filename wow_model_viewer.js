@@ -13,6 +13,34 @@ class WowModelViewer extends ZamModelViewer {
     }
 
     /**
+     * Enable zoom feature
+     */
+    enableZoom() {
+        window.zoomDisabled = false;
+    }
+
+    /**
+     * Enable zoom feature
+     */
+    disableZoom() {
+        window.zoomDisabled = true;
+    }
+
+    /**
+     * Enable zoom feature
+     */
+    enableFullScreen() {
+        window.fullScreenDisabled = false;
+    }
+
+    /**
+     * Enable zoom feature
+     */
+    disableFullScreen() {
+        window.fullScreenDisabled = true;
+    }
+
+    /**
      * Change character distance
      * @param {number} val
      */
