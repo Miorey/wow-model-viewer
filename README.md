@@ -439,6 +439,29 @@ const character2 = {
 window.model2 = await generateModels(1.5, `#model_3d2`, character2, "classic");
 ```
 
+### Disable zoom effect.
+To disable zoom effect on mouse wheel, set "disableZoom" parameter to true when calling generateModels(...) function. Once this feature disabled, it can't be enable because it will destroy wowhead zoom event handler.
+
+```js
+// will disable zoom
+window.model = await generateModels(1, `#model_3d`, character, "classic", true);
+// will not disable zoo
+window.model = await generateModels(1, `#model_3d`, character, "classic", false);
+window.model = await generateModels(1, `#model_3d`, character, "classic");
+```
+
+### Disable fullscreen mode.
+To disable fullscreen mode on double click, set "disableFullScreen" parameter to true when calling generateModels(...) function. Once this feature disabled, it can't be enable because it will destroy wowhead zoom event handler.
+
+```js
+// will disable fullscreen
+window.model = await generateModels(1, `#model_3d`, character, "classic", undefined, true);
+// will not disable fullscreen
+window.model = await generateModels(1, `#model_3d`, character, "classic", undefined, false);
+window.model = await generateModels(1, `#model_3d`, character, "classic", undefined);
+```
+
+
 # Updates
 As this library is based on a minified version of the Wowhead model viewer, regular upgrades of this library may require you to clear your cached data.
 If you are using a Docker  `bypass-cors-policies` container, you can follow these steps to clean up the cache:

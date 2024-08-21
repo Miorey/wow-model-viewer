@@ -15,9 +15,11 @@ import "./setup.js"
  * @param containerSelector {string}: jQuery selector on the container
  * @param model {{}|{id: number, type: number}}: A json representation of a character
  * @param env {('classic'|'live')}: select game enve
+ * @param disableZoom {boolean}: true = disable zoom on mouse wheel (false by default)
+ * @param disableFullScreen {boolean}: true = disable zoom on double click (false by default)
  * @returns {Promise<WowModelViewer>}
  */
-async function generateModels(aspect, containerSelector, model, env=`live`) {
+async function generateModels(aspect, containerSelector, model, env=`live`, disableZoom = false, disableFullScreen = false) {
     let modelOptions
     let fullOptions
     if (model.id && model.type) {
@@ -60,6 +62,15 @@ async function generateModels(aspect, containerSelector, model, env=`live`) {
 
     // eslint-disable-next-line no-undef
     const wowModelViewer =  await new WowModelViewer(models)
+
+    // override wowhead events listeners
+    if ( disableFullScreen === true ){
+        jQuery(containerSelector + ' canvas').off('dblclick'); // disable full screen
+    }
+    if ( disableZoom === true ){
+        jQuery(containerSelector + ' canvas').off('DOMMouseScroll mousewheel'); // disable zoom
+    }
+
     if(fullOptions) {
         wowModelViewer.currentCharacterOptions = fullOptions
         wowModelViewer.characterGender = model.gender
