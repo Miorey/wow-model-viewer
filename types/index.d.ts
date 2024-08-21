@@ -12,7 +12,7 @@ import { findRaceGenderOptions } from "./character_modeling.js";
 export function generateModels(aspect: number, containerSelector: string, model: {} | {
     id: number;
     type: number;
-}, env?: ('classic' | 'live'), disableZoom?: boolean, disableFullScreen?: boolean): Promise<WowModelViewer>;
+}, env?: ("classic" | "live"), disableZoom?: boolean, disableFullScreen?: boolean): Promise<WowModelViewer>;
 import { getDisplaySlot } from "./character_modeling.js";
 import { findItemsInEquipments } from "./character_modeling.js";
 import { modelingType } from "./character_modeling.js";

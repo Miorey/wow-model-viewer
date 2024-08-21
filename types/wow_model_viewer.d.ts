@@ -51,10 +51,10 @@ export class WowModelViewer {
     _currentCharacterOptions: number;
     _characterGender: any;
     _characterRace: any;
-    set currentCharacterOptions(arg: any);
+    set currentCharacterOptions(value: any);
     get currentCharacterOptions(): any;
-    set characterGender(arg: any);
+    set characterGender(value: any);
     get characterGender(): any;
-    set characterRace(arg: any);
+    set characterRace(value: any);
     get characterRace(): any;
 }
