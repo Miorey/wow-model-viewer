@@ -5,6 +5,22 @@ export class WowModelViewer {
      */
     getListAnimations(): Array<string>;
     /**
+     * Enable zoom feature
+     */
+    enableZoom(): void;
+    /**
+     * Enable zoom feature
+     */
+    disableZoom(): void;
+    /**
+     * Enable zoom feature
+     */
+    enableFullScreen(): void;
+    /**
+     * Enable zoom feature
+     */
+    disableFullScreen(): void;
+    /**
      * Change character distance
      * @param {number} val
      */
