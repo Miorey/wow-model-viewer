@@ -15,11 +15,9 @@ import "./setup.js"
  * @param containerSelector {string}: jQuery selector on the container
  * @param model {{}|{id: number, type: number}}: A json representation of a character
  * @param env {('classic'|'live')}: select game enve
- * @param disableZoom {boolean}: true = disable zoom on mouse wheel (false by default)
- * @param disableFullScreen {boolean}: true = disable zoom on double click (false by default)
  * @returns {Promise<WowModelViewer>}
  */
-async function generateModels(aspect, containerSelector, model, env=`live`, disableZoom = false, disableFullScreen = false) {
+async function generateModels(aspect, containerSelector, model, env=`live`) {
     let modelOptions
     let fullOptions
     if (model.id && model.type) {
