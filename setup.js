@@ -67,15 +67,15 @@ export {
 }
 
 function firstOnApply (opts) {
-    var elements = opts.elements
-    var events = opts.events
-    var isDelegated = opts.isDelegated || false
+    const elements = opts.elements
+    const events = opts.events
+    const isDelegated = opts.isDelegated || false
     elements.each(function (i, element) {
-        var eventsListeners = $._data(element, 'events')
+        const eventsListeners = $._data(element, 'events')
         $.each(events, function (i, event) {
-            var curEventListeners = eventsListeners[event]
-            var delegatedListeners = curEventListeners.slice(0, curEventListeners.delegateCount)
-            var vanillaListeners = curEventListeners.slice(curEventListeners.delegateCount)
+            const curEventListeners = eventsListeners[event]
+            const delegatedListeners = curEventListeners.slice(0, curEventListeners.delegateCount)
+            const vanillaListeners = curEventListeners.slice(curEventListeners.delegateCount)
 
             if (isDelegated) {
                 delegatedListeners.unshift(delegatedListeners.pop())
@@ -95,9 +95,9 @@ function firstOnApply (opts) {
 }
 
 $.fn.firstOn = function () {
-    var args = $.makeArray(arguments)
+    const args = $.makeArray(arguments)
     $.fn.on.apply(this, args)
-    var eventsString = args[0]
+    const eventsString = args[0]
     firstOnApply({
         elements: this,
         events: eventsString.split(' ')
