@@ -1,5 +1,5 @@
 {
-  "name": "@miorey/wow-model-viewer",
+  "name": "@Miorey/wow-model-viewer",
   "version": "1.6.0",
   "description": "Generate World of Warcraft 3D model with body parts customization and items.",
   "engines": {
