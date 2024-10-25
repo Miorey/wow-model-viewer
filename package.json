@@ -1,6 +1,7 @@
+
 {
-  "name": "@Miorey/wow-model-viewer",
-  "version": "1.6.0",
+  "name": "wow-model-viewer",
+  "version": "1.5.1",
   "description": "Generate World of Warcraft 3D model with body parts customization and items.",
   "engines": {
     "node": ">=16.0.0 <19.0.0"
@@ -27,9 +28,6 @@
     "url": "https://github.com/Miorey/wow-model-viewer/issues"
   },
   "homepage": "https://github.com/Miorey/wow-model-viewer#readme",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "devDependencies": {
     "@babel/core": "^7.21.4",
     "@babel/preset-env": "^7.21.4",
