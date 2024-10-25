@@ -3,6 +3,23 @@ import {getCharacterOptions} from "./character_modeling.js"
 
 // eslint-disable-next-line no-undef
 class WowModelViewer extends ZamModelViewer {
+
+    zoomDisabled;
+    fullScreenDisabled;
+    constructor(containerSelector, options, zamconfig) {
+        super(zamconfig);
+        this.zoomDisabled = options.zoomDisabled ?? false;
+        this.fullScreenDisabled = options.fullScreenDisabled ?? false;
+
+        // override wowhead events listeners
+        $(containerSelector + ' canvas').firstOn('dblclick', (event) => {
+            if ( this.fullScreenDisabled === true) event.stopImmediatePropagation();
+        })
+        $(containerSelector + ' canvas').firstOn('DOMMouseScroll mousewheel', (event) => {
+            if ( this.zoomDisabled === true) event.stopImmediatePropagation();
+        })
+    }
+
     /**
      * Returns the list of animation names
      * @returns {Array.<string>}
@@ -10,6 +27,34 @@ class WowModelViewer extends ZamModelViewer {
     getListAnimations() {
         console.log(`getListAnimations`)
         return [...new Set(this.renderer.models[0].aq.map(e => e.l))]
+    }
+
+    /**
+     * Enable zoom feature
+     */
+    enableZoom() {
+        window.zoomDisabled = false;
+    }
+
+    /**
+     * Enable zoom feature
+     */
+    disableZoom() {
+        window.zoomDisabled = true;
+    }
+
+    /**
+     * Enable zoom feature
+     */
+    enableFullScreen() {
+        window.fullScreenDisabled = false;
+    }
+
+    /**
+     * Enable zoom feature
+     */
+    disableFullScreen() {
+        window.fullScreenDisabled = true;
     }
 
     /**

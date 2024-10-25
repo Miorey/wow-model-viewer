@@ -15,8 +15,8 @@ export function optionsFromModel(model: any, fullOptions: {}): {
     items: (any | any[]);
 } | {
     models: {
-        id;
-        type;
+        id: any;
+        type: any;
     };
 };
 /**
@@ -33,7 +33,17 @@ export function findRaceGenderOptions(race: number, gender: number): Promise<any
  * @param env {('classic'|'live')}: select game enve
  * @returns {Promise<number[]>}
  */
-export function findItemsInEquipments(equipments: any, env?: ('classic' | 'live')): Promise<number[]>;
+export function findItemsInEquipments(equipments: any[{
+    item: {
+        entry: number;
+        displayid: number;
+    };
+    transmog: {
+        entry: number;
+        displayid: number;
+    };
+    slot: number;
+}], env?: ("classic" | "live")): Promise<number[]>;
 /**
  *
  * @param item{number}: Item id
@@ -42,7 +52,7 @@ export function findItemsInEquipments(equipments: any, env?: ('classic' | 'live'
  * @param env {('classic'|'live')}: select game env
  * @return {Promise<boolean|*>}
  */
-export function getDisplaySlot(item: number, slot: number, displayId: number, env?: ('classic' | 'live')): Promise<boolean | any>;
+export function getDisplaySlot(item: number, slot: number, displayId: number, env?: ("classic" | "live")): Promise<boolean | any>;
 /**
  *
  * @param {Object} character - The character object.
