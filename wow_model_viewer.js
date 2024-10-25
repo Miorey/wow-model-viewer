@@ -9,7 +9,7 @@ class WowModelViewer extends ZamModelViewer {
      */
     getListAnimations() {
         console.log(`getListAnimations`)
-        return [...new Set(this.renderer.models[0].am.map(e => e.l))]
+        return [...new Set(this.renderer.models[0].aq.map(e => e.l))]
     }
 
     /**
