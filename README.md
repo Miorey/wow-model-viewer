@@ -456,6 +456,20 @@ if you are useing Vulpera(race=35) ,`face` `furColor` `ears` `snout` options is 
 
 if you use dracthyr(race=45) `primaryColor` `secondaryColorStrength` `secondaryColor` `bodySize` `horns` `hornColor` options is reqiured.
 
+# Animations outdated
+Due to the minified version of `ZamModelViewer` the following is regularly outdated
+```js
+getListAnimations() {
+    return [...new Set(this.renderer.models[0].aq.map(e => e.l))]
+}
+```
+to fix this outdated function in 
+`%2Fmodelviewer%2Fclassic%2Fviewer%2Fviewer.min.js` or `%2Fmodelviewer%2Flive%2Fviewer%2Fviewer.min.js`
+search for `getAnimation` somewhere you should have something like:
+```js
+getNumAnimations(){const t=this.k?this.k:this;return t.aq?t.aq.length+1:0}getAnimation(t)
+```
+replace the `aq` by the new var name in the library
 
 # Contribute
 
