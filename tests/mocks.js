@@ -1,14 +1,18 @@
 class ZamModelViewer {
     constructor() {
         this.renderer = {
-            models: [{
-                aq: [{
-                    l: `animation1`
-                }, {
-                    l: `animation2`
-                }, {
-                    l: `animation3`
-                }],
+            actors: [{
+                d: {
+                    al: {
+                        q: [{
+                            l: `animation1`
+                        }, {
+                            l: `animation2`
+                        }, {
+                            l: `animation3`
+                        }]
+                    },
+                },
                 setAnimation: function (val) {
                     if (!this.aq.find(e => e.l === val)) {
                         // nothing
@@ -36,10 +40,6 @@ class ZamModelViewer {
 
     setDistance(val) {
         this.renderer.distance = val
-    }
-
-    setAnimation(val) {
-        this.getModel().setAnimation(val)
     }
 
     setAnimPaused(val) {

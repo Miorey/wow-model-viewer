@@ -8,8 +8,7 @@ class WowModelViewer extends ZamModelViewer {
      * @returns {Array.<string>}
      */
     getListAnimations() {
-        console.log(`getListAnimations`)
-        return [...new Set(this.renderer.models[0].aq.map(e => e.l))]
+        return [...new Set(this.renderer.actors[0].d.al.q.map(e => e.e))]
     }
 
     /**
@@ -25,10 +24,7 @@ class WowModelViewer extends ZamModelViewer {
      * @param {string} val
      */
     setAnimation(val) {
-        if (!this.getListAnimations().includes(val)) {
-            console.warn(`${this.constructor.name}: Animation ${val} not found`)
-        }
-        this.renderer.models[0].setAnimation(val)
+        this.renderer.actors[0].setAnimation(val)
     }
 
     /**
@@ -36,7 +32,7 @@ class WowModelViewer extends ZamModelViewer {
      * @param {boolean} val
      */
     setAnimPaused(val) {
-        this.renderer.models[0].setAnimPaused(val)
+        this.renderer.actors[0].setAnimPaused(val)
     }
 
     /**

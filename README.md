@@ -460,16 +460,27 @@ if you use dracthyr(race=45) `primaryColor` `secondaryColorStrength` `secondaryC
 Due to the minified version of `ZamModelViewer` the following is regularly outdated
 ```js
 getListAnimations() {
-    return [...new Set(this.renderer.models[0].aq.map(e => e.l))]
+    return [...new Set(this.renderer.actors[0].aq.map(e => e.l))]
 }
 ```
 to fix this outdated function in 
 `%2Fmodelviewer%2Fclassic%2Fviewer%2Fviewer.min.js` or `%2Fmodelviewer%2Flive%2Fviewer%2Fviewer.min.js`
 search for `getAnimation` somewhere you should have something like:
 ```js
-getNumAnimations(){const t=this.k?this.k:this;return t.aq?t.aq.length+1:0}getAnimation(t)
+getNumAnimations(){
+    // some code
+    return (null === (t = this.d) || void 0 === t ? void 0 : t.ay) ? 0 == this.d.al.q.length ? 0 : this.d.al.q.length + 1 : 0
+}
 ```
-replace the `aq` by the new var name in the library
+The location of the list is the last var in the ternary expression: `this.d.al.q`
+
+Now replace the var in the list of animations
+ex:
+```js
+    getListAnimations() {
+        return [...new Set(this.renderer.actors[0].d.al.q.map(e => e.e))]
+    }
+```
 
 # Contribute
 

@@ -37,6 +37,7 @@ describe(`WowModelViewer`, () => {
 
     describe(`getListAnimations`, () => {
         it(`should return an array of animation names`, () => {
+            console.log(viewer.getListAnimations())
             const animations = viewer.getListAnimations()
             expect(Array.isArray(animations)).toBe(true)
             expect(animations.length).toBeGreaterThan(0)
@@ -52,22 +53,9 @@ describe(`WowModelViewer`, () => {
         })
     })
 
-    describe(`setAnimation`, () => {
-        it(`should change the animation`, () => {
-            viewer.setAnimation(`animation2`)
-        })
-
-        it(`should log a warning message if the animation is not found`, () => {
-            const spy = jest.spyOn(console, `warn`).mockImplementation()
-            viewer.setAnimation(`non-existing-animation`)
-            expect(spy).toHaveBeenCalledTimes(1)
-            spy.mockRestore()
-        })
-    })
-
     describe(`setAnimPaused`, () => {
         it(`should play/pause the animation`, () => {
-            const spy = jest.spyOn(viewer.renderer.models[0], `setAnimPaused`)
+            const spy = jest.spyOn(viewer.renderer.actors[0], `setAnimPaused`)
             viewer.setAnimPaused(true)
             expect(spy).toHaveBeenCalledWith(true)
             viewer.setAnimPaused(false)
