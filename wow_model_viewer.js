@@ -32,7 +32,7 @@ class WowModelViewer extends ZamModelViewer {
      * @param {boolean} val
      */
     setAnimPaused(val) {
-        this.renderer.models[0].setAnimPaused(val)
+        this.renderer.actors[0].setAnimPaused(val)
     }
 
     /**
