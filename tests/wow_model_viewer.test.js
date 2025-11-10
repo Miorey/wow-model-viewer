@@ -37,8 +37,9 @@ describe(`WowModelViewer`, () => {
 
     describe(`getListAnimations`, () => {
         it(`should return an array of animation names`, () => {
-            console.log(viewer.getListAnimations())
             const animations = viewer.getListAnimations()
+            expect(animations[0]).toBe(`animation1`)
+            expect(animations[2]).toBe(`animation3`)
             expect(Array.isArray(animations)).toBe(true)
             expect(animations.length).toBeGreaterThan(0)
         })

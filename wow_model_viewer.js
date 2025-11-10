@@ -8,7 +8,7 @@ class WowModelViewer extends ZamModelViewer {
      * @returns {Array.<string>}
      */
     getListAnimations() {
-        return [...new Set(this.renderer.actors[0].d.al.q.map(e => e.e))]
+        return [...new Set(this.renderer.actors[0].h.P.Q.map(e => e.l))]
     }
 
     /**

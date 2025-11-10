@@ -2,9 +2,9 @@ class ZamModelViewer {
     constructor() {
         this.renderer = {
             actors: [{
-                d: {
-                    al: {
-                        q: [{
+                h: {
+                    P: {
+                        Q: [{
                             l: `animation1`
                         }, {
                             l: `animation2`
