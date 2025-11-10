@@ -321,10 +321,34 @@ Change character distance
 model.setDistance(2)
 ```
 
+Enable Zoom feature
+
+```js
+model.enableZoom()
+```
+
+Disable Zoom feature
+
+```js
+model.disableZoom()
+```
+
 Fullscreen
 
 ```js
 model.setFullscreen(false)
+```
+
+Enable Fullscreen feature
+
+```js
+model.enableFullScreen()
+```
+
+Disable Fullscreen feature
+
+```js
+model.disableFullScreen()
 ```
 
 Change Animation
@@ -438,6 +462,22 @@ const character2 = {
 }
 window.model2 = await generateModels(1.5, `#model_3d2`, character2, "classic");
 ```
+
+### Disable zoom effect.
+To disable zoom effect on mouse wheel, change following vars to:
+
+```js
+    window.zoomDisabled = true
+```
+ This value can be changed by enableZoom and disableZoom function.
+
+### Disable fullscreen mode.
+To disable zoom effect on mouse wheel, change following vars to:
+
+```js
+    window.fullScreenDisabled = true
+```
+This value can be changed by enableZoom and disableZoom function.
 
 # Updates
 As this library is based on a minified version of the Wowhead model viewer, regular upgrades of this library may require you to clear your cached data.

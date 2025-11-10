@@ -17,35 +17,35 @@ import "./setup.js"
  * @param env {('classic'|'live')}: select game enve
  * @returns {Promise<WowModelViewer>}
  */
-async function generateModels(aspect, containerSelector, model, env=`live`) {
-    let modelOptions
-    let fullOptions
+async function generateModels(aspect, containerSelector, model, env=`live`, options) {
+    let zamingModelOptions
+    let zamingFullOptions
     if (model.id && model.type) {
         const {id, type} = model
-        modelOptions = {models: {id, type}}
+        zamingModelOptions = {models: {id, type}}
     } else {
         const {race, gender} = model
 
         // CHARACTER OPTIONS
         // This is how we describe a character properties
-        fullOptions = await findRaceGenderOptions(
+        zamingFullOptions = await findRaceGenderOptions(
             race,
             gender
         )
-        modelOptions = optionsFromModel(model, fullOptions)
+        zamingModelOptions = optionsFromModel(model, zamingFullOptions)
     }
     if(env === `classic`) {
-        modelOptions = {
+        zamingModelOptions = {
             dataEnv: `classic`,
             env: `classic`,
             gameDataEnv: `classic`,
             hd: false,
-            ...modelOptions
+            ...zamingModelOptions
         }
     } else {
-        modelOptions = {
+        zamingModelOptions = {
             hd: true,
-            ...modelOptions
+            ...zamingModelOptions
         }
     }
     const models = {
@@ -54,14 +54,15 @@ async function generateModels(aspect, containerSelector, model, env=`live`) {
         // eslint-disable-next-line no-undef
         container: jQuery(containerSelector),
         aspect: aspect,
-        ...modelOptions
+        ...zamingModelOptions
     }
     console.log(`Creating viewer with options`, models)
 
     // eslint-disable-next-line no-undef
-    const wowModelViewer =  await new WowModelViewer(models)
-    if(fullOptions) {
-        wowModelViewer.currentCharacterOptions = fullOptions
+    const wowModelViewer =  await new WowModelViewer(containerSelector, options, models)
+
+    if(zamingFullOptions) {
+        wowModelViewer.currentCharacterOptions = zamingFullOptions
         wowModelViewer.characterGender = model.gender
         wowModelViewer.characterRace = model.race
 
